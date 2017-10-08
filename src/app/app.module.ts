@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     NavbarComponent,
     EventsComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule
