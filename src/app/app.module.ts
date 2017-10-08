@@ -11,8 +11,8 @@ const ROUTES=[
   path: "events/velocity-vortex", 
   component: EventsComponent
 },
-{ path: "input-data", 
-  component: InputDataComponent},
+// { path: "input-data", 
+//   component: InputDataComponent},
 { path: "events", 
   component: EventsComponent},
   { path: "", 
