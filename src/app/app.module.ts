@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
+import { InputScheduleComponent } from './input-schedule/input-schedule.component';
 const ROUTES=[
 {
   path: "events/velocity-vortex", 
@@ -21,6 +22,8 @@ const ROUTES=[
     AppComponent,
     NavbarComponent,
     EventsComponent,
+    HomeComponent,
+    InputScheduleComponent,
     HomeComponent
   ],
   imports: [
