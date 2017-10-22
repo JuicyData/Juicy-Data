@@ -1,24 +1,30 @@
-const express = require('express');
+var express  = require('express');
+var app      = express();
 const path = require('path');
-var bodyParser = require('body-parser');
+var port     = process.env.PORT || 3000;
+var mongoose = require('mongoose');
 
-const app = express();
+var morgan       = require('morgan');
+var bodyParser   = require('body-parser');
 
-//The order of the following is important
+mongoose.connection.openUri("mongodb://localhost/TheOrangeAlliance")
+  .once('open', () => console.log('Connected to database'))
+  .on('error', (error) => {
+    console.warn('Database warning', error);
+  });
 
-app.use(bodyParser.json({ limit: '5mb' })); // support json encoded bodies
+app.use(morgan('dev')); // log every request to the console
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
-// Point to api.js, which will interact with the database.
-const api = require('./server/routes/api');
-app.use('/api', api);
+require('./api/routes.js')(app); // load our routes and pass in our app and fully configured passport
 
-// Point static path to the built Angular app. 
-// Only used for production when we only want this server running and not ng serve.
-// Otherwise ng serve is used and the app is on the port Angular is set to (4200)
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-const port = 3000;
-app.listen(port, () => console.log(`Server running on localhost:${port}`));
+app.listen(port);
+console.log('Server started on port ' + port);

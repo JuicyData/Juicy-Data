@@ -5,16 +5,36 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
-const ROUTES=[
-{
-  path: "events/velocity-vortex", 
-  component: EventsComponent
-}]
+import { FooterComponent } from './footer/footer.component';
+
+import { InputScheduleComponent } from './input-schedule/input-schedule.component';
+const ROUTES = [
+  {
+    path: "events/velocity-vortex", 
+    component: EventsComponent
+  },
+  // { 
+  //   path: "input-data", 
+  //   component: InputDataComponent
+  // },
+  { 
+    path: "events", 
+    component: EventsComponent
+  },
+  { 
+    path: "", 
+    component: HomeComponent
+  }
+]
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    HomeComponent,
+    FooterComponent,
     EventsComponent,
+    HomeComponent,
+    InputScheduleComponent,
     HomeComponent
   ],
   imports: [
