@@ -28,9 +28,10 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "express": "^4.15.4",
-    "morgan": "^1.8.2",
     "jquery": "^3.2.1",
+    "mathjs": "^3.16.5",
     "mongoose": "^4.11.11",
+    "morgan": "^1.8.2",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },

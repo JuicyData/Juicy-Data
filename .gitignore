@@ -43,4 +43,4 @@ Thumbs.db
 
 # data
 /data/db
-
+/config/database.js
