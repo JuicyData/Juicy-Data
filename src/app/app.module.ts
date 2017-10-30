@@ -1,3 +1,4 @@
+import { DataTablesModule } from 'angular-datatables';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -8,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { InputScheduleComponent } from './input-schedule/input-schedule.component';
+import { GaussLeagueChampionshipComponent } from './gauss-league-championship/gauss-league-championship.component';
 const ROUTES = [
   {
     path: "events/velocity-vortex", 
@@ -24,6 +26,10 @@ const ROUTES = [
   { 
     path: "", 
     component: HomeComponent
+  },
+  { 
+    path: "events/velocity-vortex/gauss-league-championship", 
+    component: GaussLeagueChampionshipComponent
   }
 ]
 @NgModule({
@@ -35,9 +41,11 @@ const ROUTES = [
     EventsComponent,
     HomeComponent,
     InputScheduleComponent,
-    HomeComponent
+    HomeComponent,
+    GaussLeagueChampionshipComponent
   ],
   imports: [
+    DataTablesModule,
     BrowserModule, 
     RouterModule.forRoot(ROUTES)
   ],
