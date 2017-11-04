@@ -10,6 +10,8 @@ import { FooterComponent } from './footer/footer.component';
 
 import { InputScheduleComponent } from './input-schedule/input-schedule.component';
 import { GaussLeagueChampionshipComponent } from './gauss-league-championship/gauss-league-championship.component';
+import { SanDiegoRegionalChampionshipComponent } from './san-diego-regional-championship/san-diego-regional-championship.component';
+import { TuringLeagueChampionshipComponent } from './turing-league-championship/turing-league-championship.component';
 const ROUTES = [
   {
     path: "events/velocity-vortex", 
@@ -30,7 +32,17 @@ const ROUTES = [
   { 
     path: "events/velocity-vortex/gauss-league-championship", 
     component: GaussLeagueChampionshipComponent
+  },
+  {
+    path: "events/velocity-vortex/san-diego-regional-championship",
+    component: SanDiegoRegionalChampionshipComponent
+  },
+  {
+    path: "events/velocity-vortex/turing-league-championship",
+    component: TuringLeagueChampionshipComponent
   }
+
+
 ]
 @NgModule({
   declarations: [
@@ -42,7 +54,9 @@ const ROUTES = [
     HomeComponent,
     InputScheduleComponent,
     HomeComponent,
-    GaussLeagueChampionshipComponent
+    GaussLeagueChampionshipComponent,
+    SanDiegoRegionalChampionshipComponent,
+    TuringLeagueChampionshipComponent
   ],
   imports: [
     DataTablesModule,
