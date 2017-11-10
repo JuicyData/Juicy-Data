@@ -7,11 +7,11 @@ import { DataTablesModule } from 'angular-datatables';
   styleUrls: ['./gauss-league-championship.component.css']
 })
 export class GaussLeagueChampionshipComponent implements OnInit {
- dtOptions: DataTables.Settings = {};
+  dtOptions: DataTables.Settings = {};
   constructor() { }
 
   ngOnInit() {
-  	    this.dtOptions = {
+    this.dtOptions = {
       paging: false
     };
   }
