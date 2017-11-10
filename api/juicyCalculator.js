@@ -88,6 +88,13 @@ function juicyCalculator(orange){
 
 	//This is as the form: (MtM)-1MtMX=(MtM)-1MtP; Where 1/n = (n)-1
 	//The result is X = (MtM)-1MtP; this is the 'solution'
+
+	//FIRST CHECK IF DETERMINANT IS NOT 0
+	if(math.det(orangeMatrixContent) == 0){
+		return 'Not enough data'
+	}
+
+
 	orangeMatrix = math.multiply(math.inv(orangeMatrixContent),orangeMatrixResult)
 
 	//This next part isn't that important... It'll be finding the amount error, least squares.
@@ -168,7 +175,17 @@ sampleOrange2 = {
 	]
 }
 
-//juicyCalculator(orange2)
+sampleOrange3 = {
+	labels: ['TeamA','TeamB','TeamC'],
+	juice:[
+		[1,1,0],
+		[1,0,1]
+	],
+	result:[
+		[21],
+		[30]
+	]
+}
 
 module.exports = juicyCalculator
 // To use in another file:
