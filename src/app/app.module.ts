@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { InputScheduleComponent } from './input-schedule/input-schedule.component';
+import { EuclidLeagueChampionshipComponent } from './euclid-league-championship/euclid-league-championship.component';
+import { TurningLeagueChampionshipComponent } from './turning-league-championship/turning-league-championship.component';
 const ROUTES = [
   {
     path: "events/velocity-vortex", 
@@ -35,7 +37,9 @@ const ROUTES = [
     EventsComponent,
     HomeComponent,
     InputScheduleComponent,
-    HomeComponent
+    HomeComponent,
+    EuclidLeagueChampionshipComponent,
+    TurningLeagueChampionshipComponent
   ],
   imports: [
     BrowserModule, 
