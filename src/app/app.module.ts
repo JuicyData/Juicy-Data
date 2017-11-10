@@ -1,7 +1,7 @@
-import { DataTablesModule } from 'angular-datatables';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 
 import { NavbarComponent } from './navbar/navbar.component';
