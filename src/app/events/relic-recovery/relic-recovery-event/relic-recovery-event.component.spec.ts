@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventsComponent } from './events.component';
+import { RelicRecoveryEventComponent } from './relic-recovery-event.component';
 
-describe('EventsComponent', () => {
-  let component: EventsComponent;
-  let fixture: ComponentFixture<EventsComponent>;
+describe('RelicRecoveryEventComponent', () => {
+  let component: RelicRecoveryEventComponent;
+  let fixture: ComponentFixture<RelicRecoveryEventComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventsComponent ]
+      declarations: [ RelicRecoveryEventComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventsComponent);
+    fixture = TestBed.createComponent(RelicRecoveryEventComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

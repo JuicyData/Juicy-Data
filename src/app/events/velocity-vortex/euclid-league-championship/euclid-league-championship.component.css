@@ -46,7 +46,7 @@
 }
 
 .radiobtn label {
-     border:1px solid #CCC; 
+     border:1px solid #CCC;
      cursor:pointer;
     z-index:90;
 }
@@ -60,16 +60,16 @@
 .btn-default:focus,
 .btn-default:active,
 .btn-default.active,
-.open>.dropdown-toggle.btn-default:focus, 
+.open>.dropdown-toggle.btn-default:focus,
 .open>.dropdown-toggle.btn-default:hover
-.btn-default.active.focus, 
-.btn-default.active:focus, 
-.btn-default.active:hover, 
-.btn-default:active.focus, 
-.btn-default:active:focus, 
-.btn-default:active:hover, 
-.open>.dropdown-toggle.btn-default.focus, 
-.open>.dropdown-toggle.btn-default:focus, 
+.btn-default.active.focus,
+.btn-default.active:focus,
+.btn-default.active:hover,
+.btn-default:active.focus,
+.btn-default:active:focus,
+.btn-default:active:hover,
+.open>.dropdown-toggle.btn-default.focus,
+.open>.dropdown-toggle.btn-default:focus,
 .open>.dropdown-toggle.btn-default:hover
 {
 	color: #f9690e;
@@ -141,7 +141,7 @@
 .logo{
 	color: white !important;
 	text-decoration: none !important;
-	
+
 }
 
 .content{
@@ -269,7 +269,7 @@ input{
 a, a.active, a:hover{
 	color:#F9690E;
 }
-  
+
 .btn-lg {
   font-size: 18px;
   line-height: 1.33;
@@ -356,18 +356,18 @@ a, a.active, a:hover{
 }
 
 .redbutton:hover, .redbutton:active, .redbutton.active, .redbutton.focus, .redbutton:focus, .redbutton:active:focus, .redbutton:focus:hover, .redbutton.focus:hover,
-.redbutton.active.focus, 
-.redbutton.active:focus, 
-.redbutton.active:hover, 
-.redbutton:active.focus, 
-.redbutton:active:focus, 
+.redbutton.active.focus,
+.redbutton.active:focus,
+.redbutton.active:hover,
+.redbutton:active.focus,
+.redbutton:active:focus,
 .redbutton:active:hover,
 .greenbutton:hover, .greenbutton:active, .greenbutton.active, .greenbutton.focus, .greenbutton:focus, .greenbutton:active:focus, .greenbutton:focus:hover, .greenbutton.focus:hover,
-.greenbutton.active.focus, 
-.greenbutton.active:focus, 
-.greenbutton.active:hover, 
-.greenbutton:active.focus, 
-.greenbutton:active:focus, 
+.greenbutton.active.focus,
+.greenbutton.active:focus,
+.greenbutton.active:hover,
+.greenbutton:active.focus,
+.greenbutton:active:focus,
 .greenbutton:active:hover{
 	color:black;
 }
@@ -403,19 +403,19 @@ a, a.active, a:hover{
 
 .bluealliancebutton:active, .bluealliancebutton.active, .bluealliancebutton.focus, .bluealliancebutton:focus, .bluealliancebutton:active:focus, .bluealliancebutton.active:hover, .bluealliancebutton:active:hover,
 .bluealliancebutton:hover, .bluealliancebutton:active, .bluealliancebutton.active, .bluealliancebutton.focus, .bluealliancebutton:focus, .bluealliancebutton:active:focus, .bluealliancebutton:focus:hover, .bluealliancebutton.focus:hover,
-.bluealliancebutton.active.focus, 
-.bluealliancebutton.active:focus, 
-.bluealliancebutton.active:hover, 
-.bluealliancebutton:active.focus, 
-.bluealliancebutton:active:focus, 
+.bluealliancebutton.active.focus,
+.bluealliancebutton.active:focus,
+.bluealliancebutton.active:hover,
+.bluealliancebutton:active.focus,
+.bluealliancebutton:active:focus,
 .bluealliancebutton:active:hover,
 .redalliancebuttonbutton:active, .redalliancebutton.active, .redalliancebutton.focus, .redalliancebutton:focus, .redalliancebutton:active:focus, .redalliancebutton.active:hover, .redalliancebutton:active:hover,
 .redalliancebutton:hover, .redalliancebutton:active, .redalliancebutton.active, .redalliancebutton.focus, .redalliancebutton:focus, .redalliancebutton:active:focus, .redalliancebutton:focus:hover, .redalliancebutton.focus:hover,
-.redalliancebutton.active.focus, 
-.redalliancebutton.active:focus, 
-.redalliancebutton.active:hover, 
-.redalliancebutton:active.focus, 
-.redalliancebutton:active:focus, 
+.redalliancebutton.active.focus,
+.redalliancebutton.active:focus,
+.redalliancebutton.active:hover,
+.redalliancebutton:active.focus,
+.redalliancebutton:active:focus,
 .redalliancebutton:active:hover{
 	color: black;
 }
@@ -508,7 +508,7 @@ a, a.active, a:hover{
         margin: 15px 0;
     }
     /* since 3.1.0 */
-    .navbar-collapse.collapse.in { 
+    .navbar-collapse.collapse.in {
         display: block!important;
     }
     .collapsing {
@@ -596,8 +596,8 @@ html, body {
 
 .header{
 	width: 100%;
-	background-size: cover; 
-	background-image: url(); 
+	background-size: cover;
+	background-image: url();
 	background-repeat: no-repeat;
 	display: block;
 	height: 100vh;
