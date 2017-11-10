@@ -1,7 +1,7 @@
 //API orangePeeler by Michael Leonffu
 var MongoClient = require('mongodb').MongoClient
 //var configDB = require('./../config/database.js')
-ObjectID = require('monogdb').ObjectID
+//ObjectId = require('mongodb').ObjectID
 
 var juicyCalculator = require('./juicyCalculator')
 
@@ -10,7 +10,7 @@ var juicyCalculator = require('./juicyCalculator')
 //orangePeeler males sure to clean and sort the differnt 
 //oranges before processing them into juicyData in order to achive best quality juicyData
 
-function teamInfluencePeeler(collection){
+function teamInfluencePeeler(scheduleCollection, matchDataCollection){
 	//This make sure to find the oranges that are important for calculating OPR; schedule and matchdata
 	console.log('[START]-teamInfluencePeeler')
 	MongoClient.connect('mongodb://localhost/TheOrangeAllianceTest', function(err,db){
@@ -21,10 +21,10 @@ function teamInfluencePeeler(collection){
 		}
 
 		//Make the schedule and matchData.....
-		db.collection(collection).aggregate([
+		db.collection(scheduleCollection).aggregate([
 			{$unwind:'$schedule'},
 			{$lookup:{
-				from:'matchDataturing',
+				from:matchDataCollection,
 				localField:'schedule.match',
 				foreignField:'matchInformation.matchNumber',
 				as:'matchData'
@@ -126,14 +126,17 @@ function teamInfluencePeeler(collection){
 				console.log('Operation teamInfluencePeeler time(Milliseconds):',new Date(new Date()-peelerTimer).getMilliseconds())
 				console.log('[DONE]-teamInfluencePeeler')
 				db.close()
-				//console.log('peeledOrangepeeledOrangepeeledOrangepeeledOrange',juicyCalculator(peeledOrange))
-				//return peeledOrange
+				juicyCalculator(peeledOrange)
+				return peeledOrange
 			}
 		}
 	})
 }
 
-console.log(teamInfluencePeeler('scheduleturing'))
+
+//teamInfluencePeeler('scheduleturing', 'matchDataturing')
+teamInfluencePeeler('scheduleeuclid', 'matchDataeuclid')
+
 
 // module.exports = function(app) {
 

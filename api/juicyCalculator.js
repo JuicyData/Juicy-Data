@@ -94,7 +94,6 @@ function juicyCalculator(orange){
 		return 'Not enough data'
 	}
 
-
 	orangeMatrix = math.multiply(math.inv(orangeMatrixContent),orangeMatrixResult)
 
 	//This next part isn't that important... It'll be finding the amount error, least squares.
