@@ -1,8 +1,10 @@
 //in collection 'gameData'
 {
+	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured; 
+		locationID: ObjectId() //ID of the location in the 'places' collection
+	},
 	matchInformation:{
-		matchDate: ISODate(), //ISO Date of when it occured; 
-		matchLocationID: OjectId(), //ID of the location in the 'places' collection
 		matchNumber: 123,
 		robotAlliance: 'abc', //"blue" or "red"
 		teamNumber: 123
@@ -50,9 +52,9 @@
 
 //in collection 'schedule'
 {
-	matchInformation:{
-		matchDate: ISODate(), //ISO Date of when it occured; 
-		matchLocationID: OjectId(), //ID of the location in the 'places' collection
+	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured; 
+		locationID: ObjectId(), //ID of the location in the 'places' collection
 	},
 	schedule:[ //Aray of JSON
 		{
@@ -69,10 +71,12 @@
 
 //in collection 'matchData'
 {
+	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured; 
+		locationID: ObjectId() //ID of the location in the 'places' collection
+	}
 	matchInformation:{
-		matchDate: ISODate(), //ISO Date of when it occured; 
-		matchLocationID: OjectId(), //ID of the location in the 'places' collection
-		matchNumber: 123,
+		matchNumber: 123
 	},
 	resultInformation:{
 		winner: 'abc', //'blue', 'red', 'tie'
@@ -102,5 +106,60 @@
 				blue: 123 //blue alliance final score
 			}
 		}
+	}
+}
+
+//in collection 'events'
+{
+	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured; 
+		locationID: ObjectId() //ID of the location in the 'places' collection
+	}
+}
+
+//in collection 'locations'
+{
+	_id: ObjectId(),	//This is the id of the location
+	name: 'abc',		//Name of the location exmaple: Sage Creek High School
+	address:{			//if value is missing, use null
+		number: 123,	//Address number?
+		street: 'abc',	//Street
+		zip: 123,		//Postal Zip
+		city: 'abc',	//City
+		state: 'abc',	//State
+		country: 'abc'	//United States
+	}
+}
+
+//in collection 'eventsOut' INCOMPLETE
+{
+	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured; 
+		locationID: ObjectId() //ID of the location in the 'places' collection
+	},
+	matchData:{
+		resultInformation:{
+			winner: 'abc', //'blue', 'red', 'tie'
+			score:{
+				total:{
+					red: 123, //red alliance total score
+					blue: 123 //blue alliance total score
+				},
+				penalty:{
+					red: 123, //red alliance penalty score
+					blue: 123 //blue alliance penalty score
+				},
+				final:{
+					red: 123, //red alliance final score
+					blue: 123 //blue alliance final score
+				}
+			}
+		}
+	},
+	gameData:{
+
+	},
+	averageGameData:{
+
 	}
 }
