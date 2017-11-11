@@ -81,6 +81,18 @@
 	resultInformation:{
 		winner: 'abc', //'blue', 'red', 'tie'
 		score:{
+			auto:{
+				red: 123, //red alliance autonomous score
+				blue: 123 //blue alliance autonomous score
+			},
+			tele:{
+				red: 123, //red alliance tele-op score
+				blue: 123 //blue alliance tele-op score
+			},
+			end:{
+				red: 123, //red alliance end-game score
+				blue: 123 //blue alliance end-game score
+			},
 			total:{
 				red: 123, //red alliance total score
 				blue: 123 //blue alliance total score
