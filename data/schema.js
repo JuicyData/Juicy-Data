@@ -1,15 +1,17 @@
 //in collection 'gameData'
 {
-	eventInformation:{
-		name: 'abc',
-		date: ISODate(), //ISO Date of when it occured; 
-		locationID: ObjectId() //ID of the location in the 'places' collection
-	},
-	matchInformation:{
-		matchNumber: 123,
-		robotAlliance: 'abc', //blue or red; with lower case
-		teams: [123, 123]
-	},
+	_id:{
+		eventInformation:{
+			name: 'abc',
+			date: ISODate(), //ISO Date of when it occured; 
+			locationID: ObjectId() //ID of the location in the 'places' collection
+		},
+		matchInformation:{
+			matchNumber: 123,
+			robotAlliance: 'abc', //blue or red; with lower case
+			teams: [123, 123]
+		}
+	}
 	gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
 		auto:{
 			jewel: 123,
@@ -33,12 +35,14 @@
 	}
 }
 
-//in collection 'schedule'
+//in collection 'schedules'
 {
-	eventInformation:{
-		name: 'abc',
-		date: ISODate(), //ISO Date of when it occured; 
-		locationID: ObjectId(), //ID of the location in the 'places' collection
+	_id:{	//Maybe unnest this latter....
+		eventInformation:{
+			name: 'abc',
+			date: ISODate(), //ISO Date of when it occured; 
+			locationID: ObjectId(), //ID of the location in the 'places' collection
+		}
 	},
 	schedule:[ //Aray of JSON
 		{
@@ -55,13 +59,21 @@
 
 //in collection 'matchData'
 {
-	eventInformation:{
-		name: 'abc',
-		date: ISODate(), //ISO Date of when it occured; 
-		locationID: ObjectId() //ID of the location in the 'places' collection
-	}
-	matchInformation:{
-		matchNumber: 123
+	_id:{
+		eventInformation:{
+			name: 'abc',
+			date: ISODate(), //ISO Date of when it occured; 
+			locationID: ObjectId() //ID of the location in the 'places' collection
+		}
+		matchInformation:{
+			matchNumber: 123,
+			teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
+				red1: 123,
+				red2: 123,
+				blue1: 123,
+				blue2: 123
+			}
+		}
 	},
 	resultInformation:{
 		winner: 'abc', //'blue', 'red', 'tie'
@@ -146,6 +158,7 @@
 		date: ISODate(), //ISO Date of when it occured; 
 		locationID: ObjectId() //ID of the location in the 'places' collection
 	},
+	lastUpdated: ISODate(), //Time of insert/update
 	ranking:[
 		{
 			rank: 123,
