@@ -7,46 +7,28 @@
 	},
 	matchInformation:{
 		matchNumber: 123,
-		robotAlliance: 'abc', //"blue" or "red"
-		teamNumber: 123
+		robotAlliance: 'abc', //blue or red; with lower case
+		teams: [123, 123]
 	},
-	gameInformation:{
+	gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
 		auto:{
-			jewel: true, //True if score is gained?
-			robotParking: true, //True if in safe zone
-			cryptobox1:{
-				glyphs: 123, //How many glyphs got scored in AUTO
-				key: true //If correct key; and gained bonus
-			}
-			cryptobox2:{
-				glyphs: 123, //How many glyphs got scored in AUTO
-				key: true //If correct key; and gained bonus
-			}
+			jewel: 123,
+			glyphs: 123,
+			keys: 123,
+			park: 123
+		},
+		driver:{
+			glyphs: 123,
+			rows: 123,
+			collumns: 123,
+			cypher: 123
 		},
 		end:{
-			relic1: { //If robot scored a relic; include field always
-				zone: 123, //Zone 0 if not scored
-				upright: true, //true if upright
-			},
-			relic2: { //If the robot scored two relics
-				zone: 123,
-				upright: true
-			},
-			robotBalanced: true, //True if balanced
-			cryptobox1:{
-				rows: 123, //Rows completed
-				columns: 123, //Columns completed
-				cipher: true, //If cipher was completed
-				glyphs: 123, //How many glyphs got scored in AUTO
-				key: true //If correct key; and gained bonus
-			},
-			cryptobox2:{
-				rows: 123, //Rows completed
-				columns: 123, //Columns completed
-				cipher: true, //If cipher was completed
-				glyphs: 123, //How many glyphs got scored in AUTO
-				key: true //If correct key; and gained bonus
-			}
+			relic1: 123,	//Amount of relics in that zone
+			relic2: 123,
+			relic3: 123,
+			relicsUp: 123,	//Amount of relects standing up
+			balanced: 123	//How many robots are balanced
 		}
 	}
 }
@@ -84,6 +66,22 @@
 	resultInformation:{
 		winner: 'abc', //'blue', 'red', 'tie'
 		score:{
+			// red:{	//This may be better way but for now I'm leaving it the 'old' way
+			// 	auto: 123,
+			// 	driver: 123,
+			// 	end: 123,
+			// 	total: 123,
+			// 	penalty: 123,
+			// 	final: 123
+			// },
+			// blue:{
+			// 	auto: 123,
+			// 	driver: 123,
+			// 	end: 123,
+			// 	total: 123,
+			// 	penalty: 123,
+			// 	final: 123
+			// },
 			auto:{
 				red: 123, //red alliance autonomous score
 				blue: 123 //blue alliance autonomous score
@@ -246,4 +244,57 @@
 			}
 		}
 	]
+}
+
+//in collection 'gameData' OLD DO NOT USE
+{
+	eventInformation:{
+		name: 'abc',
+		date: ISODate(), //ISO Date of when it occured; 
+		locationID: ObjectId() //ID of the location in the 'places' collection
+	},
+	matchInformation:{
+		matchNumber: 123,
+		robotAlliance: 'abc', //"blue" or "red"
+		teamNumber: 123
+	},
+	gameInformation:{
+		auto:{
+			jewel: true, //True if score is gained?
+			robotParking: true, //True if in safe zone
+			cryptobox1:{
+				glyphs: 123, //How many glyphs got scored in AUTO
+				key: true //If correct key; and gained bonus
+			}
+			cryptobox2:{
+				glyphs: 123, //How many glyphs got scored in AUTO
+				key: true //If correct key; and gained bonus
+			}
+		},
+		end:{
+			relic1: { //If robot scored a relic; include field always
+				zone: 123, //Zone 0 if not scored
+				upright: true, //true if upright
+			},
+			relic2: { //If the robot scored two relics
+				zone: 123,
+				upright: true
+			},
+			robotBalanced: true, //True if balanced
+			cryptobox1:{
+				rows: 123, //Rows completed
+				columns: 123, //Columns completed
+				cipher: true, //If cipher was completed
+				glyphs: 123, //How many glyphs got scored in AUTO
+				key: true //If correct key; and gained bonus
+			},
+			cryptobox2:{
+				rows: 123, //Rows completed
+				columns: 123, //Columns completed
+				cipher: true, //If cipher was completed
+				glyphs: 123, //How many glyphs got scored in AUTO
+				key: true //If correct key; and gained bonus
+			}
+		}
+	}
 }
