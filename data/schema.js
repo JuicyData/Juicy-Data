@@ -139,7 +139,7 @@
 	}
 }
 
-//in collection 'eventsOut' INCOMPLETE
+//in collection 'eventOut' INCOMPLETE
 {
 	eventInformation:{
 		name: 'abc',
