@@ -53,7 +53,7 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 								0	//False case
 							}}}
 						},
-						rankingPoints:{$sum:{$cond:{	//CHECK IF THIS IS TOTAL SCORE OR FINAL SCORE!
+						rankingPoints:{$sum:{$cond:{
 							{$eq:['red','$resultInformation.winner']},	//This is unbias
 							'$resultInformation.score.total.blue',	//True case; If red wins then take blue total score
 							'$resultInformation.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
