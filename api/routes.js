@@ -5,9 +5,7 @@ var MongoClient = require('mongodb').MongoClient
 var url = "mongodb://localhost:27017/TheOrangeAlliance" //FIX THIS LATTER!
 // var configDB = require('./../config/database.js')
 module.exports = function(app) {
-	//require('./module')(app)
-	//require('./cleaning')(app)
-	//require('./orangePeeler')(app)
+	//require('./module')(app) This is the example; template
 	app.get('/api', function(req, res) {
 		res.send('api home')
 	})
