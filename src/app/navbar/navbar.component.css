@@ -1,5 +1,14 @@
-.navbar{
-	background-color:#f9690e;
+.navbar {
 	font-size: 23px;
-	color:white;
+	background-color: #f9690e;
+	color: white;
+	border: none;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)!important;
+  max-height: 50px;
+}
+
+img{
+  padding-right: 8px;
+  max-height: 33.3px;
+  max-width: 50px;
 }
