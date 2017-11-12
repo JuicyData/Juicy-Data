@@ -476,3 +476,13 @@ html, body {
   padding-left: 0px;
   padding-right: 0px;
 }
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #111;
+  font-size: 14px;
+}
