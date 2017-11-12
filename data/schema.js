@@ -1,6 +1,7 @@
 //in collection 'gameData'
 {
 	eventInformation:{
+		name: 'abc',
 		date: ISODate(), //ISO Date of when it occured; 
 		locationID: ObjectId() //ID of the location in the 'places' collection
 	},
@@ -53,6 +54,7 @@
 //in collection 'schedule'
 {
 	eventInformation:{
+		name: 'abc',
 		date: ISODate(), //ISO Date of when it occured; 
 		locationID: ObjectId(), //ID of the location in the 'places' collection
 	},
@@ -72,6 +74,7 @@
 //in collection 'matchData'
 {
 	eventInformation:{
+		name: 'abc',
 		date: ISODate(), //ISO Date of when it occured; 
 		locationID: ObjectId() //ID of the location in the 'places' collection
 	}
@@ -85,7 +88,7 @@
 				red: 123, //red alliance autonomous score
 				blue: 123 //blue alliance autonomous score
 			},
-			tele:{
+			driver:{
 				red: 123, //red alliance tele-op score
 				blue: 123 //blue alliance tele-op score
 			},
@@ -111,9 +114,16 @@
 
 //in collection 'events'
 {
-	eventInformation:{
+	_id:{	//This MUST be unique?? This is Date Place; There shouldn't be another DATEPLACE the same event (Thats the idea...)
+		name: 'abc', //This is the name of the event ex. 'turing league'
 		date: ISODate(), //ISO Date of when it occured; 
 		locationID: ObjectId() //ID of the location in the 'places' collection
+	}
+	eventInformation:{
+		eventName: 'abc',
+		locationName: 'abc',	//Same as the name in the locations collection
+		teamsList:[123, 123, 123],
+		season: 123 //for relic recovery 2017-2018 the yeah is 2017
 	}
 }
 
@@ -134,32 +144,106 @@
 //in collection 'eventsOut' INCOMPLETE
 {
 	eventInformation:{
+		name: 'abc',
 		date: ISODate(), //ISO Date of when it occured; 
 		locationID: ObjectId() //ID of the location in the 'places' collection
 	},
-	matchData:{
-		resultInformation:{
-			winner: 'abc', //'blue', 'red', 'tie'
-			score:{
-				total:{
-					red: 123, //red alliance total score
-					blue: 123 //blue alliance total score
+	ranking:[
+		{
+			rank: 123,
+			teamNumber: 123,
+			teamName: 123,
+			record:{
+				wins: 123,
+				losses: 123,
+				ties: 123
+			},
+			qualifyingPoints: 123,
+			rankingPoints: 123,
+			averageScore: .123,
+			averageMarginalScore: .123,
+			average:{
+				auto: .123,
+				driver: .123,
+				end: .123
+			}
+		}
+	],
+	matchHistory:[
+		{
+			matchNumber: 123,
+			alliance: 'abc', //blue or red; lower case
+			team1:{
+				teamNumber: 123,
+				teamName: 'abc',
+				rank: 123
+			},
+			team2:{
+				teamNumber: 123,
+				teamName: 'abc',
+				rank: 123
+			},
+			result:{
+				total: 123,
+				penalty: 123,
+				final: 123
+			},
+			prediction: 'abc', //Which alliance will win; CHANGE THIS SCHEMA LATTER!!!!!
+			gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
+				auto:{
+					jewel: 123,
+					glyphs: 123,
+					keys: 123,
+					park: 123
 				},
-				penalty:{
-					red: 123, //red alliance penalty score
-					blue: 123 //blue alliance penalty score
+				driver:{
+					glyphs: 123,
+					rows: 123,
+					collumns: 123,
+					cypher: 123
 				},
-				final:{
-					red: 123, //red alliance final score
-					blue: 123 //blue alliance final score
+				end:{
+					relic1: 123,	//Amount of relics in that zone
+					relic2: 123,
+					relic3: 123,
+					relicsUp: 123,	//Amount of relects standing up
+					balanced: 123	//How many robots are balanced
 				}
 			}
 		}
-	},
-	gameData:{
-
-	},
-	averageGameData:{
-
-	}
+	],
+	averageScores:[
+		{
+			teamNumber: 123,
+			teamName: 'abc',
+			averageScore: .123,
+			averageMarginalScore: .123,
+			average:{
+				auto: .123,
+				driver: .123,
+				end: .123
+			},
+			gameAverages:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING! This is the calculated averages of each game element
+				auto:{
+					jewel: .123,
+					glyphs: .123,
+					keys: .123,
+					park: .123
+				},
+				driver:{
+					glyphs: .123,
+					rows: .123,
+					collumns: .123,
+					cypher: .123
+				},
+				end:{
+					relic1: .123,	//Amount of relics in that zone
+					relic2: .123,
+					relic3: .123,
+					relicsUp: .123,	//Amount of relects standing up
+					balanced: .123	//How many robots are balanced
+				}
+			}
+		}
+	]
 }

@@ -3,7 +3,7 @@ module.exports = function() {
 	var toaApi = axios.create({
 		baseURL: 'http://theorangealliance.org/apiv2/',
 		timeout: 1000,
-		headers: {'X-Application-Origin': 'JuicyData', 'X-TOA-Key': 'Ntzjsom0mbxPtFGP1gCcH3nsMn2S3ZT7TWxc6zIeudhiqGFSa4Cx7g=='}
+		headers: {'X-Application-Origin': 'JuicyData', 'X-TOA-Key': 'SOME KEY THATS IN THE CONFIG FILE!!!!'}
 	})
 
 	//To get specific match
@@ -18,32 +18,53 @@ module.exports = function() {
 			for (var match of response.data) {
 				var matchNumber
 				if (matchNumber = match.match_name.split('Quals ')[1]) {
-					var matchData = {};
-					matchData.matchInformation = {}
-					matchData.matchInformation.matchDate = event.start_date
-					matchData.matchInformation.matchLocationID = 'someplace'
-					matchData.matchInformation.matchNumber = Number(matchNumber)
-					matchData.resultInformation = {}
-					matchData.resultInformation.winner = match.red_score > match.blue_score ? 'red' : match.blue_score > match.red_score ? 'blue' : 'tie'
-					matchData.resultInformation.score = {}
-					matchData.resultInformation.score.auto = {}
-					matchData.resultInformation.score.auto.red = match.red_auto_score
-					matchData.resultInformation.score.auto.blue = match.blue_auto_score
-					matchData.resultInformation.score.tele = {}
-					matchData.resultInformation.score.tele.red = match.red_tele_score
-					matchData.resultInformation.score.tele.blue = match.blue_tele_score
-					matchData.resultInformation.score.end = {}
-					matchData.resultInformation.score.end.red = match.red_end_score
-					matchData.resultInformation.score.end.blue = match.blue_end_score
-					matchData.resultInformation.score.total = {}
-					matchData.resultInformation.score.total.red = match.red_score - match.red_penalty
-					matchData.resultInformation.score.total.blue = match.blue_score - match.blue_penalty
-					matchData.resultInformation.score.penalty = {}
-					matchData.resultInformation.score.penalty.red = match.red_penalty
-					matchData.resultInformation.score.penalty.blue = match.blue_penalty
-					matchData.resultInformation.score.final = {}
-					matchData.resultInformation.score.final.red = match.red_score
-					matchData.resultInformation.score.final.blue = match.blue_score
+
+					//This is a seperate Var, can be moved down into or out of for loop since this should be unchanging.
+					var eventInformation = {
+						date: event.start_date, //Should be ISODate Type thingy....? (need to check latter)
+						locationID: 'Lol..' //ObjectId Type; need to querry database for this location ID....
+					}
+					// var eventInformation:{
+					// 	date: ISODate(), //ISO Date of when it occured; 
+					// 	locationID: ObjectId() //ID of the location in the 'places' collection
+					// }
+					var matchData = {
+						eventInformation: eventInformation,
+						matchInformation:{
+							matchNumber: Number(matchNumber)
+						},
+						resultInformation:{
+							winner: match.red_score > match.blue_score ? 'red' : match.blue_score > match.red_score ? 'blue' : 'tie', //Pls check latter if "score" indlues penailtyes for this caluclation
+							score:{
+								auto:{
+									red: match.red_auto_score,
+									blue: match.blue_auto_score
+								},
+								driver:{
+									red: match.red_tele_score,
+									blue: match.blue_tele_score
+								},
+								end:{
+									red: match.red_end_score,
+									blue: match.blue_end_score
+								},
+								total:{
+									red: match.red_score - match.blue_penalty, //I think that blue penialty is the penailty blue gets
+									blue: match.blue_score - mathc.red_penalty //And score is their total (penailty + score)
+									// red: match.red_auto_score + match.red_tele_score + match.red_end_score,
+									// blue: match.blue_auto_score + match.blue_tele_score + match.blue_end_score
+								},
+								penalty:{
+									red: match.red_penalty,
+									blue: match.blue_penalty
+								},
+								final:{
+									red: match.red_score,
+									blue: match.blue_score
+								}
+							}
+						}
+					}
 					console.log(JSON.stringify(matchData, null, 2))
 					console.log()
 				}
