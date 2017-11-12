@@ -91,7 +91,7 @@ function juicyCalculator(orange){
 
 	//FIRST CHECK IF DETERMINANT IS NOT 0
 	if(math.det(orangeMatrixContent) == 0){
-		return 'Not enough data'
+		return 'Not juicy enough'
 	}
 
 	orangeMatrix = math.multiply(math.inv(orangeMatrixContent),orangeMatrixResult)
@@ -142,7 +142,7 @@ function juicyCalculator(orange){
 	return juicyData
 }
 
-sampleOrange = {
+sampleOrange = {	//Another juicy orange
 	labels: ['TeamA','TeamB','TeamC'],
 	juice:[
 		[1,1,0],
@@ -158,7 +158,7 @@ sampleOrange = {
 	]
 }
 
-sampleOrange2 = {
+sampleOrange2 = {	//The orange used in the example; juicy
 	labels: ['TeamA','TeamB','TeamC'],
 	juice:[
 		[1,1,0],
@@ -174,7 +174,7 @@ sampleOrange2 = {
 	]
 }
 
-sampleOrange3 = {
+sampleOrange3 = {	//This is bad orange... not juicy enough to juice
 	labels: ['TeamA','TeamB','TeamC'],
 	juice:[
 		[1,1,0],
