@@ -1,4 +1,4 @@
-//juicyMachine by Michael Leonffu
+//orangeFarm by Michael Leonffu
 
 /*
 Runs all the peeling scripts with the correct juicyCalculator scripts
@@ -11,3 +11,16 @@ the peeled oranges are finally sent to the juicyCalculators to produce juicy dat
 which is sold by the orange stand
 */
 
+function orangeFarm(orchard){
+
+}
+
+
+
+
+
+module.exports = orangeFarm
+// To use in another file:
+// var orangeFarm = require('./orangeFarm')
+// orangeFarm(orchard)
+// Where oranges is the callback function returning a json
