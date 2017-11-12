@@ -13,7 +13,7 @@ export class TuringLeagueChampionshipComponent implements OnInit {
   constructor() { }
 
  ngOnInit() {
-  	    this.dtOptions = {
+    this.dtOptions = {
       paging: false
     };
 }

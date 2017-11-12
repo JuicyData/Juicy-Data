@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-relic-recovery-event',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RelicRecoveryEventComponent implements OnInit {
 
-  constructor() { }
+  dtOptions: DataTables.Settings = {};
+
+  week: string; // week-1
+  event: string; // YYYY-MM-DD-(eventname/location)
+
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.dtOptions = {
+      paging: false
+    };
+
+    this.route.params.subscribe(params => {
+      this.week = params['week'];
+      this.event = params['event'];
+    });
   }
 
 }

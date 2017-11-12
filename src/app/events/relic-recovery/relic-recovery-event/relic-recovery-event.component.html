@@ -1,3 +1,114 @@
-<p>
-  relic-recovery-event works!
-</p>
+<div class="container">
+  <h1>{{event}}</h1>
+  <h1></h1>
+  <hr>
+
+  <nav class="nav nav-tabs" id="myTab" role="tablist">
+    <a class="nav-item nav-link active" data-toggle="tab" href="#rankings" role="tab">Rankings</a>
+    <a class="nav-item nav-link" data-toggle="tab" href="#match-history" role="tab">Match History</a>
+    <a class="nav-item nav-link" data-toggle="tab" href="#average-scores" role="tab">Average Scores</a>
+  </nav>
+
+  <div class="tab-content">
+    <div style="padding-top: 10px;" id="rankings" class="tab-pane fade show active table-responsive">
+      <div class="redcircle"></div>
+      <span class="key">= Autonomous Period</span>
+      <br>
+      <div class="bluecircle"></div>
+      <span class="key">= Teleop Period</span>
+      <br>
+      <div class="greencircle"></div>
+      <span class="key">= End Game Period</span>
+      <table class="table table-striped table-bordered table-responsive" id="inputTable1" datatable [dtOptions]="dtOptions">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team Number</th>
+            <th>Team Name</th>
+            <th>Record W-L-T</th>
+            <th>QP</th>
+            <th>RP</th>
+            <th>Total Average</th>
+            <th>Marginal Average</th>
+            <th>Average</th>
+            <th>Average</th>
+            <th>Average</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div style="padding-top: 10px;" id="match-history" class="tab-pane fade table-responsive">
+      <div class="redcircle"></div>
+      <span class="key">= Autonomous Period</span>
+      <br>
+      <div class="bluecircle"></div>
+      <span class="key">= Teleop Period</span>
+      <br>
+      <div class="greencircle"></div>
+      <span class="key">= End Game Period</span>
+
+      <table class="table table-striped table-bordered table-responsive" id="inputTable2" datatable [dtOptions]="dtOptions">
+          <thead>
+              <tr>
+                <th>Match Number</th>
+                <th>Alliance</th>
+                <th>Team Numbers</th>
+                <th>Team Names</th>
+                <th>Ranks</th>
+                <th>Result</th>
+                <th>Predicted</th>
+                <th>Jewel</th>
+                <th>Glpyhs</th>
+                <th>Keys</th>
+                <th>Park</th>
+                <th>Glphys</th>
+                <th>Rows</th>
+                <th>Columns</th>
+                <th>Cypher</th>
+                <th>Relic 1</th>
+                <th>Relic 2</th>
+                <th>Relic 3</th>
+                <th>Relic Up</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+      </table>
+    </div>
+    <div style="padding-top: 10px;" id="average-scores" class="tab-pane fade table-responsive">
+      <div class="redcircle"></div>
+      <span class="key">= Autonomous Period</span>
+      <br>
+      <div class="bluecircle"></div>
+      <span class="key">= Teleop Period</span>
+      <br>
+      <div class="greencircle"></div>
+      <span class="key">= End Game Period</span>
+      <table class="table table-striped table-bordered table-responsive" id="inputTable3" datatable [dtOptions]="dtOptions">
+        <thead>
+          <tr>
+            <th>Team Number</th>
+            <th>Team Name</th>
+            <th>Average Score</th>
+            <th>Average</th>
+            <th>Average</th>
+            <th>Average</th>
+            <th>Jewel</th>
+            <th>Glyphs</th>
+            <th>Key</th>
+            <th>Park</th>
+            <th>Glyphs</th>
+            <th>Rows</th>
+            <th>Columns</th>
+            <th>Cypher</th>
+            <th>Relic 1</th>
+            <th>Relic 2</th>
+            <th>Relic 3</th>
+            <th>Relic Up</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
