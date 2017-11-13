@@ -13,7 +13,7 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 	console.log('[START]-orangePickerRanking')
 
 	// orchard should be in this form:
-	// eventInformation:{
+	// {
 	// 	name: 'abc',
 	// 	date: ISODate(), //ISO Date of when it occured; 
 	// 	locationID: ObjectId() //ID of the location in the 'places' collection
