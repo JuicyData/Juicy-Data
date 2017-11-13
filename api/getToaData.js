@@ -16,7 +16,7 @@ module.exports = function() {
 
 function getData() {
 	MongoClient.connect(url, function(err, db) {
-	if (err) throw err;
+		if (err) throw err;
 		for (let eventKey of eventKeys) {
 			toaApi.get('/event/' + eventKey).then(function(response) {
 				let event = response.data[0];
@@ -31,21 +31,22 @@ function getData() {
 				// }
 				toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
 					let matches = response.data;
-					let relevantMatches = []
 					let matchNumbers = []
+					let relevantMatches = {}
 					let currentMatchKey
 					let matchDatas = {}
 					let gameDatas = {red: {}, blue: {}}
 					for (let match of matches) {
-						let matchNumber
-						if (matchNumber = match.match_name.split('Quals ')[1]) {
-							matchNumbers.push(Number(matchNumber))
-							relevantMatches.push(match)
+						let matchNumber = match.match_name.split('Quals ')[1]
+						if (matchNumber) {
+							if (!matchNumbers.includes(matchNumber)) {
+								matchNumbers.push(Number(matchNumber))
+							}
+							relevantMatches[matchNumber] = match
 						}
 					}
-					for (let i = 0; i < relevantMatches.length; i++) {
-						let match = relevantMatches[i]
-						let matchNumber = matchNumbers[i]
+					for (let matchNumber of matchNumbers) {
+						let match = relevantMatches[matchNumber]
 						currentMatchKey = match.match_key
 						toaApi.get('/match/' + match.match_key + '/stations').then(function(response) {
 							let stations = response.data
