@@ -39,7 +39,7 @@ function getData() {
 					for (let match of matches) {
 						let matchNumber
 						if (matchNumber = match.match_name.split('Quals ')[1]) {
-							matchNumbers.push(matchNumber)
+							matchNumbers.push(Number(matchNumber))
 							relevantMatches.push(match)
 						}
 					}
@@ -146,7 +146,7 @@ function getData() {
 									}
 									insert(db, 'gameData', gameData)
 									gameDatas[alliance][matchNumber] = gameData
-									if (currentMatchKey === relevantMatches[relevantMatches.length-1].match_key && gameDataIsComplete(matchNumbers, gameDatas)) {
+									if (gameDataIsComplete(matchNumbers, gameDatas)) {
 										db.close()
 										printDatas(matchNumbers, matchDatas, gameDatas)
 									}
