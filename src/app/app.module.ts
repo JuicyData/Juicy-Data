@@ -16,6 +16,7 @@ import { DescartesLeagueChampionshipComponent } from './events/velocity-vortex/d
 import { VelocityVortexComponent } from './events/velocity-vortex/velocity-vortex.component';
 import { RelicRecoveryComponent } from './events/relic-recovery/relic-recovery.component';
 import { RelicRecoveryEventComponent } from './events/relic-recovery/relic-recovery-event/relic-recovery-event.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const ROUTES = [
   {
@@ -36,7 +37,7 @@ const ROUTES = [
   },
   {
     path: '',
-    component: HomeComponent
+    component: RelicRecoveryComponent
   },
   {
     path: 'events/velocity-vortex/gauss-league-championship',
@@ -49,10 +50,10 @@ const ROUTES = [
   {
     path: 'events/velocity-vortex/turing-league-championship',
     component: TuringLeagueChampionshipComponent
-  }
+  },
+  { path: '**', component: PageNotFoundComponent }
+];
 
-
-]
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +70,8 @@ const ROUTES = [
     DescartesLeagueChampionshipComponent,
     VelocityVortexComponent,
     RelicRecoveryComponent,
-    RelicRecoveryEventComponent
+    RelicRecoveryEventComponent,
+    PageNotFoundComponent
   ],
   imports: [
     DataTablesModule,

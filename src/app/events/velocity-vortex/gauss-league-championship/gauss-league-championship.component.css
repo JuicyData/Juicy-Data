@@ -486,3 +486,8 @@ table.dataTable thead th, table.dataTable thead td {
   border-bottom: 1px solid #111;
   font-size: 14px;
 }
+
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 6px 8px;
+  font-size: 14px;
+}
