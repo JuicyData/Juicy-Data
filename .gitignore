@@ -44,3 +44,6 @@ Thumbs.db
 # data
 /data/db
 /config/database.js
+
+# api key
+/config/apiKey.js
