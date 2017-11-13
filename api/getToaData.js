@@ -148,8 +148,8 @@ function getData() {
 									insert(db, 'gameData', gameData)
 									gameDatas[alliance][matchNumber] = gameData
 									if (gameDataIsComplete(matchNumbers, gameDatas)) {
+										printDatas(eventInformation.name, matchNumbers, matchDatas, gameDatas)
 										db.close()
-										printDatas(matchNumbers, matchDatas, gameDatas)
 									}
 								}
 							})
@@ -174,15 +174,15 @@ function insert(db, collectionName, data) {
   	});
 }
 
-function printDatas(matchNumbers, matchDatas, gameDatas) {
+function printDatas(eventName, matchNumbers, matchDatas, gameDatas) {
 	for (let matchNumber of matchNumbers) {
-		console.log('Match ' + matchNumber + ' matchData:')
+		console.log(eventName + ' Match ' + matchNumber + ' matchData:')
 		console.log(JSON.stringify(matchDatas[matchNumber], null, 2))
 		console.log()
-		console.log('Match ' + matchNumber + ' red gameData:')
+		console.log(eventName + ' Match ' + matchNumber + ' red gameData:')
 		console.log(JSON.stringify(gameDatas.red[matchNumber], null, 2))
 		console.log()
-		console.log('Match ' + matchNumber + ' blue gameData:')
+		console.log(eventName + ' Match ' + matchNumber + ' blue gameData:')
 		console.log(JSON.stringify(gameDatas.blue[matchNumber], null, 2))
 		console.log()
 		console.log()
