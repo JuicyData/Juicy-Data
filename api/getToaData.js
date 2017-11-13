@@ -108,7 +108,7 @@ function getData() {
 									}
 								}
 							}
-							insert(db, 'matchData', matchData)
+							save(db, 'matchData', matchData)
 							matchDatas[matchNumber] = matchData
 
 							toaApi.get('/match/' + match.match_key + '/details').then(function(response) {
@@ -145,7 +145,7 @@ function getData() {
 											}
 										}
 									}
-									insert(db, 'gameData', gameData)
+									save(db, 'gameData', gameData)
 									gameDatas[alliance][matchNumber] = gameData
 									if (gameDataIsComplete(matchNumbers, gameDatas)) {
 										printDatas(eventInformation.name, matchNumbers, matchDatas, gameDatas)
@@ -162,15 +162,9 @@ function getData() {
 	// setTimeout(getData, 180000) Do it all again in 3 minutes
 }
 
-function insert(db, collectionName, data) {
-  	db.collection(collectionName).insertOne(data, function(err, res) {
-    	if (err) { //TODO: Make better way to check if data already exists. Doing this requires the least amount of code, however
-    		if (err.code == 11000) { // Duplicate key error
-    			console.log('Skipping data. Document with _id "' + JSON.stringify(data._id) + '" already exists.')
-    		} else {
-    			throw err
-    		}
-    	} 
+function save(db, collectionName, data) {
+  	db.collection(collectionName).save(data, function(err, res) {
+    	if (err) throw err
   	});
 }
 
