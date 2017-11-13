@@ -17,6 +17,8 @@ module.exports = function() {
 function getData() {
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
+		let matchDatas = {}
+		let gameDatas = {red: {}, blue: {}}
 		for (let eventKey of eventKeys) {
 			toaApi.get('/event/' + eventKey).then(function(response) {
 				let event = response.data[0];
@@ -34,8 +36,9 @@ function getData() {
 					let matchNumbers = []
 					let relevantMatches = {}
 					let currentMatchKey
-					let matchDatas = {}
-					let gameDatas = {red: {}, blue: {}}
+					matchDatas[eventKey] = {}
+					gameDatas.red[eventKey] = {}
+					gameDatas.blue[eventKey] = {}
 					for (let match of matches) {
 						let matchNumber = match.match_name.split('Quals ')[1]
 						if (matchNumber) {
@@ -108,8 +111,7 @@ function getData() {
 									}
 								}
 							}
-							save(db, 'matchData', matchData)
-							matchDatas[matchNumber] = matchData
+							saveMatchData(db, matchData, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas)
 
 							toaApi.get('/match/' + match.match_key + '/details').then(function(response) {
 								let matchDetails = response.data[0]
@@ -145,12 +147,7 @@ function getData() {
 											}
 										}
 									}
-									save(db, 'gameData', gameData)
-									gameDatas[alliance][matchNumber] = gameData
-									if (gameDataIsComplete(matchNumbers, gameDatas)) {
-										printDatas(eventInformation.name, matchNumbers, matchDatas, gameDatas)
-										db.close()
-									}
+									saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas)
 								}
 							})
 						})
@@ -162,32 +159,47 @@ function getData() {
 	// setTimeout(getData, 180000) Do it all again in 3 minutes
 }
 
-function save(db, collectionName, data) {
-  	db.collection(collectionName).save(data, function(err, res) {
+function saveMatchData(db, matchData, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas) {
+  	db.collection('matchData').save(matchData, function(err, res) {
     	if (err) throw err
+    	matchDatas[eventKey][matchNumber] = matchData
+    	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
   	});
 }
 
-function printDatas(eventName, matchNumbers, matchDatas, gameDatas) {
-	for (let matchNumber of matchNumbers) {
-		console.log(eventName + ' Match ' + matchNumber + ' matchData:')
-		console.log(JSON.stringify(matchDatas[matchNumber], null, 2))
-		console.log()
-		console.log(eventName + ' Match ' + matchNumber + ' red gameData:')
-		console.log(JSON.stringify(gameDatas.red[matchNumber], null, 2))
-		console.log()
-		console.log(eventName + ' Match ' + matchNumber + ' blue gameData:')
-		console.log(JSON.stringify(gameDatas.blue[matchNumber], null, 2))
-		console.log()
-		console.log()
-	}
+function saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas) {
+  	db.collection('gameData').save(gameData, function(err, res) {
+    	if (err) throw err
+    	gameDatas[alliance][eventKey][matchNumber] = gameData
+    	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
+  	});
 }
 
-function gameDataIsComplete(matchNumbers, gameDatas) {
-	for (let matchNumber of matchNumbers) {
-		if (!gameDatas.red[matchNumber] || !gameDatas.blue[matchNumber]) {
-			return false
+function finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas) {
+	for (let eventKey of eventKeys) {
+		for (let matchNumber of matchNumbers) {
+			if (!matchDatas[eventKey][matchNumber] || !gameDatas.red[eventKey][matchNumber] || !gameDatas.blue[eventKey][matchNumber]) {
+				return
+			}
 		}
 	}
-	return true
+	db.close()
+	printDatas(eventKeys, matchNumbers, matchDatas, gameDatas)
+}
+
+function printDatas(eventKeys, matchNumbers, matchDatas, gameDatas) {
+	for (let eventKey of eventKeys) {
+		for (let matchNumber of matchNumbers) {
+			console.log(eventKey + ' Match ' + matchNumber + ' matchData:')
+			console.log(JSON.stringify(matchDatas[eventKey][matchNumber], null, 2))
+			console.log()
+			console.log(eventKey + ' Match ' + matchNumber + ' red gameData:')
+			console.log(JSON.stringify(gameDatas.red[eventKey][matchNumber], null, 2))
+			console.log()
+			console.log(eventKey + ' Match ' + matchNumber + ' blue gameData:')
+			console.log(JSON.stringify(gameDatas.blue[eventKey][matchNumber], null, 2))
+			console.log()
+			console.log()
+		}
+	}
 }
