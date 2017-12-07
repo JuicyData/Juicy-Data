@@ -27,6 +27,7 @@ app.get('*', (req, res) => {
 });
 
 require('./api/getToaData.js')()
+require('./data/locationsAndEvents.js')()
 
 app.listen(port);
 console.log('Server started on port ' + port);
