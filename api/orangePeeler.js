@@ -24,54 +24,43 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 	// 	teamList:[123,123,123,] Team numbers unique list
 	// }
 
+	var pickedOrange = pickedOranges[0]
+	console.log('picked:',pickedOrange.teamsScore)
+	//If threre are no errors then:
+	var peeledOrange = {
+		labels: pickedOrange.teamsList.sort(),
+		juice: [],
+		result: []
+	}
 
-	//Callback; the function that runs after the dataase gives a responce
-	function teamsScores(err, docs){
-		if(err){
-			console.log(err)
-			db.close()
-		}else if(!(0 in docs)){
-			console.log('Failed to get docs')
-			db.close()
-		}else{
-			var doc = docs[0] //There should be one doc in docs
-			//If threre are no errors then:
-			var peeledOrange = {
-				labels: doc.teamsList.sort(),
-				juice: [],
-				result: []
-			}
+	var peelerTimer = new Date()
 
-			var peelerTimer = new Date()
-
-			for (var i = doc.teamsScore.length - 1; i >= 0; i--) {
-				peeledOrange.result.push(doc.teamsScore[i].score)
-				peeledOrange.juice[i] = []
-				for (var j = peeledOrange.labels.length - 1; j >= 0; j--) {
-					peeledOrange.juice[i][j] = doc.teamsScore[i].teams[0] == peeledOrange.labels[j] || doc.teamsScore[i].teams[1] == peeledOrange.labels[j]?1:0
-				}
-			}
-			peeledOrange.result.reverse() //It's backwards?
-
-			// returns it as 
-			// {
-			// 	labels:[],
-			// 	juice:[
-			// 		[],
-			// 		[]
-			// 	],
-			// 	result:[
-			// 		[],
-			// 		[]
-			// 	]
-			// }
-
-			console.log('Operation teamInfluencePeeler time(Milliseconds):',new Date(new Date()-peelerTimer).getMilliseconds())
-			console.log('[DONE]-teamInfluencePeeler')
-			db.close()
-			peeledOranges(peeledOrange)
+	for (var i = pickedOrange.teamsScore.length - 1; i >= 0; i--) {
+		peeledOrange.result.push(pickedOrange.teamsScore[i].score)
+		peeledOrange.juice[i] = []
+		for (var j = peeledOrange.labels.length - 1; j >= 0; j--) {
+			peeledOrange.juice[i][j] = pickedOrange.teamsScore[i].teams[0] == peeledOrange.labels[j] || pickedOrange.teamsScore[i].teams[1] == peeledOrange.labels[j]?1:0
 		}
 	}
+	peeledOrange.result.reverse() //It's backwards?
+
+	// returns it as 
+	// {
+	// 	labels:[],
+	// 	juice:[
+	// 		[],
+	// 		[]
+	// 	],
+	// 	result:[
+	// 		[],
+	// 		[]
+	// 	]
+	// }
+
+	console.log('Operation teamInfluencePeeler time(Milliseconds):',new Date(new Date()-peelerTimer).getMilliseconds())
+	console.log('[DONE]-teamInfluencePeeler')
+	peeledOranges(peeledOrange)
+
 }
 
 module.exports = teamInfluencePeeler

@@ -3,7 +3,7 @@
 var orangePicker = require('./orangePicker')
 var orangePeeler = require('./orangePeeler')
 var juicyCalculator = require('./juicyCalculator')
-var orangeStand = require('./orangeStand')
+//var orangeStand = require('./orangeStand')
 
 
 /*
@@ -28,12 +28,15 @@ function orangeFarm(orchard, farmReport){
 	// }
 
 	//Ranking; I know this is a nexted callbacks but its really cool looking rn
-	orangePicker.orangePickerRanking(orchard, function(pickedOranges){
-		orangePeeler.teamOffensiveInfluencePeeler(pickedOranges, function(peeledOranges){
+	orangePicker.orangePickerAverageScores(orchard, function(pickedOranges){
+		//orangePeeler.teamOffensiveInfluencePeeler(pickedOranges, function(peeledOranges){
+		orangePeeler(pickedOranges, function(peeledOranges){
+			console.log(peeledOranges)
 			calculatedJuice = juicyCalculator(peeledOranges)
-			orangeStand.somethingThatIsNotDoneYet(orchard, peeledOranges, function(report){
-				farmReport(report) //This is done
-			})
+			// orangeStand.somethingThatIsNotDoneYet(orchard, peeledOranges, function(report){
+			// 	farmReport(report) //This is done
+			// })
+			farmReport(calculatedJuice)
 		})
 	})
 
@@ -42,6 +45,16 @@ function orangeFarm(orchard, farmReport){
 	// }
 
 }
+
+var orchard = {
+	name: 'Redwood City FTC QT',
+	date: '2017-11-04T07:00:00.000Z',
+	locationID: 'Lol..' //should be object Id
+}
+
+orangeFarm(orchard, function(farmReport){
+	console.log(farmReport)
+})
 
 module.exports = orangeFarm
 // To use in another file:

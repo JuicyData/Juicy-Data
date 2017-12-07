@@ -33,31 +33,31 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 						teams:['$_id.matchInformation.teams.red1','$_id.matchInformation.teams.red2'],
 						score:'$resultInformation.score'
 					}},
-					{$unwind:'teams'},
+					{$unwind:'$teams'},
 					{$group:{
 						_id:'$teams',
 						record:{
-							wins:{$sum:{$cond:{
+							wins:{$sum:{$cond:[
 								{$eq:['red','$resultInformation.winner']},
 								1,	//True case
 								0	//False case
-							}}},
-							losses:{$sum:{$cond:{
+							]}},
+							losses:{$sum:{$cond:[
 								{$eq:['blue','$resultInformation.winner']},	//Since this is focusing on the red teams
 								1,	//True case
 								0	//False case
-							}}},
-							ties:{$sum:{$cond:{
+							]}},
+							ties:{$sum:{$cond:[
 								{$eq:['tie','$resultInformation.winner']},
 								1,	//True case
 								0	//False case
-							}}}
+							]}}
 						},
-						rankingPoints:{$sum:{$cond:{
+						rankingPoints:{$sum:{$cond:[
 							{$eq:['red','$resultInformation.winner']},	//This is unbias
 							'$resultInformation.score.total.blue',	//True case; If red wins then take blue total score
 							'$resultInformation.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
-						}}}
+						]}}
 					}}
 				],
 				blue:[
@@ -65,31 +65,31 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 						teams:['$_id.matchInformation.teams.blue1','$_id.matchInformation.teams.blue2'],
 						score:'$resultInformation.score'
 					}},
-					{$unwind:'teams'},
+					{$unwind:'$teams'},
 					{$group:{
 						_id:'$teams',
 						record:{
-							wins:{$sum:{$cond:{
+							wins:{$sum:{$cond:[
 								{$eq:['blue','$resultInformation.winner']},
 								1,	//True case
 								0	//False case
-							}}},
-							losses:{$sum:{$cond:{
+							]}},
+							losses:{$sum:{$cond:[
 								{$eq:['red','$resultInformation.winner']},	//Since this is focusing on the red teams
 								1,	//True case
 								0	//False case
-							}}},
-							ties:{$sum:{$cond:{
+							]}},
+							ties:{$sum:{$cond:[
 								{$eq:['tie','$resultInformation.winner']},
 								1,	//True case
 								0	//False case
-							}}}
+							]}}
 						},
-						rankingPoints:{$sum:{$cond:{	//CHECK IF THIS IS TOTAL SCORE OR FINAL SCORE!
+						rankingPoints:{$sum:{$cond:[	//CHECK IF THIS IS TOTAL SCORE OR FINAL SCORE!
 							{$eq:['red','$resultInformation.winner']},	//This is unbias
 							'$resultInformation.score.total.blue',	//True case; If red wins then take blue total score
 							'$resultInformation.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
-						}}}
+						]}}
 					}}
 				]
 			}},
@@ -103,9 +103,9 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 				qualifyingPoints:{$sum:[
 					{$multiply:[2,'$record.wins']},
 					'$record.ties'
-				]}	//Ties represent 1 point while wins represent 2 points
+				]},	//Ties represent 1 point while wins represent 2 points
 				rankingPoints:{$sum:'$rankingPoints'}
-			}}
+			}},
 			{$sort:{
 				qualifyingPoints: 1,	//Sorting by QP then RP
 				rankingPoints: 1
@@ -140,8 +140,8 @@ function orangePickerAverageScores(orchard, oranges){
 		}
 
 		//Make the schedule and matchData.....
-		db.collection('schedule').aggregate([
-			{$match:{'_id.eventInformation':orchard}},
+		db.collection('schedules').aggregate([
+			{$match:{'_id':orchard}},
 			{$unwind:'$schedule'},
 			{$lookup:{
 				from:'matchData',
@@ -149,7 +149,7 @@ function orangePickerAverageScores(orchard, oranges){
 				foreignField:'matchInformation.matchNumber',
 				as:'matchData'
 			}},
-			//{$unwind:'$matchData'}, //Maybe Uncomment
+			{$unwind:'$matchData'}, //Maybe Uncomment
 			{$project:{
 				_id:0,
 				teamsScore:[
@@ -212,7 +212,7 @@ function orangePickerAverageScores(orchard, oranges){
 			db.close()
 			if(err){
 				console.log(err)
-			}else if(!(0 in docs)){
+			}else if(!(0 in pickedOranges)){
 				console.log('Failed to get docs')
 			}else{
 				oranges(pickedOranges)	//All is good; this is call back

@@ -1,7 +1,7 @@
 //juicyCalculator by Michael Leonffu
 var math = require('mathjs')
 
-function juicyCalculator(orange){
+function juicyCalculator(orange, printOut = false){
 	//Determines the values of jello
 	//orange should be in the form of:
 	// orange: {
@@ -54,6 +54,13 @@ function juicyCalculator(orange){
 	//Consider the equation where M is a non-square matrix, X is the unknown matrix, and P is the product:
 	//MX = P; where Mt is the transposed matrix of M; MtMx = MtP
 	//MtM makes M a square matrix nessasary to inverse it
+
+	if(0 == rawOrangeMatrixJuice._size[0] || 0 == rawOrangeMatrixResult._size[0]){
+		//If the data is empty
+		console.log(rawOrangeMatrixJuice._data, rawOrangeMatrixResult._data)
+		return 'No oranges to juice'
+	}
+
 	orangeMatrixContent = math.multiply(math.transpose(rawOrangeMatrixJuice), rawOrangeMatrixJuice)
 	orangeMatrixResult = math.multiply(math.transpose(rawOrangeMatrixJuice), rawOrangeMatrixResult)
 	//This is MtMX = MtP:
@@ -135,9 +142,10 @@ function juicyCalculator(orange){
 	}
 	juicyData.error = error
 
-	console.log('Operation juicyCalculator time(Milliseconds):',new Date(new Date()-juicyTimer).getMilliseconds())
-
-	console.log(juicyData)
+	if(printOut == true){
+		console.log('Operation juicyCalculator time(Milliseconds):',new Date(new Date()-juicyTimer).getMilliseconds())
+		console.log(juicyData)
+	}
 
 	return juicyData
 }
