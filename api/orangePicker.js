@@ -205,7 +205,6 @@ function orangePickerAverageScores(orchard, oranges){
 		// 	teamList:[123,123,123,] Team numbers unique list
 		// }
 
-
 		//Callback; the function that runs after the dataase gives a responce
 		function teamsScores(err, pickedOranges){
 			console.log('Operation orangePickerAverageScores time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
