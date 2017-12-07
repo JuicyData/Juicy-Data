@@ -31,13 +31,9 @@ function orangeFarm(orchard, farmReport){
 	orangePicker.orangePickerRanking(orchard, function(pickedOranges){
 		orangePeeler.teamOffensiveInfluencePeeler(pickedOranges, function(peeledOranges){
 			calculatedJuice = juicyCalculator(peeledOranges)
-<<<<<<< HEAD
 			orangeStand.somethingThatIsNotDoneYet(orchard, peeledOranges, function(report){
 				farmReport(report) //This is done
 			})
-=======
-			
->>>>>>> 072540e6b749b24806b1fdd409ce164abff2a5ce
 		})
 	})
 
