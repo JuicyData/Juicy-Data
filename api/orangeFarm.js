@@ -3,7 +3,7 @@
 var orangePicker = require('./orangePicker')
 var orangePeeler = require('./orangePeeler')
 var juicyCalculator = require('./juicyCalculator')
-
+var orangeStand = require('./orangeStand')
 
 
 /*
@@ -31,7 +31,9 @@ function orangeFarm(orchard, farmReport){
 	orangePicker.orangePickerRanking(orchard, function(pickedOranges){
 		orangePeeler.teamOffensiveInfluencePeeler(pickedOranges, function(peeledOranges){
 			calculatedJuice = juicyCalculator(peeledOranges)
-			
+			orangeStand.somethingThatIsNotDoneYet(orchard, peeledOranges, function(report){
+				farmReport(report) //This is done
+			})
 		})
 	})
 

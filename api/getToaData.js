@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient
-var url = "mongodb://localhost:27017/TheOrangeAlliance"
+var url = "mongodb://localhost:27017/JuicyData"
 
 var apiKey = require('../config/apiKey.js')
 var axios = require('axios')

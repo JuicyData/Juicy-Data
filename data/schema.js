@@ -133,7 +133,8 @@
 		eventName: 'abc',
 		locationName: 'abc',	//Same as the name in the locations collection
 		teamsList:[123, 123, 123],
-		season: 123 //for relic recovery 2017-2018 the yeah is 2017
+		season: 123, //for relic recovery 2017-2018 the yeah is 2017
+		toaEventKey: 'abc' //Event string for toa for this event
 	}
 }
 
