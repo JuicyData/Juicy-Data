@@ -18,14 +18,13 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 	// 	teamsScore: [
 	// 		{
 	// 			teams:[123,123], Team numbers
-	// 			score:[123] score these teams got
+	// 			score:123 score these teams got
 	// 		}
 	// 	],
 	// 	teamList:[123,123,123,] Team numbers unique list
 	// }
 
 	var pickedOrange = pickedOranges[0]
-	console.log('picked:',pickedOrange.teamsScore)
 	//If threre are no errors then:
 	var peeledOrange = {
 		labels: pickedOrange.teamsList.sort(),
@@ -36,7 +35,7 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 	var peelerTimer = new Date()
 
 	for (var i = pickedOrange.teamsScore.length - 1; i >= 0; i--) {
-		peeledOrange.result.push(pickedOrange.teamsScore[i].score)
+		peeledOrange.result.push([pickedOrange.teamsScore[i].score])
 		peeledOrange.juice[i] = []
 		for (var j = peeledOrange.labels.length - 1; j >= 0; j--) {
 			peeledOrange.juice[i][j] = pickedOrange.teamsScore[i].teams[0] == peeledOrange.labels[j] || pickedOrange.teamsScore[i].teams[1] == peeledOrange.labels[j]?1:0

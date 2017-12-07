@@ -145,8 +145,15 @@ function orangePickerAverageScores(orchard, oranges){
 			{$unwind:'$schedule'},
 			{$lookup:{
 				from:'matchData',
-				localField:'schedule.match',
-				foreignField:'matchInformation.matchNumber',
+				let: {matchNumber: '$schedule.matchNumber', eventInformation: '$_id'},
+				pipeline: [
+					{$match:{$expr:{$and:[
+						{$eq: ['$_id.eventInformation', '$$eventInformation']},
+						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']}
+					]}}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
 				as:'matchData'
 			}},
 			{$unwind:'$matchData'}, //Maybe Uncomment
@@ -157,15 +164,15 @@ function orangePickerAverageScores(orchard, oranges){
 						//teams:['$schedule.teams.red1','$schedule.teams.red2'],
 						team1:'$schedule.teams.red1',
 						team2:'$schedule.teams.red2',
-						score:'$matchData.resultsInformation.score.total.red',
-						marginalScore:{$subtract:['$matchData.resultsInformation.score.total.red', '$matchData.resultsInformation.score.total.blue']}
+						score:'$matchData.resultInformation.score.total.red',
+						marginalScore:{$subtract:['$matchData.resultInformation.score.total.red', '$matchData.resultInformation.score.total.blue']}
 					},
 					{
 						//teams:['$schedule.teams.blue1','$schedule.teams.blue2'],
 						team1:'$schedule.teams.blue1',
 						team2:'$schedule.teams.blue2',
-						score:'$matchData.resultsInformation.score.total.blue',
-						marginalScore:{$subtract:['$matchData.resultsInformation.score.total.blue', '$matchData.resultsInformation.score.total.red']}
+						score:'$matchData.resultInformation.score.total.blue',
+						marginalScore:{$subtract:['$matchData.resultInformation.score.total.blue', '$matchData.resultInformation.score.total.red']}
 					}
 				]
 			}},
