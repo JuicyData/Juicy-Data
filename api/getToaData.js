@@ -8,7 +8,7 @@ var toaApi = axios.create({
 	timeout: 10000,
 	headers: {'X-Application-Origin': 'JuicyData', 'X-TOA-Key': apiKey}
 })
-var eventKeys = ['1718-NCAL-RWC']
+var eventKeys = ['1718-NCAL-RWC'] //Currently ongoing events
 
 module.exports = function() {
 	getData()
@@ -16,12 +16,12 @@ module.exports = function() {
 
 function getData() {
 	MongoClient.connect(url, function(err, db) {
-		if (err) throw err;
+		if (err) throw err
 		let matchDatas = {}
 		let gameDatas = {red: {}, blue: {}}
 		for (let eventKey of eventKeys) {
 			toaApi.get('/event/' + eventKey).then(function(response) {
-				let event = response.data[0];
+				let event = response.data[0]
 				let eventInformation = {
 					name: event.event_name,
 					date: event.start_date, //Should be ISODate Type thingy....? (need to check latter)
@@ -31,28 +31,32 @@ function getData() {
 				// 	date: ISODate(), //ISO Date of when it occured; 
 				// 	locationID: ObjectId() //ID of the location in the 'places' collection
 				// }
-				toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
-					let matches = response.data;
-					let matchNumbers = []
-					let relevantMatches = {}
-					let currentMatchKey
-					matchDatas[eventKey] = {}
-					gameDatas.red[eventKey] = {}
-					gameDatas.blue[eventKey] = {}
-					for (let match of matches) {
-						let matchNumber = match.match_name.split('Quals ')[1]
-						if (matchNumber) {
-							if (!matchNumbers.includes(matchNumber)) {
-								matchNumbers.push(Number(matchNumber))
-							}
-							relevantMatches[matchNumber] = match
-						}
+				toaApi.get('/event/' + eventKey + '/matches/stations').then(function(response) {
+					let allStations = {}
+					for (let station of response.data) {
+						if (!allStations[station.match_key])
+							allStations[station.match_key] = []
+						allStations[station.match_key].push(station)
 					}
-					for (let matchNumber of matchNumbers) {
-						let match = relevantMatches[matchNumber]
-						currentMatchKey = match.match_key
-						toaApi.get('/match/' + match.match_key + '/stations').then(function(response) {
-							let stations = response.data
+					toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
+						let matches = response.data
+						let matchNumbers = []
+						let relevantMatches = {}
+						matchDatas[eventKey] = {}
+						gameDatas.red[eventKey] = {}
+						gameDatas.blue[eventKey] = {}
+						for (let match of matches) {
+							let matchNumber = match.match_name.split('Quals ')[1]
+							if (matchNumber) {
+								if (!matchNumbers.includes(matchNumber)) {
+									matchNumbers.push(Number(matchNumber))
+								}
+								relevantMatches[matchNumber] = match
+							}
+						}
+						for (let matchNumber of matchNumbers) {
+							let match = relevantMatches[matchNumber]
+							let stations = allStations[match.match_key]
 							let teams = {
 								red: [],
 								blue: []
@@ -150,8 +154,8 @@ function getData() {
 									saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas)
 								}
 							})
-						})
-					}
+						}
+					})
 				})
 			})
 		}
@@ -164,7 +168,7 @@ function saveMatchData(db, matchData, eventKey, matchNumber, eventKeys, matchNum
     	if (err) throw err
     	matchDatas[eventKey][matchNumber] = matchData
     	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
-  	});
+  	})
 }
 
 function saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas) {
@@ -172,7 +176,7 @@ function saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, 
     	if (err) throw err
     	gameDatas[alliance][eventKey][matchNumber] = gameData
     	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
-  	});
+  	})
 }
 
 function finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas) {

@@ -22,7 +22,7 @@
 		driver:{
 			glyphs: 123,
 			rows: 123,
-			collumns: 123,
+			columns: 123,
 			cypher: 123
 		},
 		end:{
@@ -211,7 +211,7 @@
 				driver:{
 					glyphs: 123,
 					rows: 123,
-					collumns: 123,
+					columns: 123,
 					cypher: 123
 				},
 				end:{
@@ -245,7 +245,7 @@
 				driver:{
 					glyphs: .123,
 					rows: .123,
-					collumns: .123,
+					columns: .123,
 					cypher: .123
 				},
 				end:{
