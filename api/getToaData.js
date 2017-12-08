@@ -31,32 +31,26 @@ function getData() {
 				// 	date: ISODate(), //ISO Date of when it occured; 
 				// 	locationID: ObjectId() //ID of the location in the 'places' collection
 				// }
-				toaApi.get('/event/' + eventKey + '/matches/stations').then(function(response) {
-					let allStations = {}
-					for (let station of response.data) {
-						if (!allStations[station.match_key])
-							allStations[station.match_key] = []
-						allStations[station.match_key].push(station)
-					}
-					toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
-						let matches = response.data
-						let matchNumbers = []
-						let relevantMatches = {}
-						matchDatas[eventKey] = {}
-						gameDatas.red[eventKey] = {}
-						gameDatas.blue[eventKey] = {}
-						for (let match of matches) {
-							let matchNumber = match.match_name.split('Quals ')[1]
-							if (matchNumber) {
-								if (!matchNumbers.includes(matchNumber)) {
-									matchNumbers.push(Number(matchNumber))
-								}
-								relevantMatches[matchNumber] = match
+				toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
+					let matches = response.data
+					let matchNumbers = []
+					let relevantMatches = {}
+					matchDatas[eventKey] = {}
+					gameDatas.red[eventKey] = {}
+					gameDatas.blue[eventKey] = {}
+					for (let match of matches) {
+						let matchNumber = match.match_name.split('Quals ')[1]
+						if (matchNumber) {
+							if (!matchNumbers.includes(matchNumber)) {
+								matchNumbers.push(Number(matchNumber))
 							}
+							relevantMatches[matchNumber] = match
 						}
-						for (let matchNumber of matchNumbers) {
-							let match = relevantMatches[matchNumber]
-							let stations = allStations[match.match_key]
+					}
+					for (let matchNumber of matchNumbers) {
+						let match = relevantMatches[matchNumber]
+						toaApi.get('/match/' + match.match_key + '/stations').then(function(response) {
+							let stations = response.data
 							let teams = {
 								red: [],
 								blue: []
@@ -154,8 +148,8 @@ function getData() {
 									saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas)
 								}
 							})
-						}
-					})
+						})
+					}
 				})
 			})
 		}
