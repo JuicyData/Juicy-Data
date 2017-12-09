@@ -57,6 +57,25 @@
 	]
 }
 
+// teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
+// 	red1: {
+// 		teamNumber: 123,
+// 		surrogate: false	//True if this team was surrgogate
+// 	},
+// 	red2: {
+// 		teamNumber: 123,
+// 		surrogate: false
+// 	},
+// 	blue1: {
+// 		teamNumber: 123,
+// 		surrogate: false
+// 	},
+// 	blue2: {
+// 		teamNumber: 123,
+// 		surrogate: false
+// 	}
+// }
+
 //in collection 'matchData'
 {
 	_id:{
