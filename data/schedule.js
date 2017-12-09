@@ -160,8 +160,4 @@ db.schedules.insert({
       }
     }
   ]
-<<<<<<< HEAD
 })
-=======
-}
->>>>>>> 78b38fdde4a9866b6ba8770679b99f35d5fb62f4
