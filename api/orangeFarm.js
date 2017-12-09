@@ -28,16 +28,22 @@ function orangeFarm(orchard, farmReport){
 	// }
 
 	//Ranking; I know this is a nexted callbacks but its really cool looking rn
-	orangePicker.orangePickerAverageScores(orchard, function(pickedOranges){
-		//orangePeeler.teamOffensiveInfluencePeeler(pickedOranges, function(peeledOranges){
-		orangePeeler(pickedOranges, function(peeledOranges){
-			console.log(peeledOranges)
-			calculatedJuice = juicyCalculator(peeledOranges)
+	orangePicker.orangePickerRanking(orchard, function(pickedRankingOranges){
+	orangePicker.orangePickerAverageScores(orchard, function(pickedAvergeScoresOranges){
+		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOffensiveOranges, peeledMarginalOranges){
+			juicyCalculator(peeledOffensiveOranges, function(calculatedOffensiveJuice){
+			juicyCalculator(peeledMarginalOranges, function(calculatedMarginalJuice){
+				//console.log('calculatedOffensiveJuice', calculatedOffensiveJuice)
+				//console.log('calculatedMarginalJuice',calculatedMarginalJuice)
+				console.log(pickedRankingOranges)
+				farmReport(calculatedMarginalJuice)
+			})
+			})
 			// orangeStand.somethingThatIsNotDoneYet(orchard, peeledOranges, function(report){
 			// 	farmReport(report) //This is done
 			// })
-			farmReport(calculatedJuice)
 		})
+	})
 	})
 
 	// function pickedOranges(pickedOranges){
@@ -53,7 +59,7 @@ var orchard = {
 }
 
 orangeFarm(orchard, function(farmReport){
-	console.log(farmReport)
+	//console.log('farmReport',farmReport)
 })
 
 module.exports = orangeFarm
