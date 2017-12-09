@@ -8,7 +8,7 @@ var toaApi = axios.create({
 	timeout: 10000,
 	headers: {'X-Application-Origin': 'JuicyData', 'X-TOA-Key': apiKey}
 })
-var eventKeys = ['1718-NCAL-RWC']
+var eventKeys = ['1718-NCAL-RWC'] //Currently ongoing events
 
 module.exports = function() {
 	getData()
@@ -16,12 +16,12 @@ module.exports = function() {
 
 function getData() {
 	MongoClient.connect(url, function(err, db) {
-		if (err) throw err;
+		if (err) throw err
 		let matchDatas = {}
 		let gameDatas = {red: {}, blue: {}}
 		for (let eventKey of eventKeys) {
 			toaApi.get('/event/' + eventKey).then(function(response) {
-				let event = response.data[0];
+				let event = response.data[0]
 				let eventInformation = {
 					name: event.event_name,
 					date: event.start_date, //Should be ISODate Type thingy....? (need to check latter)
@@ -32,10 +32,9 @@ function getData() {
 				// 	locationID: ObjectId() //ID of the location in the 'places' collection
 				// }
 				toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
-					let matches = response.data;
+					let matches = response.data
 					let matchNumbers = []
 					let relevantMatches = {}
-					let currentMatchKey
 					matchDatas[eventKey] = {}
 					gameDatas.red[eventKey] = {}
 					gameDatas.blue[eventKey] = {}
@@ -50,7 +49,6 @@ function getData() {
 					}
 					for (let matchNumber of matchNumbers) {
 						let match = relevantMatches[matchNumber]
-						currentMatchKey = match.match_key
 						toaApi.get('/match/' + match.match_key + '/stations').then(function(response) {
 							let stations = response.data
 							let teams = {
@@ -164,7 +162,7 @@ function saveMatchData(db, matchData, eventKey, matchNumber, eventKeys, matchNum
     	if (err) throw err
     	matchDatas[eventKey][matchNumber] = matchData
     	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
-  	});
+  	})
 }
 
 function saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas) {
@@ -172,7 +170,7 @@ function saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, 
     	if (err) throw err
     	gameDatas[alliance][eventKey][matchNumber] = gameData
     	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
-  	});
+  	})
 }
 
 function finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas) {

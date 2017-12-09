@@ -22,7 +22,7 @@
 		driver:{
 			glyphs: 123,
 			rows: 123,
-			collumns: 123,
+			columns: 123,
 			cypher: 123
 		},
 		end:{
@@ -152,7 +152,7 @@
 		eventName: 'abc',
 		locationName: 'abc',	//Same as the name in the locations collection
 		teamsList:[123, 123, 123],
-		season: 123, //for relic recovery 2017-2018 the yeah is 2017
+		season: 'Y1Y2', //for relic recovery 2017-2018 the season is '1718'
 		toaEventKey: 'abc' //Event string for toa for this event
 	}
 }
@@ -166,8 +166,8 @@
 		street: 'abc',	//Street
 		zip: 123,		//Postal Zip
 		city: 'abc',	//City
-		state: 'abc',	//State
-		country: 'abc'	//United States
+		state: 'abc',	//State (CA)
+		country: 'abc'	//USA
 	}
 }
 
@@ -230,7 +230,7 @@
 				driver:{
 					glyphs: 123,
 					rows: 123,
-					collumns: 123,
+					columns: 123,
 					cypher: 123
 				},
 				end:{
@@ -264,7 +264,7 @@
 				driver:{
 					glyphs: .123,
 					rows: .123,
-					collumns: .123,
+					columns: .123,
 					cypher: .123
 				},
 				end:{
