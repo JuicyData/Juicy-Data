@@ -20,17 +20,14 @@ function getData() {
 		let matchDatas = {}
 		let gameDatas = {red: {}, blue: {}}
 		for (let eventKey of eventKeys) {
-			toaApi.get('/event/' + eventKey).then(function(response) {
-				let event = response.data[0]
-				let eventInformation = {
-					name: event.event_name,
-					date: event.start_date, //Should be ISODate Type thingy....? (need to check latter)
-					locationID: 'Lol..' //ObjectId Type; need to querry database for this location ID....
+			db.collection('events').findOne({'_id.toaEventKey': eventKey}, function(err, data) {
+				if (err) throw err
+				let eventInformation = null
+				if (data) {
+					eventInformation = data._id
+				} else {
+					console.log('No event in database for TOA event key ' + eventKey)
 				}
-				// let eventInformation:{
-				// 	date: ISODate(), //ISO Date of when it occured; 
-				// 	locationID: ObjectId() //ID of the location in the 'places' collection
-				// }
 				toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
 					let matches = response.data
 					let matchNumbers = []
