@@ -1,7 +1,7 @@
 //juicyCalculator by Michael Leonffu
 var math = require('mathjs')
 
-function juicyCalculator(orange, printOut = false){
+function juicyCalculator(orange, calculatedJuice, printOut = false){
 	//Determines the values of jello
 	//orange should be in the form of:
 	// orange: {
@@ -147,7 +147,7 @@ function juicyCalculator(orange, printOut = false){
 		console.log(juicyData)
 	}
 
-	return juicyData
+	calculatedJuice(juicyData)
 }
 
 sampleOrange = {	//Another juicy orange
