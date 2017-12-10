@@ -358,7 +358,7 @@ var algorithms = {
 		}
 
 		return results
-	}
+	},
 
 	OPR: function(localData){
 		localData = localDataFormat(localData)
