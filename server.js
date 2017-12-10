@@ -26,10 +26,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-// require('./api/getToaData.js')()
 // require('./data/locationsAndEvents.js')()
 require('./api/locationsAndEventsAndSchedules.js')()
-
+// require('./api/matchAndGameData.js')()
 
 app.listen(port);
 console.log('Server started on port ' + port);
