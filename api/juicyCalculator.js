@@ -1,7 +1,7 @@
 //juicyCalculator by Michael Leonffu
 var math = require('mathjs')
 
-function juicyCalculator(orange, calculatedJuice, printOut = false){
+function juicyCalculator(orange, calculatedJuice = function(){}, printOut = false){
 	//Determines the values of jello
 	//orange should be in the form of:
 	// orange: {
@@ -58,7 +58,9 @@ function juicyCalculator(orange, calculatedJuice, printOut = false){
 	if(0 == rawOrangeMatrixJuice._size[0] || 0 == rawOrangeMatrixResult._size[0]){
 		//If the data is empty
 		console.log(rawOrangeMatrixJuice._data, rawOrangeMatrixResult._data)
-		return 'No oranges to juice'
+		//return 'No oranges to juice'
+		calculatedJuice('No oranges to juice')
+		return -1 //Ends program
 	}
 
 	orangeMatrixContent = math.multiply(math.transpose(rawOrangeMatrixJuice), rawOrangeMatrixJuice)
@@ -98,7 +100,9 @@ function juicyCalculator(orange, calculatedJuice, printOut = false){
 
 	//FIRST CHECK IF DETERMINANT IS NOT 0
 	if(math.det(orangeMatrixContent) == 0){
-		return 'Not juicy enough'
+		//return 'Not juicy enough'
+		calculatedJuice('Not juicy enough')
+		return	-1 //Ends program
 	}
 
 	orangeMatrix = math.multiply(math.inv(orangeMatrixContent),orangeMatrixResult)
@@ -148,6 +152,8 @@ function juicyCalculator(orange, calculatedJuice, printOut = false){
 	}
 
 	calculatedJuice(juicyData)
+
+	return juicyData
 }
 
 sampleOrange = {	//Another juicy orange
