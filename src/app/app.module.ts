@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { InputScheduleComponent } from './input-schedule/input-schedule.component';
 import { GaussLeagueChampionshipComponent } from './events/velocity-vortex/gauss-league-championship/gauss-league-championship.component';
@@ -32,7 +33,7 @@ const ROUTES = [
     component: RelicRecoveryComponent
   },
   {
-    path: 'events/relic-recovery/:week/:event',
+    path: 'events/relic-recovery/:eventID',
     component: RelicRecoveryEventComponent
   },
   {
@@ -76,7 +77,8 @@ const ROUTES = [
   imports: [
     DataTablesModule,
     BrowserModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
