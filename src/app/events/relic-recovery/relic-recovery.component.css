@@ -2,3 +2,11 @@
   color: black;
   font-size: 12px;
 }
+
+h3, h4{
+  text-align: center;
+}
+
+hr{
+  width: 600px;
+}

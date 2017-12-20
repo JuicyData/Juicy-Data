@@ -18,6 +18,11 @@ import { VelocityVortexComponent } from './events/velocity-vortex/velocity-vorte
 import { RelicRecoveryComponent } from './events/relic-recovery/relic-recovery.component';
 import { RelicRecoveryEventComponent } from './events/relic-recovery/relic-recovery-event/relic-recovery-event.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { Casd1718Tlm1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-tlm1/casd-1718-tlm1.component';
+import { Casd1718Dlm1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-dlm1/casd-1718-dlm1.component';
+import { Casd1718Glm1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-glm1/casd-1718-glm1.component';
+import { Casd1718Elm1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-elm1/casd-1718-elm1.component';
+import { Casd1718W1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-w1/casd-1718-w1.component';
 
 const ROUTES = [
   {
@@ -33,9 +38,29 @@ const ROUTES = [
     component: RelicRecoveryComponent
   },
   {
-    path: 'events/relic-recovery/:eventID',
-    component: RelicRecoveryEventComponent
+    path: 'events/relic-recovery/1718-CASD-ELM1',
+    component: Casd1718Elm1Component
   },
+  {
+    path: 'events/relic-recovery/1718-CASD-TLM1',
+    component: Casd1718Tlm1Component
+  },
+  {
+    path: 'events/relic-recovery/1718-CASD-GLM1',
+    component: Casd1718Glm1Component
+  },
+  {
+    path: 'events/relic-recovery/1718-CASD-DLM1',
+    component: Casd1718Dlm1Component
+  },
+  {
+    path: 'events/relic-recovery/1718-CASD-W1',
+    component: Casd1718W1Component
+  },
+  // {
+  //   path: 'events/relic-recovery/:eventID',
+  //   component: RelicRecoveryEventComponent
+  // },
   {
     path: '',
     component: RelicRecoveryComponent
@@ -72,7 +97,12 @@ const ROUTES = [
     VelocityVortexComponent,
     RelicRecoveryComponent,
     RelicRecoveryEventComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    Casd1718Tlm1Component,
+    Casd1718Dlm1Component,
+    Casd1718Glm1Component,
+    Casd1718Elm1Component,
+    Casd1718W1Component
   ],
   imports: [
     DataTablesModule,
