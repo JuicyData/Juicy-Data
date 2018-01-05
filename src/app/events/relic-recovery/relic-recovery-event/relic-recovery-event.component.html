@@ -1,6 +1,5 @@
 <div class="container">
-  <h1>{{event}}</h1>
-  <h1></h1>
+  <h1>{{eventID}}</h1>
   <hr>
 
   <nav class="nav nav-tabs" id="myTab" role="tablist">
@@ -35,6 +34,21 @@
             <th class="green">Average</th>
           </tr>
         </thead>
+        <tbody>
+          <tr *ngFor="let ranking of data.ranking">
+            <td>{{ranking.rank}}</td>
+            <td>{{ranking.teamNumber}}</td>
+            <td>{{ranking.teamName}}</td>
+            <td>{{ranking.record.win}}-{{ranking.record.losses}}-{{ranking.record.ties}}</td>
+            <td>{{ranking.qualifyingPoints}}</td>
+            <td>{{ranking.rankingPoints}}</td>
+            <td>{{ranking.averageScore}}</td>
+            <td>{{ranking.averageMarginalScore}}</td>
+            <td>{{ranking.average.auto}}</td>
+            <td>{{ranking.average.driver}}</td>
+            <td>{{ranking.average.end}}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
@@ -73,6 +87,30 @@
                 <th class="green">Balance</th>
               </tr>
             </thead>
+            <tbody>
+              <tr *ngFor="let matchHistory of data.matchHistory">
+                <td>{{matchHistory.matchNumber}}</td>
+                <td>{{matchHistory.alliance}}</td>
+                <td>{{matchHistory.team1.teamNumber}} {{matchHistory.team2.teamNumber}}</td>
+                <td>{{matchHistory.team1.teamNames}} {{matchHistory.team2.teamNames}}</td>
+                <td>{{matchHistory.team1.rank}} {{matchHistory.team2.rank}}</td>
+                <td>{{matchHistory.result.total}} {{matchHistory.result.penalty}} {{matchHistory.result.final}}</td>
+                <td></td>
+                <td>{{matchHistory.auto.jewel}}</td>
+                <td>{{matchHistory.auto.glyphs}}</td>
+                <td>{{matchHistory.auto.keys}}</td>
+                <td>{{matchHistory.auto.park}}</td>
+                <td>{{matchHistory.driver.glyphs}}</td>
+                <td>{{matchHistory.driver.rows}}</td>
+                <td>{{matchHistory.driver.columns}}</td>
+                <td>{{matchHistory.driver.cypher}}</td>
+                <td>{{matchHistory.end.relic1}}</td>
+                <td>{{matchHistory.end.relic2}}</td>
+                <td>{{matchHistory.end.relic3}}</td>
+                <td>{{matchHistory.end.relicUp}}</td>
+                <td>{{matchHistory.end.balanced}}</td>
+              </tr>
+            </tbody>
       </table>
     </div>
     <div style="padding-top: 10px;" id="average-scores" class="tab-pane fade table-responsive">
@@ -108,6 +146,28 @@
             <th class="green">Balance</th>
           </tr>
         </thead>
+        <tbody>
+          <tr *ngFor="let averageScores of data.averageScores">
+            <td>{{averageScores.teamNumber}}</td>
+            <td>{{averageScores.teamName}}</td>
+            <td>{{averageScores.averageScore}}</td>
+            <td>{{averageScores.average.auto}}</td>
+            <td>{{averageScores.average.driver}}</td>
+            <td>{{averageScores.gameAverage.auto.jewel}}</td>
+            <td>{{averageScores.gameAverage.auto.glyphs}}</td>
+            <td>{{averageScores.gameAverage.auto.keys}}</td>
+            <td>{{averageScores.gameAverage.auto.park}}</td>
+            <td>{{averageScores.gameAverage.driver.glyphs}}</td>
+            <td>{{averageScores.gameAverage.driver.rows}}</td>
+            <td>{{averageScores.gameAverage.driver.columns}}</td>
+            <td>{{averageScores.gameAverage.driver.cypher}}</td>
+            <td>{{averageScores.gameAverage.end.relic1}}</td>
+            <td>{{averageScores.gameAverage.end.relic2}}</td>
+            <td>{{averageScores.gameAverage.end.relic3}}</td>
+            <td>{{averageScores.gameAverage.end.relicUp}}</td>
+            <td>{{averageScores.gameAverage.end.balanced}}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

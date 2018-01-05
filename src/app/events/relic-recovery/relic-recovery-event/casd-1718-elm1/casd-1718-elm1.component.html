@@ -1,0 +1,47 @@
+<div class="container">
+  <h1>Euclid League Meet #1 at Escondido Charter High School </h1>
+  <hr>
+
+  <nav class="nav nav-tabs" id="myTab" role="tablist">
+    <a class="nav-item nav-link active" data-toggle="tab" href="#rankings" role="tab">Rankings</a>
+  </nav>
+
+  <div class="tab-content">
+    <div style="padding-top: 10px;" id="rankings" class="tab-pane fade show active table-responsive">
+      <div class="redcircle"></div>
+      <span class="key">= Autonomous Period</span>
+      <br>
+      <div class="bluecircle"></div>
+      <span class="key">= Teleop Period</span>
+      <br>
+      <div class="greencircle"></div>
+      <span class="key">= End Game Period</span>
+      <table class="table table-striped table-bordered table-responsive" id="inputTable1" datatable [dtOptions]="dtOptions">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team Number</th>
+            <th>Team Name</th>
+            <th>Record W-L-T</th>
+            <th>QP</th>
+            <th>RP</th>
+            <th>Average Score (OPR)</th>
+            <th>Marginal Winning Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ranking of data">
+            <td>{{ranking.rank}}</td>
+            <td>{{ranking.teamNumber}}</td>
+            <td>{{ranking.teamName}}</td>
+            <td>{{ranking.record.win}}-{{ranking.record.losses}}-{{ranking.record.ties}}</td>
+            <td>{{ranking.qualifyingPoints}}</td>
+            <td>{{ranking.rankingPoints}}</td>
+            <td>{{ranking.averageScore}}</td>
+            <td>{{ranking.averageMarginalScore}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
