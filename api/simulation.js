@@ -537,7 +537,7 @@ var algorithms = {
 
 console.log(analyze(simulator(['OPR','CCWM','random'],dataSamples)))
 
-//console.log(util.inspect(analyze(simulator(['algorithmOPR','algorithmCCWM'],dataSamples)),{showHidden: false, depth: null}))
+//console.log(util.inspect(analyze(simulator(['OPR','CCWM','random'],dataSamples)),{showHidden: false, depth: null}))
 
 module.exports = {
 	analyze: analyze,
