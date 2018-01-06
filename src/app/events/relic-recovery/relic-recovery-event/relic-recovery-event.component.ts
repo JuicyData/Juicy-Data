@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-relic-recovery-event',
@@ -10,11 +11,13 @@ export class RelicRecoveryEventComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
 
-  week: string; // week-1
-  event: string; // YYYY-MM-DD-(eventname/location)
+  eventID: string; // ID of the event
+  data: any;
+
+  error: string;
 
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     this.dtOptions = {
@@ -22,9 +25,21 @@ export class RelicRecoveryEventComponent implements OnInit {
     };
 
     this.route.params.subscribe(params => {
-      this.week = params['week'];
-      this.event = params['event'];
+      this.eventID = params['eventID'];
     });
+
+    this.getData();
+  }
+
+  getData() {
+    this.http.get('/api/').subscribe(
+      data => {
+        this.data = data;
+      },
+      error => {
+        this.error = error.error;
+      }
+    );
   }
 
 }

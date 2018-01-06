@@ -1,7 +1,7 @@
 //juicyCalculator by Michael Leonffu
 var math = require('mathjs')
 
-function juicyCalculator(orange){
+function juicyCalculator(orange, calculatedJuice = function(){}, printOut = false){
 	//Determines the values of jello
 	//orange should be in the form of:
 	// orange: {
@@ -22,10 +22,10 @@ function juicyCalculator(orange){
 	rawOrangeMatrixResult = math.matrix(orange.result)
 	//Consider rawOrangeMatrixJuice as the matrix:
 
-	//			[1 1 0]
-	//			[1 0 1]
-	//			[1 1 0]
-	//			[0 1 1]
+	//			[1A 1B 0C]
+	//			[1A 0B 1C]
+	//			[1A 1B 0C]
+	//			[0A 1B 1C]
 	//	A 4x3 Matrix; Let the matrix be called N
 
 	//			[21]
@@ -54,6 +54,15 @@ function juicyCalculator(orange){
 	//Consider the equation where M is a non-square matrix, X is the unknown matrix, and P is the product:
 	//MX = P; where Mt is the transposed matrix of M; MtMx = MtP
 	//MtM makes M a square matrix nessasary to inverse it
+
+	if(0 == rawOrangeMatrixJuice._size[0] || 0 == rawOrangeMatrixResult._size[0]){
+		//If the data is empty
+		console.log(rawOrangeMatrixJuice._data, rawOrangeMatrixResult._data)
+		//return 'No oranges to juice'
+		calculatedJuice('No oranges to juice')
+		return -1 //Ends program
+	}
+
 	orangeMatrixContent = math.multiply(math.transpose(rawOrangeMatrixJuice), rawOrangeMatrixJuice)
 	orangeMatrixResult = math.multiply(math.transpose(rawOrangeMatrixJuice), rawOrangeMatrixResult)
 	//This is MtMX = MtP:
@@ -88,22 +97,66 @@ function juicyCalculator(orange){
 
 	//This is as the form: (MtM)-1MtMX=(MtM)-1MtP; Where 1/n = (n)-1
 	//The result is X = (MtM)-1MtP; this is the 'solution'
-	orangeMatrix = math.multiply(math.inv(orangeMatrixContent),orangeMatrixResult)
 
-	orangeArray = orangeMatrix.valueOf()
-	console.log(orangeArray)
-	juicyData = {}
-	for (var i = 0; orangeArray.length > i; i++) {
-		juicyData[orange.labels[i]] = orangeArray[i][0]
+	//FIRST CHECK IF DETERMINANT IS NOT 0
+	if(math.det(orangeMatrixContent) == 0){
+		//return 'Not juicy enough'
+		calculatedJuice('Not juicy enough')
+		return	-1 //Ends program
 	}
 
-	console.log(new Date(new Date()-juicyTimer).getMilliseconds())
+	orangeMatrix = math.multiply(math.inv(orangeMatrixContent),orangeMatrixResult)
+
+	//This next part isn't that important... It'll be finding the amount error, least squares.
+	//Least squres is when you get the error^2 and add them all togeter.
+
+	//Example, in context of privous examples:
+	//A+B  =21
+	//A+  C=30
+	//A+B  = 9
+	//  B+C=16
+
+	//Finding error is just the result + error: A+B  =21+error
+	//Then squreing all the errors and adding them together
+	//We've solved for X in X = (MtM)-1MtP; where 1/n is (n)-1
+	//If we subsitute X back in we get:
+	//14.5+00.5     =21+error; error=-6
+	//14.5+     15.5=30+error; error= 0
+	//14.5+00.5     = 9+error; error= 6
+	//     00.5+15.5=16+error; error= 0
+
+	//(-6)^2 + ( 0)^2 + ( 6)^2 + ( 0)^2 = 72 (error)
+
+	//So how to do this in Matrix?
+	//MX-P=E; Where E is a nx1 matrix which contains all the errors
+	incompleteErrorMatrix = math.multiply(rawOrangeMatrixJuice,orangeMatrix)
+	errorMatrix = math.subtract(incompleteErrorMatrix,rawOrangeMatrixResult)
+	//E^2=C; where C is the calculated sum of the error squred matrix stuff (72)
+	error = math.sum(math.square(errorMatrix))
+
+	//Converts the Matrix to a 2D array
+	orangeArray = math.round(orangeMatrix,3).valueOf()
+	juicyData = {juice:{}}
+	if(orange.labels){
+		for (var i = 0; orangeArray.length > i; i++) {
+			juicyData.juice[orange.labels[i]] = orangeArray[i][0]
+		}
+	}else{
+		juicyData = {juice:orangeArray}
+	}
+	juicyData.error = error
+
+	if(printOut == true){
+		console.log('Operation juicyCalculator time(Milliseconds):',new Date(new Date()-juicyTimer).getMilliseconds())
+		console.log(juicyData)
+	}
+
+	calculatedJuice(juicyData)
 
 	return juicyData
-
 }
 
-orange = {
+sampleOrange = {	//Another juicy orange
 	labels: ['TeamA','TeamB','TeamC'],
 	juice:[
 		[1,1,0],
@@ -119,10 +172,35 @@ orange = {
 	]
 }
 
+sampleOrange2 = {	//The orange used in the example; juicy
+	labels: ['TeamA','TeamB','TeamC'],
+	juice:[
+		[1,1,0],
+		[1,0,1],
+		[1,1,0],
+		[0,1,1]
+	],
+	result:[
+		[21],
+		[30],
+		[9],
+		[16]
+	]
+}
 
-juicyCalculator(orange)
+sampleOrange3 = {	//This is bad orange... not juicy enough to juice
+	labels: ['TeamA','TeamB','TeamC'],
+	juice:[
+		[1,1,0],
+		[1,0,1]
+	],
+	result:[
+		[21],
+		[30]
+	]
+}
 
 module.exports = juicyCalculator
 // To use in another file:
-// var = juicyCalculator = require('./juicyCalculator')
-// calculatedJuice = juicyCalculator(someMatix, someColumn)
+// var juicyCalculator = require('./juicyCalculator')
+// calculatedJuice = juicyCalculator(orange)

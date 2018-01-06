@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently --kill-others \"npm run serve-api\" \"npm run serve-open\"",
-    "serve": "ng serve --proxy-config proxy.conf.json",
+    "serve": "ng serve --host '0.0.0.0' --proxy-config proxy.conf.json",
     "serve-open": "ng serve --proxy-config proxy.conf.json --open",
     "build": "ng build",
     "serve-api": "nodemon server.js",
@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
     "angular-datatables": "^4.4.1",
+    "axios": "^0.17.0",
     "bootstrap": "^3.3.7",
     "connect-mongo": "^2.0.0",
     "core-js": "^2.4.1",
