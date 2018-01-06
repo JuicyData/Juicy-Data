@@ -30,10 +30,10 @@ app.get('/api/event/read', (req, res) =>{
 					db.close()
 					return
 				}else{
-					if(!eventDoc){ //NEED TO TEST THIS, if threre is no documents returned then:
+					if(!eventDoc){ //NEED TO TEST THIS
 						res.json(eventDoc)
 						db.close()
-					}else{
+					}else{		// if threre is no documents returned then:
 						res.status(400).send('Event not found')
 						db.close()
 					}
