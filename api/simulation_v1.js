@@ -1,4 +1,76 @@
 //simulation by Michael Leonffu
+
+// Verson 1 
+// 	Started around December 2017? and ends around January 5th 2018
+
+// This verson calculates the algorithms modeling rate rather than it's prediction rate.
+// It simulates the data that would come though as if it was in an event.
+// 	It'll loop a data set of an event and give the algorithm all the matches 0 to x,
+// 	where x incerments thoughout the simulator (as if it was an acual event and x is the matches recored).
+
+// 	The algorithm then must predict all the matches that are given.
+// 		for instance if 5 matches are given then it'll predict all 5 matches.
+// 		The rate/precent generated is from how accuerate it was in "predicting" those 5 matches.
+
+// The problem with this approach is that it's not getting prediction rate, rather it's in a way getting modleing rate.
+// 	To get prediction rate the algorithem will be given x matches and predict the next match,
+// 	all its predictsion would be added up and a prediction rate would be generated.
+
+// The reason it's modleing rate is because,
+// 	it uses its current data to see how accuerate the algoritehm would produce the same results.
+
+// 	Since it is given x matches and is told to report what it would think of the x matches.
+// 	the results generated would be how accuerate it can alighn it's algorithm to x matches
+
+// The Acceratey rate is useful in a way.
+// 	It's not the end goal but it dose have another way to validate how well a algoryem should predict
+// 	If it can model the data then it should be able to predict it similarly as well.
+// 		The only concern is that it does have all of its data in order to do acceracy.
+// 		That means that it predicts x matches with x matches amount of data, which is almost selffullfilling prophicy.
+// 		>>BUT there are statisical ways to valiadate such data..... (further on this latter)
+
+// Another concern with this approach is the way the data is weighed. [investigate this]
+// 	For instance, with more data, when x is a greater number,
+// 	the acceracy my be greater or less than when x is a lesser number.
+// 	maybe the total accerate rate should have weights on the amount of matches.
+// 		this would mean that the greater x is, that modeling accercary would have a greater impact on the overal modleing rate score.
+// 		this may be statiscally helpful or hurtful (need to check this latter)
+
+// As for the script it self
+// 	Verson 1 includes OPR CCWM and random algorithms:
+// 		OPR cacluates the OPR of the data set
+// 		to predict, it addes the allianaces OPR and compares it to the other team.
+// 		which ever has a grater combined OPR is predicted as the winner
+
+// 		CCWM is similar as OPR expect it uses CCWM.
+// 		the difference is that CCWM is not only OFFENISVE POWER but also DEFFENSIVE
+
+// 		random uses a random number generate and has about a 50% chance to predict true or false.
+
+// 	Verson 1 uses two data sets from two events which are hard coded into the script.
+
+// 	Verson 1 has a simulation method and a results anaylissi method
+// 		but the results analysis method isn't in any feed back loop or do any complicated analysis
+
+// Some goals for verson 2
+// 	Add some new algoritysm, maybe some META data algorityms
+// 		Maybe add DPR from OPR and CCWM?
+// 		Maybe make a method  that uses element data???
+// 	Add database interfaceing for data inserting and/or reporting
+// 	Add acual statiscal anyalisis from anaylissi method
+// 	Add stats method, method library ffor stats used for META algoritms and analysis
+// 	Maybe make a nerual network :>
+// 		Maybe add some algoriyms to it in order to bost it's data input :>
+// 	Maybe seperate methods into several files to reduce this file length
+// 	Maybe make a data cleaner, in order to clean the database of all its data
+// 	Maybe (NOT ANY TIME SOON) allow algoriythms to pull data from all events per team in order to predict.
+// 	Maybe add more data (element data) rather than just wins/lossess
+// 	Add (as a compromise to above) score totals from the differnt periods (auto driver end)
+// 	Fix/Change algoriym data insert so that algoyithms can pick and chose which data they want to listen to
+// 		So if they want to use both element and reults data they can use, but if they only want results thats cool too
+// 	Change/fix the "prediction rate" to be "modleing rate"
+// 	Add/Fix make an acual "prediction rate"
+
 var math = require('mathjs')
 var juicyCalculator = require('./juicyCalculator')
 // var MongoClient = require('mongodb').MongoClient
@@ -15,9 +87,6 @@ var algorithmLoader = function(algorithmName, data){
 	}
 	if(algorithmName === 'random'){
 		return algorithms.random(data)
-	}
-	if(algorithmName === 'null'){
-		return algorithms.null(data)
 	}
 	return -1
 }
@@ -311,44 +380,12 @@ var algorithmHelpers = {
 
 }
 
-var stats = {
-	mean: function(data){
-		var meanValue = 0
-		return meanValue
-	},
-
-	mode: function(data){
-		var modeValue = 0
-		return modeValue
-	},
-
-	median: function(data){
-		var medianValue = 0
-		return medianValue
-	},
-
-	max: function(data){
-		var maxValue = 0
-		return maxValue
-	},
-
-	min: function(data){
-		var minValue = 0
-		return minValue
-	},
-
-	stdev: function(data){
-		var stdevValue = 0
-		return stdevValue
-	}
-}
-
 var algorithms = {
 
 	template: function(localData){
 		localData = localDataFormat(localData)
 
-		//Data comes in this form, I think.
+		//Data comes in this form I think.
 		// localData = [
 		// 	{
 		// 		matchNumber: rawData[i][0],
@@ -389,26 +426,6 @@ var algorithms = {
 				localData[i].score.total.red == localData[i].score.total.blue ? 'tie' : localData[i].score.total.red < localData[i].score.total.blue ? 'blue' : 'red', //Shouldnt change
 				math.round(math.random()*100) < 50 ? 'red' : 'blue',	//YOU CAHNGE THIS; This is your prediction of your match; either 'tie', 'red', or 'blue'
 				-1	//YOU CHANGE THIS: THIS IS YOUR CERTAINTY (or any number between 0-100 about how you feel of this prediction of this match)
-			]
-		}
-
-		return results
-	},
-
-	null: function(localData){
-		localData = localDataFormat(localData)
-
-		//for statsical script testing purposes;
-
-		var results = []
-
-		//Generalized prediction forloop model
-		for (var i = 0; i < localData.length; i++) {
-			results[i] = [
-				localData[i].matchNumber,
-				localData[i].score.total.red == localData[i].score.total.blue ? 'tie' : localData[i].score.total.red < localData[i].score.total.blue ? 'blue' : 'red',
-				-1,
-				-1
 			]
 		}
 
@@ -590,7 +607,7 @@ var algorithms = {
 
 //console.log(analyze(simulator(['algorithmOPR'],dataSamples)[0].results[0]))
 
-console.log(analyze(simulator(['OPR','CCWM','random', 'null'],dataSamples))[0].results)
+console.log(analyze(simulator(['OPR','CCWM','random'],dataSamples)))
 
 //console.log(util.inspect(analyze(simulator(['OPR','CCWM','random'],dataSamples)),{showHidden: false, depth: null}))
 
