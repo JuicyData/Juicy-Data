@@ -5,7 +5,7 @@ ObjectId = require('mongodb').ObjectID
 
 //This handles putting the data into the database to present onto the website; all this really does is a mongodb insert or update.
 
-var rankingsJuice = function(pickedOranges, calculatedJuice, rankingsJuice){
+var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orangeStandMenu){
 	// rankingsJuice requires all the information that goes into the rankings tab in the UI:
 	// 	Team number, team name (not from any spesififc picker or peeler)
 	//	This is ranking information form the ranking picker and peeler ->
@@ -65,35 +65,58 @@ var rankingsJuice = function(pickedOranges, calculatedJuice, rankingsJuice){
 	// 	]
 	// }
 
-	MongoClient.connect(configDB.url, function(err,db){
-		if(err){
-			console.log(err)
-			return
-		}
-		db.collection('eventOut').update(
-			{},
-			{},
-			function(err, result){
-				if(err){
-					rankingsJuice('Failure')
-					console.log(err)
-					return
-				}else{
-					rankingsJuice('Sucess')
-					console.log(result)
-					//add some logic here
-				}
-			}
-		)
-	})
+	//Rankings:
+	var ranking = []
+	console.log('orchard', orchard)
+	console.log('pickedRankingOranges', pickedRankingOranges)
+	console.log('calculatedJuice', calculatedJuice)
+
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
+	// 	db.collection('eventOut').update(
+	// 		{
+	// 			_id: {
+	// 				eventInformation: orchard	//orcahrd is eventInformation
+	// 			}
+	// 		},
+	// 		{
+	// 			_id: {
+	// 				eventInformation: orchard	//orcahrd is eventInformation
+	// 			},
+	// 			lastUpdated: new Date(), //Time of insert/update
+
+	// 		},
+	// 		{
+	// 			upsert: true
+	// 		},
+	// 		function(err, result){
+	// 			if(err){
+	// 				orangeStandMenu('Failure')
+	// 				console.log(err)
+	// 				db.close()
+	// 				return
+	// 			}else{
+	// 				orangeStandMenu('Sucess')
+	// 				console.log(result)
+	// 				//add some logic here
+	// 				db.close()
+	// 			}
+	// 		}
+	// 	)
+	// })
+
+	orangeStandMenu('Something happened : D')
 }
 
 
 module.exports = {
-	rankingsJuice: rankingsJuice
+	orangeStand: orangeStand
 }
 
 // To use in another file:
 // var orangeStand = require('./orangeStand')
-// orangeStand.rankingsJuice(pickedOranges, STUFf)
+// orangeStand.orangeStand(pickedOranges, STUFf)
 // Where STUFf is the callback function returning a json

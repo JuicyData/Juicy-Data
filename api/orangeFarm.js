@@ -3,7 +3,7 @@
 var orangePicker = require('./orangePicker')
 var orangePeeler = require('./orangePeeler')
 var juicyCalculator = require('./juicyCalculator')
-//var orangeStand = require('./orangeStand')
+var orangeStand = require('./orangeStand')
 
 
 /*
@@ -35,20 +35,19 @@ function orangeFarm(orchard, farmReport){
 			juicyCalculator(peeledMarginalOranges, function(calculatedMarginalJuice){
 				//console.log('calculatedOffensiveJuice', calculatedOffensiveJuice)
 				//console.log('calculatedMarginalJuice',calculatedMarginalJuice)
-				console.log(pickedRankingOranges)
-				farmReport(calculatedMarginalJuice)
+				//console.log(pickedRankingOranges)
+				var calculatedJuice = {
+					calculatedOffensiveJuice: calculatedOffensiveJuice,
+					calculatedMarginalJuice: calculatedMarginalJuice
+				}
+				orangeStand.orangeStand(orchard, pickedRankingOranges, calculatedJuice, function(report){
+					farmReport('Stuff happens here') //This is done
+				})
 			})
 			})
-			// orangeStand.somethingThatIsNotDoneYet(orchard, peeledOranges, function(report){
-			// 	farmReport(report) //This is done
-			// })
 		})
 	})
 	})
-
-	// function pickedOranges(pickedOranges){
-
-	// }
 
 }
 
@@ -59,7 +58,7 @@ var orchard = {
 }
 
 orangeFarm(orchard, function(farmReport){
-	//console.log('farmReport',farmReport)
+	console.log('farmReport',farmReport)
 })
 
 module.exports = orangeFarm
