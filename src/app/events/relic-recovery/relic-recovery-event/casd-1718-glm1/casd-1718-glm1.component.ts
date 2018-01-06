@@ -225,7 +225,7 @@ export class Casd1718Glm1Component implements OnInit {
       teamName: 'Battle Sheep',
       record: {
       win: 0,
-      losses: 4,
+      losses: 5,
       ties: 1
       },
       qualifyingPoints: 1,

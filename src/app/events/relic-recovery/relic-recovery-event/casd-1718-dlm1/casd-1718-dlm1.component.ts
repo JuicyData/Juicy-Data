@@ -126,7 +126,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'Crow Force 5',
         record: {
           win: 2,
-          losses: 2,
+          losses: 3,
           ties: 0
         },
         qualifyingPoints: 4,
@@ -140,7 +140,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'Botcats',
         record: {
           win: 2,
-          losses: 2,
+          losses: 3,
           ties: 0
         },
         qualifyingPoints: 4,
@@ -154,7 +154,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'Voltrons',
         record: {
           win: 2,
-          losses: 2,
+          losses: 3,
           ties: 0
         },
         qualifyingPoints: 4,
@@ -168,7 +168,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'Level Up',
         record: {
           win: 1,
-          losses: 3,
+          losses: 4,
           ties: 0
         },
         qualifyingPoints: 2,
@@ -182,7 +182,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'Team Uncopyrightable',
         record: {
           win: 1,
-          losses: 3,
+          losses: 4,
           ties: 0
         },
         qualifyingPoints: 2,
@@ -196,7 +196,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'PATENT PENDING',
         record: {
           win: 1,
-          losses: 3,
+          losses: 4,
           ties: 0
         },
         qualifyingPoints: 2,
@@ -210,7 +210,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'Green.Griffins',
         record: {
           win: 1,
-          losses: 3,
+          losses: 4,
           ties: 0
         },
         qualifyingPoints: 2,
@@ -224,7 +224,7 @@ export class Casd1718Dlm1Component implements OnInit {
         teamName: 'Pointers',
         record: {
           win: 0,
-          losses: 4,
+          losses: 5,
           ties: 0
         },
         qualifyingPoints: 0,

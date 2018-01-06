@@ -71,7 +71,7 @@ export class Casd1718Elm1Component implements OnInit {
         teamName: 'D39 RetroRobots',
         record: {
         win: 3,
-        losses: 1,
+        losses: 2,
         ties: 0
         },
         qualifyingPoints: 6,
@@ -85,7 +85,7 @@ export class Casd1718Elm1Component implements OnInit {
         teamName: 'Skynet',
         record: {
         win: 3,
-        losses: 1,
+        losses: 2,
         ties: 0
         },
         qualifyingPoints: 6,
@@ -99,7 +99,7 @@ export class Casd1718Elm1Component implements OnInit {
         teamName: 'De.Evolution',
         record: {
         win: 2,
-        losses: 2,
+        losses: 3,
         ties: 0
         },
         qualifyingPoints: 4,
@@ -113,7 +113,7 @@ export class Casd1718Elm1Component implements OnInit {
         teamName: 'SFC Techno Eagles',
         record: {
         win: 2,
-        losses: 2,
+        losses: 3,
         ties: 0
         },
         qualifyingPoints: 4,
@@ -127,7 +127,7 @@ export class Casd1718Elm1Component implements OnInit {
         teamName: 'Ravenettes',
         record: {
         win: 2,
-        losses: 2,
+        losses: 3,
         ties: 0
         },
         qualifyingPoints: 4,
@@ -141,7 +141,7 @@ export class Casd1718Elm1Component implements OnInit {
         teamName: 'Robo Ravens',
         record: {
         win: 1,
-        losses: 3,
+        losses: 4,
         ties: 0
         },
         qualifyingPoints: 2,
@@ -155,7 +155,7 @@ export class Casd1718Elm1Component implements OnInit {
         teamName: 'Radiating Robots',
         record: {
         win: 0,
-        losses: 4,
+        losses: 5,
         ties: 0
         },
         qualifyingPoints: 0,
