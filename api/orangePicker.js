@@ -26,7 +26,7 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 			return
 		}
 		db.collection('matchData').aggregate([
-			{$match:{'_id.eventInformation':orchard}},
+			{$match:{'_id.toaEventKey':orchard}},
 			{$facet:{	//There IS a better way to do this QQ
 				red:[
 					{$project:{
@@ -150,10 +150,10 @@ function orangePickerAverageScores(orchard, oranges){
 			{$unwind:'$schedule'},
 			{$lookup:{
 				from:'matchData',
-				let: {matchNumber: '$schedule.matchNumber', eventInformation: '$_id'},
+				let: {matchNumber: '$schedule.matchNumber', toaEventKey: '$_id'},
 				pipeline: [
 					{$match:{$expr:{$and:[
-						{$eq: ['$_id.eventInformation', '$$eventInformation']},
+						{$eq: ['$_id.toaEventKey', '$$toaEventKey']},
 						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']}
 					]}}}
 				],
