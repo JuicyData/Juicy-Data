@@ -7,7 +7,7 @@ app.get('/api', function(req, res) {
 	res.send('api home')
 })
 
-app.get('/api/event/read', (req, res) =>{
+app.get('/api/events/read', (req, res) =>{
 	MongoClient.connect(configDB.url, function(err,db){
 		if(err){
 			console.log(err)
@@ -17,11 +17,7 @@ app.get('/api/event/read', (req, res) =>{
 		
 		db.collection('eventOut').findOne(
 			{
-				eventInformation:{	//FINISH LATTER WHEN THE DATA CAN BE PASSED IN
-					name: 'abc',
-					date: ISODate(), //ISO Date of when it occured; 
-					locationID: ObjectId() //ID of the location in the 'places' collection
-				}
+				_id: req.query.eventId
 			},
 			function(err, eventDoc){
 				if(err){
@@ -30,7 +26,7 @@ app.get('/api/event/read', (req, res) =>{
 					db.close()
 					return
 				}else{
-					if(!eventDoc){ //NEED TO TEST THIS
+					if(eventDoc){ //NEED TO TEST THIS
 						res.json(eventDoc)
 						db.close()
 					}else{		// if threre is no documents returned then:
