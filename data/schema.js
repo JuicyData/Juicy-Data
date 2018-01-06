@@ -141,13 +141,13 @@
 //in collection 'events'
 {
 	_id:{	//This MUST be unique?? This is Date Place; There shouldn't be another DATEPLACE the same event (Thats the idea...)
-		toaEventKey: 'abc' //Event string for toa for this event
-		date: ISODate(), //ISO Date of when it occured;
+		toaEventKey: 'abc', //Event string for toa for this event
+		date: ISODate() //ISO Date of when it occured;
 	}
 	eventInformation:{
 		eventName: 'abc',
 		locationName: 'abc',	//Same as the name in the locations collection
-		locationID: ObjectId() //ID of the location in the 'locations' collection
+		locationID: ObjectId(), //ID of the location in the 'locations' collection
 		teamsList:[123, 123, 123],
 		season: 'Y1Y2', //for relic recovery 2017-2018 the season is '1718'
 	}
