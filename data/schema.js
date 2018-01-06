@@ -169,10 +169,12 @@
 
 //in collection 'eventOut' INCOMPLETE
 {
-	eventInformation:{
-		name: 'abc',
-		date: ISODate(), //ISO Date of when it occured; 
-		locationID: ObjectId() //ID of the location in the 'places' collection
+	_id:{	
+		eventInformation:{
+			name: 'abc',
+			date: ISODate(), //ISO Date of when it occured; 
+			locationID: ObjectId() //ID of the location in the 'places' collection
+		}
 	},
 	lastUpdated: ISODate(), //Time of insert/update
 	ranking:[
