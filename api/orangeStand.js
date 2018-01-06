@@ -85,12 +85,12 @@ var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orang
 			qualifyingPoints: pickedRankingOranges[i].qualifyingPoints,
 			rankingPoints: pickedRankingOranges[i].rankingPoints,
 			averageScore: calculatedJuice.calculatedOffensiveJuice.juice[String(pickedRankingOranges[i]._id)],
-			averageMarginalScore: calculatedJuice.calculatedMarginalJuice.juice[String(pickedRankingOranges[i]._id)]
-			// average:{
-			// 	auto: .123,
-			// 	driver: .123,
-			// 	end: .123
-			// }
+			averageMarginalScore: calculatedJuice.calculatedMarginalJuice.juice[String(pickedRankingOranges[i]._id)],
+			average:{
+				auto: 01,
+				driver: 22,
+				end: 99
+			}
 		}
 	}
 
