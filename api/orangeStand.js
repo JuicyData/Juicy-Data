@@ -71,46 +71,59 @@ var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orang
 	console.log('pickedRankingOranges', pickedRankingOranges)
 	console.log('calculatedJuice', calculatedJuice)
 
-	// MongoClient.connect(configDB.url, function(err,db){
-	// 	if(err){
-	// 		console.log(err)
-	// 		return
-	// 	}
-	// 	db.collection('eventOut').update(
-	// 		{
-	// 			_id: {
-	// 				eventInformation: orchard	//orcahrd is eventInformation
-	// 			}
-	// 		},
-	// 		{
-	// 			_id: {
-	// 				eventInformation: orchard	//orcahrd is eventInformation
-	// 			},
-	// 			lastUpdated: new Date(), //Time of insert/update
+	for (var i = 0; i < pickedRankingOranges.length; i++) {
+		//pickedRankingOranges[i]
+		ranking[i] = {
+			rank: i+1,
+			teamNumber: pickedRankingOranges[i]._id,
+			teamName: 'Anna Li', //Will get the thing latter
+			record: {
+				wins: pickedRankingOranges[i].wins,
+				losses: pickedRankingOranges[i].losses,
+				ties: pickedRankingOranges[i].ties
+			},
+			qualifyingPoints: pickedRankingOranges[i].qualifyingPoints,
+			rankingPoints: pickedRankingOranges[i].rankingPoints,
+			averageScore: calculatedJuice.calculatedOffensiveJuice.juice[String(pickedRankingOranges[i]._id)],
+			averageMarginalScore: calculatedJuice.calculatedMarginalJuice.juice[String(pickedRankingOranges[i]._id)]
+			// average:{
+			// 	auto: .123,
+			// 	driver: .123,
+			// 	end: .123
+			// }
+		}
+	}
 
-	// 		},
-	// 		{
-	// 			upsert: true
-	// 		},
-	// 		function(err, result){
-	// 			if(err){
-	// 				orangeStandMenu('Failure')
-	// 				console.log(err)
-	// 				db.close()
-	// 				return
-	// 			}else{
-	// 				orangeStandMenu('Sucess')
-	// 				console.log(result)
-	// 				//add some logic here
-	// 				db.close()
-	// 			}
-	// 		}
-	// 	)
-	// })
-
-	orangeStandMenu('Something happened : D')
+	MongoClient.connect(configDB.url, function(err,db){
+		if(err){
+			console.log(err)
+			return
+		}
+		db.collection('eventOut').save(
+			{
+				_id: orchard,	//orcahrd is toaeventkey
+				lastUpdated: new Date(), //Time of insert/update
+				ranking: ranking
+			},
+			function(err, result){
+				if(err){
+					orangeStandMenu('Failure')
+					console.log(err)
+					db.close()
+					return
+				}else{
+					if(result.result.ok == 1){
+						orangeStandMenu('Sucess')
+						db.close()
+					}else{
+						orangeStandMenu('Failure 2.0')
+						db.close()
+					}
+				}
+			}
+		)
+	})
 }
-
 
 module.exports = {
 	orangeStand: orangeStand

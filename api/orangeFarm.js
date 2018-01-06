@@ -41,7 +41,7 @@ function orangeFarm(orchard, farmReport){
 					calculatedMarginalJuice: calculatedMarginalJuice
 				}
 				orangeStand.orangeStand(orchard, pickedRankingOranges, calculatedJuice, function(report){
-					farmReport('Stuff happens here') //This is done
+					farmReport(report) //This is done
 				})
 			})
 			})
@@ -51,11 +51,7 @@ function orangeFarm(orchard, farmReport){
 
 }
 
-var orchard = {
-	name: 'Redwood City FTC QT',
-	date: '2017-11-04T07:00:00.000Z',
-	locationID: 'Lol..' //should be object Id
-}
+var orchard = '1718-NCAL-RWC'
 
 orangeFarm(orchard, function(farmReport){
 	console.log('farmReport',farmReport)
