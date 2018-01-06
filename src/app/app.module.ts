@@ -57,10 +57,10 @@ const ROUTES = [
     path: 'events/relic-recovery/1718-CASD-W1',
     component: Casd1718W1Component
   },
-  // {
-  //   path: 'events/relic-recovery/:eventID',
-  //   component: RelicRecoveryEventComponent
-  // },
+  {
+    path: 'events/relic-recovery/:eventID',
+    component: RelicRecoveryEventComponent
+  },
   {
     path: '',
     component: RelicRecoveryComponent
