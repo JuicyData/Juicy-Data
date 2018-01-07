@@ -20,12 +20,7 @@ which is sold by the orange stand
 function orangeFarm(orchard, farmReport){
 	//MAYBE ADD A ORCHARD CHECKER HERE!; though manager should know if it exsists or not anyways
 
-	// orchard should be in this form:
-	// {
-	// 	name: 'abc',
-	// 	date: ISODate(), //ISO Date of when it occured; 
-	// 	locationID: ObjectId() //ID of the location in the 'places' collection
-	// }
+	// orchard should be in this form of a TOA event key as a string 
 
 	//I know this is a nested callbacks but its really cool looking rn
 	console.log('[START]-orangeFarm')
@@ -35,10 +30,7 @@ function orangeFarm(orchard, farmReport){
 	orangePicker.orangePickerMatchHistory(orchard, function(pickedMatchHistoryOranges){
 		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOranges){
 			juicyCalculator(peeledOranges, function(calculatedJuice){
-				var calculatedJuice = {
-					calculatedOffensiveJuice: calculatedJuice.offensiveOranges,
-					calculatedMarginalJuice: calculatedJuice.marginalOranges
-				}
+				console.log('calculatedJuice', calculatedJuice)
 				orangeStand.orangeStand(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
 					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())
 					console.log('[DONE]-orangeFarm')
