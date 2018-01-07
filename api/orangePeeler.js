@@ -49,6 +49,7 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 		}
 	}
 	peeledOffensiveOranges.result.reverse() //It's backwards?
+	peeledOffensiveOranges.dataLabel = 'offensiveOranges'
 
 	for (var i = pickedOrange.teamsScore.length - 1; i >= 0; i--) {
 		peeledMarginalOranges.result.push([pickedOrange.teamsScore[i].marginalScore])
@@ -58,9 +59,24 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 		}
 	}
 	peeledMarginalOranges.result.reverse() //It's backwards?
+	peeledMarginalOranges.dataLabel = 'marginalOranges'
 
 	// returns it as 
 	// {
+	// 	labels:[],
+	// 	juice:[
+	// 		[],
+	// 		[]
+	// 	],
+	// 	result:[
+	// 		[],
+	// 		[]
+	// 	]
+	// }
+
+	//New now; in array form:
+	// {
+	// 	dataLabel: 'abc', //Name of the dataSet
 	// 	labels:[],
 	// 	juice:[
 	// 		[],
@@ -74,59 +90,8 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 
 	console.log('Operation teamInfluencePeeler time(Milliseconds):',new Date(new Date()-peelerTimer).getMilliseconds())
 	console.log('[DONE]-teamInfluencePeeler')
-	peeledOranges(peeledOffensiveOranges, peeledMarginalOranges)
+	peeledOranges([peeledOffensiveOranges, peeledMarginalOranges])
 
-}
-
-var teamMarginalInfluencePeeler = function(pickedOranges, peeledOranges){
-		//This make sure to find the oranges that are important for calculating OPR; schedule and matchdata
-	console.log('[START]-teamMarginalInfluencePeeler')
-
-	// {
-	// 	teamsScore: [
-	// 		{
-	// 			teams:[123,123], Team numbers
-	// 			marginalScore:123 marginal score these teams got
-	// 		}
-	// 	],
-	// 	teamList:[123,123,123,] Team numbers unique list
-	// }
-
-	var pickedOrange = pickedOranges[0]
-	//If threre are no errors then:
-	var peeledOrange = {
-		labels: pickedOrange.teamsList.sort(),
-		juice: [],
-		result: []
-	}
-
-	var peelerTimer = new Date()
-
-	for (var i = pickedOrange.teamsScore.length - 1; i >= 0; i--) {
-		peeledOrange.result.push([pickedOrange.teamsScore[i].marginalScore])
-		peeledOrange.juice[i] = []
-		for (var j = peeledOrange.labels.length - 1; j >= 0; j--) {
-			peeledOrange.juice[i][j] = pickedOrange.teamsScore[i].teams[0] == peeledOrange.labels[j] || pickedOrange.teamsScore[i].teams[1] == peeledOrange.labels[j]?1:0
-		}
-	}
-	peeledOrange.result.reverse() //It's backwards?
-
-	// returns it as 
-	// {
-	// 	labels:[],
-	// 	juice:[
-	// 		[],
-	// 		[]
-	// 	],
-	// 	result:[
-	// 		[],
-	// 		[]
-	// 	]
-	// }
-
-	console.log('Operation teamMarginalInfluencePeeler time(Milliseconds):',new Date(new Date()-peelerTimer).getMilliseconds())
-	console.log('[DONE]-teamMarginalInfluencePeeler')
-	peeledOranges(peeledOrange)
 }
 
 module.exports = {
