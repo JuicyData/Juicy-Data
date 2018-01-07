@@ -6,6 +6,9 @@ ObjectId = require('mongodb').ObjectID
 //This handles putting the data into the database to present onto the website; all this really does is a mongodb insert or update.
 
 var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, orangeStandMenu){
+	console.log('[START]-orangeStand')
+	var standTime = new Date()
+
 	// rankingsJuice requires all the information that goes into the rankings tab in the UI:
 	// 	Team number, team name (not from any spesififc picker or peeler)
 	//	This is ranking information form the ranking picker and peeler ->
@@ -132,6 +135,13 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 		}
 	}
 
+	//Average Scores:
+	var averageScores = []
+
+	// for (var i = 0; i < Things.length; i++) {
+	// 	Things[i]
+	// }
+
 	MongoClient.connect(configDB.url, function(err,db){
 		if(err){
 			console.log(err)
@@ -152,6 +162,8 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 					return
 				}else{
 					if(result.result.ok == 1){
+						console.log('Operation orangeStand time(Milliseconds):',new Date(new Date()-standTime).getMilliseconds())
+						console.log('[DONE]-orangeStand')
 						orangeStandMenu('Sucess')
 						db.close()
 					}else{
