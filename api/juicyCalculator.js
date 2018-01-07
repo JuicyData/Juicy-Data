@@ -3,18 +3,22 @@ var math = require('mathjs')
 
 function juicyCalculator(originalOrange, calculatedJuice = function(){}, printOut = false){
 
+	//Times how long it takes to juice the juicy oranges
+	console.log('[START]-juicyCalculator')
+	var juicyTimer = new Date()
+
 	var oranges = [] //oranges is an Array of oranges 
 
 	if(originalOrange.constructor === Object){
-		if(printOut == true){console.log('[Juicy Calculator]- Orange is Object')}
+		if(printOut == true){console.log('[Juicy Calculator]- originalOrange is Object')}
 		oranges = [originalOrange]
 	}else if(originalOrange.constructor === Array){
-		if(printOut == true){console.log('[Juicy Calculator]- Orange is Array')}
+		if(printOut == true){console.log('[Juicy Calculator]- originalOrange is Array')}
 		oranges = originalOrange	//Sinec originalOrange is already an Array of oranges
-		var pitcherOfJuicyData = []
+		var pitcherOfJuicyData = {}
 	}else{
-		console.log('[Juicy Calculator]- Orange provided is not Object or Array')
-		calculatedJuice('Orange provided is not Object or Array')
+		console.log('[Juicy Calculator]- originalOrange provided is not Object or Array')
+		calculatedJuice('originalOrange provided is not Object or Array')
 		return -1
 	}
 
@@ -35,8 +39,7 @@ function juicyCalculator(originalOrange, calculatedJuice = function(){}, printOu
 		// 	]
 		// }
 
-		//Times how long it takes to juice the juicy oranges
-		juicyTimer = new Date()
+		//NEW: may include a dataLabel key which is the name of the dataset; orange.dataLabel
 
 		//Creates a Matrix for each 2D array
 		rawOrangeMatrixJuice = math.matrix(orange.juice)
@@ -159,35 +162,42 @@ function juicyCalculator(originalOrange, calculatedJuice = function(){}, printOu
 		orangeArray = math.round(orangeMatrix,3).valueOf()
 		juicyData = {juice:{}}
 		if(orange.labels){
-			for (var i = 0; orangeArray.length > i; i++) {
-				juicyData.juice[orange.labels[i]] = orangeArray[i][0]
+			for (var j = 0; orangeArray.length > j; j++) {
+				juicyData.juice[orange.labels[j]] = orangeArray[j][0]
 			}
 		}else{
 			juicyData = {juice:orangeArray}
 		}
 		juicyData.error = error
 
-		pitcherOfJuicyData[i] = juicyData
-
+		if(originalOrange.constructor === Array){
+			if(printOut == true){
+				console.log('[Juicy Calculator]- originalOrange is Array')
+				console.log('[Juicy Calculator]- Labeling JuicyData as', orange.dataLabel)
+			}
+			pitcherOfJuicyData[orange.dataLabel] = juicyData
+		}
 	}
 
 	if(originalOrange.constructor === Object){
 		if(printOut == true){
-			console.log('[Juicy Calculator]- Orange is Object')
+			console.log('[Juicy Calculator]- originalOrange is Object')
 			console.log('Operation juicyCalculator time(Milliseconds):',new Date(new Date()-juicyTimer).getMilliseconds())
+			console.log('[DONE]-juicyCalculator')
 		}
 		calculatedJuice(juicyData)
 		return juicyData
 	}else if(originalOrange.constructor === Array){
 		if(printOut == true){
-			console.log('[Juicy Calculator]- Orange is Array')
+			console.log('[Juicy Calculator]- originalOrange is Array')
 			console.log('Operation juicyCalculator time(Milliseconds):',new Date(new Date()-juicyTimer).getMilliseconds())
+			console.log('[DONE]-juicyCalculator')
 		}
 		calculatedJuice(pitcherOfJuicyData)
 		return pitcherOfJuicyData
 	}else{
-		console.log('[Juicy Calculator]- Orange provided is not Object or Array')
-		calculatedJuice('Orange provided is not Object or Array')
+		console.log('[Juicy Calculator]- originalOrange provided is not Object or Array')
+		calculatedJuice('originalOrange provided is not Object or Array')
 		return -1
 	}
 }
