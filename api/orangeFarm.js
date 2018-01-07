@@ -32,7 +32,7 @@ function orangeFarm(orchard, farmReport){
 			juicyCalculator(peeledOranges, function(calculatedJuice){
 				//console.log('calculatedJuice', calculatedJuice)
 				orangeStand.orangeStand(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
-					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())
+					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())	//Timmer doens't seem to acually work?
 					console.log('[DONE]-orangeFarm')
 					farmReport(report) //This is done
 				})
@@ -44,11 +44,26 @@ function orangeFarm(orchard, farmReport){
 
 }
 
-var orchard = '1718-NCAL-RWC'
+var orchard = '1718-FIM-GLBR' //'1718-FIM-MARY' //'1718-FIM-CMP1' //'1718-NCAL-RWC'
 
-orangeFarm(orchard, function(farmReport){
-	console.log('farmReport',farmReport)
-})
+var orchardList = [
+	'1718-NCAL-RWC',
+
+	'1718-FIM-CMP1',	//team 5386
+	'1718-FIM-MARY',
+	'1718-FIM-GLBR'
+]
+
+// orangeFarm(orchard, function(farmReport){
+// 	console.log('farmReport',farmReport)
+// })
+
+for (var i = 0; i < orchardList.length; i++) {
+	//orchardList[i]
+	orangeFarm(orchardList[i], function(farmReport){
+		console.log('farmReport:', farmReport)
+	})
+}
 
 module.exports = {
 	orangeFarm: orangeFarm
