@@ -28,69 +28,37 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 	var pickedOrange = pickedOranges[0]
 	//If threre are no errors then:
 
-	var peeledOffensiveOranges = {
-		labels: pickedOrange.teamsList.sort(),
-		juice: [],
-		result: []
-	}
-	var peeledMarginalOranges = {
-		labels: pickedOrange.teamsList.sort(),
-		juice: [],
-		result: []
-	}
+	var peeledOrangeBasket = []	//Contains all the peeled genericOrangeTemplate
+
+	var orangeConversionFactor = [	//Helps convert oranges into generic form
+		['offensiveOranges', 'total'],
+		['marginalOranges', 'marginalScore']
+	]
 
 	var peelerTimer = new Date()
 
-	for (var i = pickedOrange.teamsScore.length - 1; i >= 0; i--) {
-		peeledOffensiveOranges.result.push([pickedOrange.teamsScore[i].score])
-		peeledOffensiveOranges.juice[i] = []
-		for (var j = peeledOffensiveOranges.labels.length - 1; j >= 0; j--) {
-			peeledOffensiveOranges.juice[i][j] = pickedOrange.teamsScore[i].teams[0] == peeledOffensiveOranges.labels[j] || pickedOrange.teamsScore[i].teams[1] == peeledOffensiveOranges.labels[j]?1:0
+	for (var i = 0; i < orangeConversionFactor.length; i++) {
+		//orangeConversionFactor[i]
+		var tempOrange = {
+			labels: pickedOrange.teamsList.sort(),
+			juice: [],
+			result: []
+		}	//Get a fresh template
+		for (var j = pickedOrange.teamsScore.length - 1; j >= 0; j--) {	//May be backwards bc of this
+			tempOrange.result.push([pickedOrange.teamsScore[j]['score'][orangeConversionFactor[i][1]]])	//FIX LATTer
+			tempOrange.juice[j] = []
+			for (var k = tempOrange.labels.length - 1; k >= 0; k--) {
+				tempOrange.juice[j][k] = pickedOrange.teamsScore[j].teams[0] == tempOrange.labels[k] || pickedOrange.teamsScore[j].teams[1] == tempOrange.labels[k]?1:0
+			}
 		}
+		tempOrange.result.reverse() //It's backwards?
+		tempOrange.dataLabel = orangeConversionFactor[i][0]
+		peeledOrangeBasket[i] = tempOrange	//Put orange into the basket
 	}
-	peeledOffensiveOranges.result.reverse() //It's backwards?
-	peeledOffensiveOranges.dataLabel = 'offensiveOranges'
-
-	for (var i = pickedOrange.teamsScore.length - 1; i >= 0; i--) {
-		peeledMarginalOranges.result.push([pickedOrange.teamsScore[i].marginalScore])
-		peeledMarginalOranges.juice[i] = []
-		for (var j = peeledMarginalOranges.labels.length - 1; j >= 0; j--) {
-			peeledMarginalOranges.juice[i][j] = pickedOrange.teamsScore[i].teams[0] == peeledMarginalOranges.labels[j] || pickedOrange.teamsScore[i].teams[1] == peeledMarginalOranges.labels[j]?1:0
-		}
-	}
-	peeledMarginalOranges.result.reverse() //It's backwards?
-	peeledMarginalOranges.dataLabel = 'marginalOranges'
-
-	// returns it as 
-	// {
-	// 	labels:[],
-	// 	juice:[
-	// 		[],
-	// 		[]
-	// 	],
-	// 	result:[
-	// 		[],
-	// 		[]
-	// 	]
-	// }
-
-	//New now; in array form:
-	// {
-	// 	dataLabel: 'abc', //Name of the dataSet
-	// 	labels:[],
-	// 	juice:[
-	// 		[],
-	// 		[]
-	// 	],
-	// 	result:[
-	// 		[],
-	// 		[]
-	// 	]
-	// }
 
 	console.log('Operation teamInfluencePeeler time(Milliseconds):',new Date(new Date()-peelerTimer).getMilliseconds())
 	console.log('[DONE]-teamInfluencePeeler')
-	peeledOranges([peeledOffensiveOranges, peeledMarginalOranges])
+	peeledOranges(peeledOrangeBasket)
 
 }
 
