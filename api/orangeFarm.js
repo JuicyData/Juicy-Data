@@ -27,30 +27,24 @@ function orangeFarm(orchard, farmReport){
 	// 	locationID: ObjectId() //ID of the location in the 'places' collection
 	// }
 
-	//Ranking; I know this is a nested callbacks but its really cool looking rn
+	//I know this is a nested callbacks but its really cool looking rn
 	console.log('[START]-orangeFarm')
 	var farmTimer = new Date()
 	orangePicker.orangePickerRanking(orchard, function(pickedRankingOranges){
 	orangePicker.orangePickerAverageScores(orchard, function(pickedAvergeScoresOranges){
 	orangePicker.orangePickerMatchHistory(orchard, function(pickedMatchHistoryOranges){
-		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOffensiveOranges, peeledMarginalOranges){
-			console.log('[START]-juicyCalculator')
-			var juicyTimer = new Date()
-			juicyCalculator(peeledOffensiveOranges, function(calculatedOffensiveJuice){
-			juicyCalculator(peeledMarginalOranges, function(calculatedMarginalJuice){
-				console.log('Operation juicyCalculator time(Milliseconds):',new Date(new Date()-juicyTimer).getMilliseconds())
-				console.log('[DONE]-juicyCalculator')
+		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOranges){
+			juicyCalculator(peeledOranges, function(calculatedJuice){
 				var calculatedJuice = {
-					calculatedOffensiveJuice: calculatedOffensiveJuice,
-					calculatedMarginalJuice: calculatedMarginalJuice
+					calculatedOffensiveJuice: calculatedJuice.offensiveOranges,
+					calculatedMarginalJuice: calculatedJuice.marginalOranges
 				}
 				orangeStand.orangeStand(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
 					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())
 					console.log('[DONE]-orangeFarm')
 					farmReport(report) //This is done
 				})
-			})
-			})
+			}, true) //Toggle for the console logs in juicyCalculator
 		})
 	})
 	})
@@ -64,7 +58,9 @@ orangeFarm(orchard, function(farmReport){
 	console.log('farmReport',farmReport)
 })
 
-module.exports = orangeFarm
+module.exports = {
+	orangeFarm: orangeFarm
+}
 // To use in another file:
 // var orangeFarm = require('./orangeFarm')
 // orangeFarm(orchard, farmReport)
