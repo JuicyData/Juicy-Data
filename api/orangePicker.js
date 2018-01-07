@@ -26,7 +26,7 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 			return
 		}
 		db.collection('matchData').aggregate([
-			{$match:{'_id.eventInformation':orchard}},
+			{$match:{'_id.toaEventKey':orchard}},
 			{$facet:{	//There IS a better way to do this QQ
 				red:[
 					{$project:{
@@ -114,6 +114,32 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 			{$sort:{
 				qualifyingPoints: -1,	//Sorting by QP then RP
 				rankingPoints: -1
+			}},
+			{$lookup:{
+				from:'teams',
+				let: {teamNumber: '$_id'},
+				pipeline: [
+					{$match:{$expr:
+						{$eq: ['$_id', '$$teamNumber']}
+					}},
+					{$project:{
+						_id:0,
+						team_name_short:1
+					}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'teamName'
+			}},
+			{$unwind:'$teamName'},
+			{$project:{
+				_id: '$_id',
+				wins: '$wins',
+				losses: '$losses',
+				ties: '$ties',
+				rankingPoints: '$rankingPoints',
+				qualifyingPoints: '$qualifyingPoints',
+				teamName: {$arrayElemAt: [{$split: ['$teamName.team_name_short', ', Team #']},0]}
 			}}
 		],function(err,pickedOranges){
 			console.log('Operation orangePickerRanking time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
@@ -129,7 +155,118 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 }
 
 function orangePickerMatchHistory(orchard, oranges){
+	//Gets all the stuff for match history using schedule and gamedata
+	console.log('[START]-orangePickerMatchHistory')
+	var pickerTimer = new Date()
+	MongoClient.connect(configDB.url, function(err,db){
+		//If there is an error while connecting to the database
+		if(err){
+			console.log(err)
+			return
+		}
 
+		//Make the schedule and matchData.....
+		db.collection('schedules').aggregate([
+			{$match:{'_id':orchard}},
+			{$unwind:'$schedule'},
+			{$facet:{
+				red:[
+					{$project:{
+						_id: {
+							matchNumber: '$schedule.matchNumber',
+							alliance: 'red'
+						},
+						teams: {
+							team1:'$schedule.teams.red1',
+							team2:'$schedule.teams.red2'
+						}
+					}}
+				],
+				blue:[
+					{$project:{
+						_id: {
+							matchNumber: '$schedule.matchNumber',
+							alliance: 'blue'
+						},
+						teams: {
+							team1:'$schedule.teams.blue1',
+							team2:'$schedule.teams.blue2'
+						}
+					}}
+				]
+			}},
+			{$project:{
+				schedule: {
+					$concatArrays: [
+						'$red',
+						'$blue'
+					]
+				}
+			}},
+			{$unwind:'$schedule'},
+			{$replaceRoot:{
+				newRoot: '$schedule'
+			}},
+			{$lookup:{
+				from:'gameData',
+				let: {matchNumber: '$_id.matchNumber', alliance: '$_id.alliance'},
+				pipeline: [
+					{$match:{$expr:{$and:[
+						{$eq: ['$_id.toaEventKey', orchard]},
+						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']},
+						{$eq: ['$_id.matchInformation.robotAlliance', '$$alliance']}
+					]}}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'gameData'
+			}},
+			{$unwind:'$gameData'},
+			{$lookup:{
+				from:'matchData',
+				let: {matchNumber: '$_id.matchNumber'},
+				pipeline: [
+					{$match:{$expr:{$and:[
+						{$eq: ['$_id.toaEventKey', orchard]},
+						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']}
+					]}}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'matchData'
+			}},
+			{$unwind:'$matchData'},
+			{$sort:{
+				'_id.matchNumber': 1
+			}}
+		], matchHistory)
+
+		// {
+		// 	_id: {
+		// 		matchNumber: 123,
+		// 		alliance: 'abc' //blue or red
+		// 	},
+		// 	teams: {
+		// 		team1: 123,
+		// 		team2: 123
+		// 	},
+		// 	gameData: //Game Data
+		// }
+
+		//Callback; the function that runs after the dataase gives a responce
+		function matchHistory(err, pickedOranges){
+			console.log('Operation orangePickerMatchHistory time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
+			console.log('[DONE]-orangePickerMatchHistory')
+			db.close()
+			if(err){
+				console.log(err)
+			}else if(!(0 in pickedOranges)){
+				console.log('Failed to get docs')
+			}else{
+				oranges(pickedOranges)	//All is good; this is call back
+			}
+		}
+	})
 }
 
 function orangePickerAverageScores(orchard, oranges){
@@ -150,10 +287,10 @@ function orangePickerAverageScores(orchard, oranges){
 			{$unwind:'$schedule'},
 			{$lookup:{
 				from:'matchData',
-				let: {matchNumber: '$schedule.matchNumber', eventInformation: '$_id'},
+				let: {matchNumber: '$schedule.matchNumber', toaEventKey: '$_id'},
 				pipeline: [
 					{$match:{$expr:{$and:[
-						{$eq: ['$_id.eventInformation', '$$eventInformation']},
+						{$eq: ['$_id.toaEventKey', '$$toaEventKey']},
 						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']}
 					]}}}
 				],
@@ -161,25 +298,80 @@ function orangePickerAverageScores(orchard, oranges){
 				// foreignField:'matchInformation.matchNumber',
 				as:'matchData'
 			}},
-			{$unwind:'$matchData'}, //Maybe Uncomment
-			{$project:{
-				_id:0,
-				teamsScore:[
-					{
-						//teams:['$schedule.teams.red1','$schedule.teams.red2'],
-						team1:'$schedule.teams.red1',
-						team2:'$schedule.teams.red2',
-						score:'$matchData.resultInformation.score.total.red',
-						marginalScore:{$subtract:['$matchData.resultInformation.score.total.red', '$matchData.resultInformation.score.total.blue']}
-					},
-					{
-						//teams:['$schedule.teams.blue1','$schedule.teams.blue2'],
-						team1:'$schedule.teams.blue1',
-						team2:'$schedule.teams.blue2',
-						score:'$matchData.resultInformation.score.total.blue',
-						marginalScore:{$subtract:['$matchData.resultInformation.score.total.blue', '$matchData.resultInformation.score.total.red']}
-					}
+			{$unwind:'$matchData'},
+			{$lookup:{
+				from:'gameData',
+				let: {matchNumber: '$schedule.matchNumber', toaEventKey: '$_id'},
+				pipeline: [
+					{$match:{$expr:{$and:[
+						{$eq: ['$_id.toaEventKey', '$$toaEventKey']},
+						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']}
+					]}}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'gameData'
+			}},
+			{$unwind:'$gameData'},
+			{$facet:{
+				red:[
+					{$match:{
+						'gameData._id.matchInformation.robotAlliance': 'red'
+					}},
+					{$project:{
+						_id:0,
+						teamsScore:{
+							//teams:['$schedule.teams.red1','$schedule.teams.red2'],
+							team1:'$schedule.teams.red1',
+							team2:'$schedule.teams.red2',
+							score: {
+								auto: '$matchData.resultInformation.score.auto.red',
+								driver: '$matchData.resultInformation.score.driver.red',
+								end: '$matchData.resultInformation.score.end.red',
+								total: '$matchData.resultInformation.score.total.red',
+								penalty: '$matchData.resultInformation.score.penalty.red',
+								final: '$matchData.resultInformation.score.final.red',
+								marginalScore: {$subtract:['$matchData.resultInformation.score.total.red', '$matchData.resultInformation.score.total.blue']}
+							},
+							gameData: '$gameData.gameInformation'
+						}
+					}}
+				],
+				blue:[
+					{$match:{
+						'gameData._id.matchInformation.robotAlliance': 'blue'
+					}},
+					{$project:{
+						_id:0,
+						teamsScore:{
+							//teams:['$schedule.teams.blue1','$schedule.teams.blue2'],
+							team1:'$schedule.teams.blue1',
+							team2:'$schedule.teams.blue2',
+							score: {
+								auto: '$matchData.resultInformation.score.auto.blue',
+								driver: '$matchData.resultInformation.score.driver.blue',
+								end: '$matchData.resultInformation.score.end.blue',
+								total: '$matchData.resultInformation.score.total.blue',
+								penalty: '$matchData.resultInformation.score.penalty.blue',
+								final: '$matchData.resultInformation.score.final.blue',
+								marginalScore: {$subtract:['$matchData.resultInformation.score.total.blue', '$matchData.resultInformation.score.total.red']}
+							},
+							gameData: '$gameData.gameInformation'
+						}
+					}}
 				]
+			}},
+			{$project:{
+				combinedArrays: {
+					$concatArrays: [
+						'$red',
+						'$blue'
+					]
+				}
+			}},
+			{$unwind:'$combinedArrays'},
+			{$replaceRoot:{
+				newRoot: '$combinedArrays'
 			}},
 			{$unwind:'$teamsScore'},
 			{$facet:{
@@ -188,7 +380,7 @@ function orangePickerAverageScores(orchard, oranges){
 						//teams:'$teamsScore.teams',
 						teams:['$teamsScore.team1','$teamsScore.team2'],
 						score:'$teamsScore.score',
-						marginalScore:'$teamsScore.marginalScore'
+						gameData: '$teamsScore.gameData'
 					}
 				}],
 				teamList:[
@@ -210,8 +402,20 @@ function orangePickerAverageScores(orchard, oranges){
 		// 	teamsScore: [
 		// 		{
 		// 			teams:[123,123], Team numbers
-		// 			score:[123] score these teams got
-		//			marginalScore:[123] the marginalScore thses teams got
+		// 			score:{
+		// 				auto: 123,
+		// 				driver: 123,
+		// 				end: 123,
+		// 				total: 123,
+		// 				penalty: 123,
+		// 				final: 123,
+		// 				marginalScore: 123
+		// 			}, scores these teams got
+		// 			gameData:{
+		// 				auto:{},
+		// 				driver:{},
+		// 				end:{}
+		// 			}	All the game elements 
 		// 		}
 		// 	],
 		// 	teamList:[123,123,123,] Team numbers unique list

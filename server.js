@@ -28,7 +28,7 @@ app.get('*', (req, res) => {
 
 // require('./data/locationsAndEvents.js')()
 require('./api/locationsAndEventsAndSchedules.js')()
-// require('./api/matchAndGameData.js')()
+require('./api/matchAndGameData.js')()
 
 app.listen(port);
 console.log('Server started on port ' + port);

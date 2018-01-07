@@ -5,7 +5,10 @@ ObjectId = require('mongodb').ObjectID
 
 //This handles putting the data into the database to present onto the website; all this really does is a mongodb insert or update.
 
-var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orangeStandMenu){
+var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, orangeStandMenu){
+	console.log('[START]-orangeStand')
+	var standTime = new Date()
+
 	// rankingsJuice requires all the information that goes into the rankings tab in the UI:
 	// 	Team number, team name (not from any spesififc picker or peeler)
 	//	This is ranking information form the ranking picker and peeler ->
@@ -65,52 +68,148 @@ var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orang
 	// 	]
 	// }
 
+	//console.log('orchard', orchard)
+	//console.log('pickedRankingOranges', pickedRankingOranges)
+	//console.log('calculatedJuice', calculatedJuice)
+	//console.log('pickedMatchHistoryOranges',pickedMatchHistoryOranges[0].gameData)
+
 	//Rankings:
 	var ranking = []
-	console.log('orchard', orchard)
-	console.log('pickedRankingOranges', pickedRankingOranges)
-	console.log('calculatedJuice', calculatedJuice)
 
-	// MongoClient.connect(configDB.url, function(err,db){
-	// 	if(err){
-	// 		console.log(err)
-	// 		return
-	// 	}
-	// 	db.collection('eventOut').update(
-	// 		{
-	// 			_id: {
-	// 				eventInformation: orchard	//orcahrd is eventInformation
-	// 			}
-	// 		},
-	// 		{
-	// 			_id: {
-	// 				eventInformation: orchard	//orcahrd is eventInformation
-	// 			},
-	// 			lastUpdated: new Date(), //Time of insert/update
+	for (var i = 0; i < pickedRankingOranges.length; i++) {
+		//pickedRankingOranges[i]
+		ranking[i] = {
+			rank: i+1,
+			teamNumber: pickedRankingOranges[i]._id,
+			teamName: pickedRankingOranges[i].teamName,
+			record: {
+				wins: pickedRankingOranges[i].wins,
+				losses: pickedRankingOranges[i].losses,
+				ties: pickedRankingOranges[i].ties
+			},
+			qualifyingPoints: pickedRankingOranges[i].qualifyingPoints,
+			rankingPoints: pickedRankingOranges[i].rankingPoints,
+			averageScore: calculatedJuice.offensiveOranges.juice[String(pickedRankingOranges[i]._id)],
+			averageMarginalScore: calculatedJuice.marginalOranges.juice[String(pickedRankingOranges[i]._id)],
+			average:{
+				auto: 		calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
+				driver: 	calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
+				end: 		calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
+			}
+		}
+	}
 
-	// 		},
-	// 		{
-	// 			upsert: true
-	// 		},
-	// 		function(err, result){
-	// 			if(err){
-	// 				orangeStandMenu('Failure')
-	// 				console.log(err)
-	// 				db.close()
-	// 				return
-	// 			}else{
-	// 				orangeStandMenu('Sucess')
-	// 				console.log(result)
-	// 				//add some logic here
-	// 				db.close()
-	// 			}
-	// 		}
-	// 	)
-	// })
+	//Match history:
+	var matchHistory = []
 
-	orangeStandMenu('Something happened : D')
+	var rankingsJson = {}
+
+	for (var i = 0; i < ranking.length; i++) {
+		//ranking[i]
+		rankingsJson[String(ranking[i].teamNumber)] = ranking[i]
+	}
+
+	for (var i = 0; i < pickedMatchHistoryOranges.length; i++) {
+		//pickedMatchHistoryOranges[i]
+		matchHistory[i] = {
+			matchNumber: pickedMatchHistoryOranges[i]._id.matchNumber,
+			alliance: pickedMatchHistoryOranges[i]._id.alliance,
+			team1: {
+				teamNumber: pickedMatchHistoryOranges[i].teams.team1,
+				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1)].teamName,
+				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1)].rank
+			},
+			team2: {
+				teamNumber: pickedMatchHistoryOranges[i].teams.team2,
+				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2)].teamName,
+				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2)].rank
+			},
+			result: {
+				total: pickedMatchHistoryOranges[i].matchData.resultInformation.score.total[String(pickedMatchHistoryOranges[i]._id.alliance)],
+				penalty: pickedMatchHistoryOranges[i].matchData.resultInformation.score.penalty[String(pickedMatchHistoryOranges[i]._id.alliance)],
+				final: pickedMatchHistoryOranges[i].matchData.resultInformation.score.final[String(pickedMatchHistoryOranges[i]._id.alliance)]
+			},
+			prediction: 'red',
+			winner: pickedMatchHistoryOranges[i].matchData.resultInformation.winner,
+			gameInformation: pickedMatchHistoryOranges[i].gameData.gameInformation
+		}
+	}
+
+	//Average Scores:
+	var averageScores = []
+
+	for (var i = 0; i < pickedRankingOranges.length; i++) {
+		//pickedRankingOranges[i]
+		//using picked RankingOrangees to have a team list
+		averageScores[i] = {
+			teamNumber: pickedRankingOranges[i]._id,
+			teamName: pickedRankingOranges[i].teamName,
+			averageScore: 			calculatedJuice.offensiveOranges		.juice[String(pickedRankingOranges[i]._id)],	//Maybe it dont need String()
+			averageMarginalScore: 	calculatedJuice.marginalOranges			.juice[String(pickedRankingOranges[i]._id)],
+			average: {
+				auto: 				calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
+				driver: 			calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
+				end: 				calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
+			},
+			gameAverages: {
+				auto: {
+					jewel:			calculatedJuice.autoJewelOranges		.juice[String(pickedRankingOranges[i]._id)],
+					glyphs:			calculatedJuice.autoGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					keys:			calculatedJuice.autoKeysOranges			.juice[String(pickedRankingOranges[i]._id)],
+					park:			calculatedJuice.autoParkOranges			.juice[String(pickedRankingOranges[i]._id)]
+				},
+				driver: {
+					glyphs:			calculatedJuice.driverGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					rows:			calculatedJuice.driverRowsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					columns:		calculatedJuice.driverColumnsOranges	.juice[String(pickedRankingOranges[i]._id)],
+					cypher:			calculatedJuice.driverCypherOranges		.juice[String(pickedRankingOranges[i]._id)]
+				},
+				end: {
+					relic1:			calculatedJuice.endRelic1Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relic2:			calculatedJuice.endRelic2Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relic3:			calculatedJuice.endRelic3Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relicsUp:		calculatedJuice.endRelicsUpOranges		.juice[String(pickedRankingOranges[i]._id)],
+					balanced:		calculatedJuice.endBalancedOranges		.juice[String(pickedRankingOranges[i]._id)]
+				}
+			}
+		}
+	}
+
+	//Saving it to the dataBase
+	MongoClient.connect(configDB.url, function(err,db){
+		if(err){
+			console.log(err)
+			return
+		}
+		db.collection('eventOut').save(
+			{
+				_id: orchard,	//orcahrd is toaeventkey
+				lastUpdated: new Date(), //Time of insert/update
+				ranking: ranking,
+				matchHistory: matchHistory,
+				averageScores: averageScores
+			},
+			function(err, result){
+				if(err){
+					orangeStandMenu('Failure')
+					console.log(err)
+					db.close()
+					return
+				}else{
+					if(result.result.ok == 1){
+						console.log('Operation orangeStand time(Milliseconds):',new Date(new Date()-standTime).getMilliseconds())
+						console.log('[DONE]-orangeStand')
+						orangeStandMenu('Sucess')
+						db.close()
+					}else{
+						orangeStandMenu('Failure 2.0')
+						db.close()
+					}
+				}
+			}
+		)
+	})
 }
-
 
 module.exports = {
 	orangeStand: orangeStand

@@ -20,7 +20,7 @@ function getData() {
 		let matchDatas = {}
 		let gameDatas = {red: {}, blue: {}}
 		for (let eventKey of eventKeys) {
-			db.collection('events').findOne({'_id.toaEventKey': eventKey}, function(err, data) {
+			db.collection('events').findOne({'_id': eventKey}, function(err, data) {
 				if (err) throw err
 				let eventInformation = null
 				if (data) {
@@ -63,7 +63,7 @@ function getData() {
 
 							let matchData = {
 								_id:{
-									eventInformation: eventInformation,
+									toaEventKey: eventKey,
 									matchInformation:{
 										matchNumber: Number(matchNumber),
 										teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
@@ -113,7 +113,7 @@ function getData() {
 								for (let alliance of ['red', 'blue']) {
 									let gameData = {
 										_id:{
-											eventInformation: eventInformation,
+											toaEventKey: eventKey,
 											matchInformation:{
 												matchNumber: matchNumber,
 												robotAlliance: alliance, //blue or red; with lower case
