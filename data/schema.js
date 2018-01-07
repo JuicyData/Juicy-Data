@@ -199,6 +199,7 @@
 				final: 123
 			},
 			prediction: 'abc', //Which alliance will win; CHANGE THIS SCHEMA LATTER!!!!!
+			winner: 'abc', //blue or red
 			gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
 				auto:{
 					jewel: 123,
