@@ -30,22 +30,21 @@ function orangeFarm(orchard, farmReport){
 	//Ranking; I know this is a nexted callbacks but its really cool looking rn
 	orangePicker.orangePickerRanking(orchard, function(pickedRankingOranges){
 	orangePicker.orangePickerAverageScores(orchard, function(pickedAvergeScoresOranges){
+	orangePicker.orangePickerMatchHistory(orchard, function(pickedMatchHistoryOranges){
 		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOffensiveOranges, peeledMarginalOranges){
 			juicyCalculator(peeledOffensiveOranges, function(calculatedOffensiveJuice){
 			juicyCalculator(peeledMarginalOranges, function(calculatedMarginalJuice){
-				//console.log('calculatedOffensiveJuice', calculatedOffensiveJuice)
-				//console.log('calculatedMarginalJuice',calculatedMarginalJuice)
-				//console.log(pickedRankingOranges)
 				var calculatedJuice = {
 					calculatedOffensiveJuice: calculatedOffensiveJuice,
 					calculatedMarginalJuice: calculatedMarginalJuice
 				}
-				orangeStand.orangeStand(orchard, pickedRankingOranges, calculatedJuice, function(report){
+				orangeStand.orangeStand(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
 					farmReport(report) //This is done
 				})
 			})
 			})
 		})
+	})
 	})
 	})
 
