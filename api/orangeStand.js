@@ -68,10 +68,10 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 	// 	]
 	// }
 
-	console.log('orchard', orchard)
-	console.log('pickedRankingOranges', pickedRankingOranges)
-	console.log('calculatedJuice', calculatedJuice)
-	console.log('pickedMatchHistoryOranges',pickedMatchHistoryOranges[0].gameData)
+	//console.log('orchard', orchard)
+	//console.log('pickedRankingOranges', pickedRankingOranges)
+	//console.log('calculatedJuice', calculatedJuice)
+	//console.log('pickedMatchHistoryOranges',pickedMatchHistoryOranges[0].gameData)
 
 	//Rankings:
 	var ranking = []
@@ -81,7 +81,7 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 		ranking[i] = {
 			rank: i+1,
 			teamNumber: pickedRankingOranges[i]._id,
-			teamName: 'Anna Li', //Will get the thing latter
+			teamName: pickedRankingOranges[i].teamName,
 			record: {
 				wins: pickedRankingOranges[i].wins,
 				losses: pickedRankingOranges[i].losses,
@@ -116,12 +116,12 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 			alliance: pickedMatchHistoryOranges[i]._id.alliance,
 			team1: {
 				teamNumber: pickedMatchHistoryOranges[i].teams.team1,
-				teamName: 'Anna Li',
+				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1)].teamName,
 				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1)].rank
 			},
 			team2: {
 				teamNumber: pickedMatchHistoryOranges[i].teams.team2,
-				teamName: 'Anna Li',
+				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2)].teamName,
 				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2)].rank
 			},
 			result: {
@@ -143,7 +143,7 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 		//using picked RankingOrangees to have a team list
 		averageScores[i] = {
 			teamNumber: pickedRankingOranges[i]._id,
-			teamName: 'Anna Li',
+			teamName: pickedRankingOranges[i].teamName,
 			averageScore: 			calculatedJuice.offensiveOranges		.juice[String(pickedRankingOranges[i]._id)],	//Maybe it dont need String()
 			averageMarginalScore: 	calculatedJuice.marginalOranges			.juice[String(pickedRankingOranges[i]._id)],
 			average: {
