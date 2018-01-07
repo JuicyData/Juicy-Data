@@ -129,7 +129,115 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 }
 
 function orangePickerMatchHistory(orchard, oranges){
+	//Gets all the stuff for match history using schedule and gamedata
+	console.log('[START]-orangePickerMatchHistory')
+	var pickerTimer = new Date()
+	MongoClient.connect(configDB.url, function(err,db){
+		//If there is an error while connecting to the database
+		if(err){
+			console.log(err)
+			return
+		}
 
+		//Make the schedule and matchData.....
+		db.collection('schedules').aggregate([
+			{$match:{'_id':orchard}},
+			{$unwind:'$schedule'},
+			{$facet:{
+				red:[
+					{$project:{
+						_id: {
+							matchNumber: '$schedule.matchNumber',
+							alliance: 'red'
+						},
+						teams: {
+							team1:'$schedule.teams.red1',
+							team2:'$schedule.teams.red2'
+						}
+					}}
+				],
+				blue:[
+					{$project:{
+						_id: {
+							matchNumber: '$schedule.matchNumber',
+							alliance: 'blue'
+						},
+						teams: {
+							team1:'$schedule.teams.blue1',
+							team2:'$schedule.teams.blue2'
+						}
+					}}
+				]
+			}},
+			{$project:{
+				schedule: {
+					$concatArrays: [
+						'$red',
+						'$blue'
+					]
+				}
+			}},
+			{$unwind:'$schedule'},
+			{$replaceRoot:{
+				newRoot: '$schedule'
+			}},
+			{$lookup:{
+				from:'gameData',
+				let: {matchNumber: '$_id.matchNumber', alliance: '$_id.alliance'},
+				pipeline: [
+					{$match:{$expr:{$and:[
+						{$eq: ['$_id.toaEventKey', orchard]},
+						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']},
+						{$eq: ['$_id.matchInformation.robotAlliance', '$$alliance']}
+					]}}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'gameData'
+			}},
+			{$unwind:'$gameData'},
+			{$lookup:{
+				from:'matchData',
+				let: {matchNumber: '$_id.matchNumber'},
+				pipeline: [
+					{$match:{$expr:{$and:[
+						{$eq: ['$_id.toaEventKey', orchard]},
+						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']}
+					]}}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'matchData'
+			}},
+			{$unwind:'$matchData'}
+		], matchHistory)
+
+		// {
+		// 	_id: {
+		// 		matchNumber: 123,
+		// 		alliance: 'abc' //blue or red
+		// 	},
+		// 	teams: {
+		// 		team1: 123,
+		// 		team2: 123
+		// 	},
+		// 	gameData: //Game Data
+		// }
+
+		//Callback; the function that runs after the dataase gives a responce
+		function matchHistory(err, pickedOranges){
+			console.log('Operation orangePickerMatchHistory time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
+			console.log('[DONE]-orangePickerMatchHistory')
+			db.close()
+			if(err){
+				console.log(err)
+			}else if(!(0 in pickedOranges)){
+				console.log('Failed to get docs')
+			}else{
+				oranges(pickedOranges)	//All is good; this is call back
+			}
+		}
+	})
 }
 
 function orangePickerAverageScores(orchard, oranges){
