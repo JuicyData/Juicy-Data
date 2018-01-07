@@ -8,7 +8,13 @@ var toaApi = axios.create({
 	timeout: 10000,
 	headers: {'X-Application-Origin': 'JuicyData', 'X-TOA-Key': apiKey}
 })
-var eventKeys = ['1718-NCAL-RWC'] //Currently ongoing events
+var eventKeys = [
+	'1718-NCAL-RWC',
+
+	'1718-FIM-CMP1',	//team 5386
+	'1718-FIM-MARY',
+	'1718-FIM-GLBR'
+	] //Currently ongoing events
 
 module.exports = function() {
 	getData()
