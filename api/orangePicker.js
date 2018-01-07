@@ -114,6 +114,32 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 			{$sort:{
 				qualifyingPoints: -1,	//Sorting by QP then RP
 				rankingPoints: -1
+			}},
+			{$lookup:{
+				from:'teams',
+				let: {teamNumber: '$_id'},
+				pipeline: [
+					{$match:{$expr:
+						{$eq: ['$_id', '$$teamNumber']}
+					}},
+					{$project:{
+						_id:0,
+						team_name_short:1
+					}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'teamName'
+			}},
+			{$unwind:'$teamName'},
+			{$project:{
+				_id: '$_id',
+				wins: '$wins',
+				losses: '$losses',
+				ties: '$ties',
+				rankingPoints: '$rankingPoints',
+				qualifyingPoints: '$qualifyingPoints',
+				teamName: {$arrayElemAt: [{$split: ['$teamName.team_name_short', ', Team #']},0]}
 			}}
 		],function(err,pickedOranges){
 			console.log('Operation orangePickerRanking time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
