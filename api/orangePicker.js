@@ -272,25 +272,80 @@ function orangePickerAverageScores(orchard, oranges){
 				// foreignField:'matchInformation.matchNumber',
 				as:'matchData'
 			}},
-			{$unwind:'$matchData'}, //Maybe Uncomment
-			{$project:{
-				_id:0,
-				teamsScore:[
-					{
-						//teams:['$schedule.teams.red1','$schedule.teams.red2'],
-						team1:'$schedule.teams.red1',
-						team2:'$schedule.teams.red2',
-						score:'$matchData.resultInformation.score.total.red',
-						marginalScore:{$subtract:['$matchData.resultInformation.score.total.red', '$matchData.resultInformation.score.total.blue']}
-					},
-					{
-						//teams:['$schedule.teams.blue1','$schedule.teams.blue2'],
-						team1:'$schedule.teams.blue1',
-						team2:'$schedule.teams.blue2',
-						score:'$matchData.resultInformation.score.total.blue',
-						marginalScore:{$subtract:['$matchData.resultInformation.score.total.blue', '$matchData.resultInformation.score.total.red']}
-					}
+			{$unwind:'$matchData'},
+			{$lookup:{
+				from:'gameData',
+				let: {matchNumber: '$schedule.matchNumber', toaEventKey: '$_id'},
+				pipeline: [
+					{$match:{$expr:{$and:[
+						{$eq: ['$_id.toaEventKey', '$$toaEventKey']},
+						{$eq: ['$_id.matchInformation.matchNumber', '$$matchNumber']}
+					]}}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'gameData'
+			}},
+			{$unwind:'$gameData'},
+			{$facet:{
+				red:[
+					{$match:{
+						'gameData._id.matchInformation.robotAlliance': 'red'
+					}},
+					{$project:{
+						_id:0,
+						teamsScore:{
+							//teams:['$schedule.teams.red1','$schedule.teams.red2'],
+							team1:'$schedule.teams.red1',
+							team2:'$schedule.teams.red2',
+							score: {
+								auto: '$matchData.resultInformation.score.auto.red',
+								driver: '$matchData.resultInformation.score.driver.red',
+								end: '$matchData.resultInformation.score.end.red',
+								total: '$matchData.resultInformation.score.total.red',
+								penalty: '$matchData.resultInformation.score.penalty.red',
+								final: '$matchData.resultInformation.score.final.red',
+								marginalScore: {$subtract:['$matchData.resultInformation.score.total.red', '$matchData.resultInformation.score.total.blue']}
+							},
+							gameData: '$gameData.gameInformation'
+						}
+					}}
+				],
+				blue:[
+					{$match:{
+						'gameData._id.matchInformation.robotAlliance': 'blue'
+					}},
+					{$project:{
+						_id:0,
+						teamsScore:{
+							//teams:['$schedule.teams.blue1','$schedule.teams.blue2'],
+							team1:'$schedule.teams.blue1',
+							team2:'$schedule.teams.blue2',
+							score: {
+								auto: '$matchData.resultInformation.score.auto.blue',
+								driver: '$matchData.resultInformation.score.driver.blue',
+								end: '$matchData.resultInformation.score.end.blue',
+								total: '$matchData.resultInformation.score.total.blue',
+								penalty: '$matchData.resultInformation.score.penalty.blue',
+								final: '$matchData.resultInformation.score.final.blue',
+								marginalScore: {$subtract:['$matchData.resultInformation.score.total.blue', '$matchData.resultInformation.score.total.red']}
+							},
+							gameData: '$gameData.gameInformation'
+						}
+					}}
 				]
+			}},
+			{$project:{
+				combinedArrays: {
+					$concatArrays: [
+						'$red',
+						'$blue'
+					]
+				}
+			}},
+			{$unwind:'$combinedArrays'},
+			{$replaceRoot:{
+				newRoot: '$combinedArrays'
 			}},
 			{$unwind:'$teamsScore'},
 			{$facet:{
@@ -299,7 +354,7 @@ function orangePickerAverageScores(orchard, oranges){
 						//teams:'$teamsScore.teams',
 						teams:['$teamsScore.team1','$teamsScore.team2'],
 						score:'$teamsScore.score',
-						marginalScore:'$teamsScore.marginalScore'
+						gameData: '$teamsScore.gameData'
 					}
 				}],
 				teamList:[
@@ -321,8 +376,20 @@ function orangePickerAverageScores(orchard, oranges){
 		// 	teamsScore: [
 		// 		{
 		// 			teams:[123,123], Team numbers
-		// 			score:[123] score these teams got
-		//			marginalScore:[123] the marginalScore thses teams got
+		// 			score:{
+		// 				auto: 123,
+		// 				driver: 123,
+		// 				end: 123,
+		// 				total: 123,
+		// 				penalty: 123,
+		// 				final: 123,
+		// 				marginalScore: 123
+		// 			}, scores these teams got
+		// 			gameData:{
+		// 				auto:{},
+		// 				driver:{},
+		// 				end:{}
+		// 			}	All the game elements 
 		// 		}
 		// 	],
 		// 	teamList:[123,123,123,] Team numbers unique list
