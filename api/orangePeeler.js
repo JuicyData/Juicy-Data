@@ -25,14 +25,76 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 	// 	teamList:[123,123,123,] Team numbers unique list
 	// }
 
-	var pickedOrange = pickedOranges[0]
+	var pickedOrange = {
+		teamsScore: [],
+		teamsList: pickedOranges[0].teamsList
+	}
 	//If threre are no errors then:
 
 	var peeledOrangeBasket = []	//Contains all the peeled genericOrangeTemplate
 
+	//Converting all the keys into other keys
+	for (var i = 0; i < pickedOranges[0].teamsScore.length; i++) {
+		//pickedOranges[0].teamsScore[i]
+		pickedOrange.teamsScore[i] = {
+			teams: pickedOranges[0].teamsScore[i].teams,
+			//This is converstion factor GENERTIC
+			scoreAuto: 			pickedOranges[0].teamsScore[i].		score.auto,
+			scoreDriver: 		pickedOranges[0].teamsScore[i].		score.driver,
+			scoreEnd: 			pickedOranges[0].teamsScore[i].		score.end,
+			scoreTotal: 		pickedOranges[0].teamsScore[i].		score.total,
+			scorePenalty: 		pickedOranges[0].teamsScore[i].		score.penalty,
+			scoreFinal: 		pickedOranges[0].teamsScore[i].		score.final,
+			scoreMarginalScore: pickedOranges[0].teamsScore[i].		score.marginalScore,
+			//This is conversion factor UNIQUE TO SEASON
+			autoJewel: 			pickedOranges[0].teamsScore[i].		gameData.auto.jewel,
+			autoGlyphs: 		pickedOranges[0].teamsScore[i].		gameData.auto.glyphs,
+			autoKeys: 			pickedOranges[0].teamsScore[i].		gameData.auto.keys,
+			autoPark: 			pickedOranges[0].teamsScore[i].		gameData.auto.park,
+
+			driverGlyphs: 		pickedOranges[0].teamsScore[i].		gameData.driver.glyphs,
+			driverRows: 		pickedOranges[0].teamsScore[i].		gameData.driver.rows,
+			driverColumns: 		pickedOranges[0].teamsScore[i].		gameData.driver.columns,
+			driverCypher: 		pickedOranges[0].teamsScore[i].		gameData.driver.cypher,
+
+			endRelic1: 			pickedOranges[0].teamsScore[i].		gameData.end.relic1,
+			endRelic2: 			pickedOranges[0].teamsScore[i].		gameData.end.relic2,
+			endRelic3: 			pickedOranges[0].teamsScore[i].		gameData.end.relic3,
+			endRelicsUp: 		pickedOranges[0].teamsScore[i].		gameData.end.relicsUp,
+			endBalanced: 		pickedOranges[0].teamsScore[i].		gameData.end.balanced
+		}
+	}
+
+	console.log('pickedOrange',pickedOrange)
+
 	var orangeConversionFactor = [	//Helps convert oranges into generic form
-		['offensiveOranges', 'total'],
-		['marginalOranges', 'marginalScore']
+		//GENERIC CONVERSION:
+		['scoreAutoOranges'			,		'scoreAuto'				],
+		['scoreDriverOranges'		,		'scoreDriver'			],
+		['scoreEndOranges'			,		'scoreEnd'				],
+		//['scoreTotalOranges'		,		'scoreTotal'			],
+		['offensiveOranges'			, 		'scoreTotal'			],
+		['scorePenaltyOranges'		,		'scorePenalty'			],
+		['scoreFinalOranges'		,		'scoreFinal'			],
+		//['scoreMarginalScore'		, 		'scoreMarginalScore'	],
+		['marginalOranges'			, 		'scoreMarginalScore'	],
+
+		//concersion UNIQUE TO SEASON
+		['autoJewelOranges'			,		'autoJewel'				],
+		['autoGlyphsOranges'		,		'autoGlyphs'			],
+		['autoKeysOranges'			,		'autoKeys'				],
+		['autoParkOranges'			,		'autoPark'				],
+
+		['driverGlyphsOranges'		,		'driverGlyphs'			],
+		['driverRowsOranges'		,		'driverRows'			],
+		['driverColumnsOranges'		,		'driverColumns'			],
+		['driverCypherOranges'		,		'driverCypher'			],
+
+		['endRelic1Oranges'			,		'endRelic1'				],
+		['endRelic2Oranges'			,		'endRelic2'				],
+		['endRelic3Oranges'			,		'endRelic3'				],
+		['endRelicsUpOranges'		,		'endRelicsUp'			],
+		['endBalancedOranges'		,		'endBalanced'			]
 	]
 
 	var peelerTimer = new Date()
@@ -45,7 +107,7 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 			result: []
 		}	//Get a fresh template
 		for (var j = pickedOrange.teamsScore.length - 1; j >= 0; j--) {	//May be backwards bc of this
-			tempOrange.result.push([pickedOrange.teamsScore[j]['score'][orangeConversionFactor[i][1]]])	//FIX LATTer
+			tempOrange.result.push([pickedOrange.teamsScore[j][orangeConversionFactor[i][1]]])	//FIX LATTer
 			tempOrange.juice[j] = []
 			for (var k = tempOrange.labels.length - 1; k >= 0; k--) {
 				tempOrange.juice[j][k] = pickedOrange.teamsScore[j].teams[0] == tempOrange.labels[k] || pickedOrange.teamsScore[j].teams[1] == tempOrange.labels[k]?1:0
