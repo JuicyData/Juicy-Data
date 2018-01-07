@@ -68,10 +68,10 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 	// 	]
 	// }
 
-	// console.log('orchard', orchard)
-	// console.log('pickedRankingOranges', pickedRankingOranges)
-	// console.log('calculatedJuice', calculatedJuice)
-	// console.log('pickedMatchHistoryOranges',pickedMatchHistoryOranges[0].gameData)
+	console.log('orchard', orchard)
+	console.log('pickedRankingOranges', pickedRankingOranges)
+	console.log('calculatedJuice', calculatedJuice)
+	console.log('pickedMatchHistoryOranges',pickedMatchHistoryOranges[0].gameData)
 
 	//Rankings:
 	var ranking = []
@@ -92,9 +92,9 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 			averageScore: calculatedJuice.offensiveOranges.juice[String(pickedRankingOranges[i]._id)],
 			averageMarginalScore: calculatedJuice.marginalOranges.juice[String(pickedRankingOranges[i]._id)],
 			average:{
-				auto: 01,
-				driver: 22,
-				end: 99
+				auto: 		calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
+				driver: 	calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
+				end: 		calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
 			}
 		}
 	}
@@ -138,9 +138,42 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 	//Average Scores:
 	var averageScores = []
 
-	// for (var i = 0; i < Things.length; i++) {
-	// 	Things[i]
-	// }
+	for (var i = 0; i < pickedRankingOranges.length; i++) {
+		//pickedRankingOranges[i]
+		//using picked RankingOrangees to have a team list
+		averageScores[i] = {
+			teamNumber: pickedRankingOranges[i]._id,
+			teamName: 'Anna Li',
+			averageScore: 			calculatedJuice.offensiveOranges		.juice[String(pickedRankingOranges[i]._id)],	//Maybe it dont need String()
+			averageMarginalScore: 	calculatedJuice.marginalOranges			.juice[String(pickedRankingOranges[i]._id)],
+			average: {
+				auto: 				calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
+				driver: 			calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
+				end: 				calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
+			},
+			gameAverages: {
+				auto: {
+					jewel:			calculatedJuice.autoJewelOranges		.juice[String(pickedRankingOranges[i]._id)],
+					glyphs:			calculatedJuice.autoGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					keys:			calculatedJuice.autoKeysOranges			.juice[String(pickedRankingOranges[i]._id)],
+					park:			calculatedJuice.autoParkOranges			.juice[String(pickedRankingOranges[i]._id)]
+				},
+				driver: {
+					glyphs:			calculatedJuice.driverGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					rows:			calculatedJuice.driverRowsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					columns:		calculatedJuice.driverColumnsOranges	.juice[String(pickedRankingOranges[i]._id)],
+					cypher:			calculatedJuice.driverCypherOranges		.juice[String(pickedRankingOranges[i]._id)]
+				},
+				end: {
+					relic1:			calculatedJuice.endRelic1Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relic2:			calculatedJuice.endRelic2Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relic3:			calculatedJuice.endRelic3Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relicsUp:		calculatedJuice.endRelicsUpOranges		.juice[String(pickedRankingOranges[i]._id)],
+					balanced:		calculatedJuice.endBalancedOranges		.juice[String(pickedRankingOranges[i]._id)]
+				}
+			}
+		}
+	}
 
 	//Saving it to the dataBase
 	MongoClient.connect(configDB.url, function(err,db){
@@ -153,7 +186,8 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 				_id: orchard,	//orcahrd is toaeventkey
 				lastUpdated: new Date(), //Time of insert/update
 				ranking: ranking,
-				matchHistory: matchHistory
+				matchHistory: matchHistory,
+				averageScores: averageScores
 			},
 			function(err, result){
 				if(err){
