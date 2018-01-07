@@ -209,7 +209,10 @@ function orangePickerMatchHistory(orchard, oranges){
 				// foreignField:'matchInformation.matchNumber',
 				as:'matchData'
 			}},
-			{$unwind:'$matchData'}
+			{$unwind:'$matchData'},
+			{$sort:{
+				'_id.matchNumber': 1
+			}}
 		], matchHistory)
 
 		// {
