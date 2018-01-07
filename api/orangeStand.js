@@ -5,7 +5,7 @@ ObjectId = require('mongodb').ObjectID
 
 //This handles putting the data into the database to present onto the website; all this really does is a mongodb insert or update.
 
-var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orangeStandMenu){
+var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, orangeStandMenu){
 	// rankingsJuice requires all the information that goes into the rankings tab in the UI:
 	// 	Team number, team name (not from any spesififc picker or peeler)
 	//	This is ranking information form the ranking picker and peeler ->
@@ -65,11 +65,13 @@ var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orang
 	// 	]
 	// }
 
+	// console.log('orchard', orchard)
+	// console.log('pickedRankingOranges', pickedRankingOranges)
+	// console.log('calculatedJuice', calculatedJuice)
+	// console.log('pickedMatchHistoryOranges',pickedMatchHistoryOranges[0].gameData)
+
 	//Rankings:
 	var ranking = []
-	console.log('orchard', orchard)
-	console.log('pickedRankingOranges', pickedRankingOranges)
-	console.log('calculatedJuice', calculatedJuice)
 
 	for (var i = 0; i < pickedRankingOranges.length; i++) {
 		//pickedRankingOranges[i]
@@ -94,6 +96,42 @@ var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orang
 		}
 	}
 
+	//Match history:
+	var matchHistory = []
+
+	var rankingsJson = {}
+
+	for (var i = 0; i < ranking.length; i++) {
+		//ranking[i]
+		rankingsJson[String(ranking[i].teamNumber)] = ranking[i]
+	}
+
+	for (var i = 0; i < pickedMatchHistoryOranges.length; i++) {
+		//pickedMatchHistoryOranges[i]
+		matchHistory[i] = {
+			matchNumber: pickedMatchHistoryOranges[i]._id.matchNumber,
+			alliance: pickedMatchHistoryOranges[i]._id.alliance,
+			team1: {
+				teamNumber: pickedMatchHistoryOranges[i].teams.team1,
+				teamName: 'Anna Li',
+				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1)].rank
+			},
+			team2: {
+				teamNumber: pickedMatchHistoryOranges[i].teams.team2,
+				teamName: 'Anna Li',
+				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2)].rank
+			},
+			result: {
+				total: pickedMatchHistoryOranges[i].matchData.resultInformation.score.total[String(pickedMatchHistoryOranges[i]._id.alliance)],
+				penalty: pickedMatchHistoryOranges[i].matchData.resultInformation.score.penalty[String(pickedMatchHistoryOranges[i]._id.alliance)],
+				final: pickedMatchHistoryOranges[i].matchData.resultInformation.score.final[String(pickedMatchHistoryOranges[i]._id.alliance)]
+			},
+			prediction: 'red',
+			winner: pickedMatchHistoryOranges[i].matchData.resultInformation.winner,
+			gameInformation: pickedMatchHistoryOranges[i].gameData.gameInformation
+		}
+	}
+
 	MongoClient.connect(configDB.url, function(err,db){
 		if(err){
 			console.log(err)
@@ -103,7 +141,8 @@ var orangeStand = function(orchard, pickedRankingOranges, calculatedJuice, orang
 			{
 				_id: orchard,	//orcahrd is toaeventkey
 				lastUpdated: new Date(), //Time of insert/update
-				ranking: ranking
+				ranking: ranking,
+				matchHistory: matchHistory
 			},
 			function(err, result){
 				if(err){
