@@ -15,7 +15,12 @@ var eventKeys = [
 	'1617-CASD-GAUS', //testing
 	'1718-CASD-TUR', 
 	'1718-CASD-GAUS',
-	'1718-CASD-EUCL']
+	'1718-CASD-EUCL',
+
+	'1718-FIM-CMP1',	//team 5386
+	'1718-FIM-MARY',
+	'1718-FIM-GLBR'
+	]
 
 var forceUpdate = true //Set to true to write to database even if data exists, 
 						//and even if schedule is empty, but you still want the event.
@@ -132,7 +137,7 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 		// _id: eventInformation,
 		_id: event.event_key,
 		eventInformation:{
-			date: event.start_date,
+			date: new Date(event.start_date),
 			eventName: event.event_name,
 			locationName: location ? location.name : null,
 			locationID: location ? location._id : null,
