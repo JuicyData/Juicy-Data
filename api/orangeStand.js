@@ -142,6 +142,7 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 	// 	Things[i]
 	// }
 
+	//Saving it to the dataBase
 	MongoClient.connect(configDB.url, function(err,db){
 		if(err){
 			console.log(err)
