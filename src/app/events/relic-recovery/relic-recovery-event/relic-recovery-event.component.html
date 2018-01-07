@@ -91,24 +91,24 @@
               <tr *ngFor="let matchHistory of data.matchHistory">
                 <td>{{matchHistory.matchNumber}}</td>
                 <td>{{matchHistory.alliance}}</td>
-                <td>{{matchHistory.team1.teamNumber}} {{matchHistory.team2.teamNumber}}</td>
-                <td>{{matchHistory.team1.teamNames}} {{matchHistory.team2.teamNames}}</td>
-                <td>{{matchHistory.team1.rank}} {{matchHistory.team2.rank}}</td>
-                <td>{{matchHistory.result.total}} {{matchHistory.result.penalty}} {{matchHistory.result.final}}</td>
-                <td></td>
-                <td>{{matchHistory.auto.jewel}}</td>
-                <td>{{matchHistory.auto.glyphs}}</td>
-                <td>{{matchHistory.auto.keys}}</td>
-                <td>{{matchHistory.auto.park}}</td>
-                <td>{{matchHistory.driver.glyphs}}</td>
-                <td>{{matchHistory.driver.rows}}</td>
-                <td>{{matchHistory.driver.columns}}</td>
-                <td>{{matchHistory.driver.cypher}}</td>
-                <td>{{matchHistory.end.relic1}}</td>
-                <td>{{matchHistory.end.relic2}}</td>
-                <td>{{matchHistory.end.relic3}}</td>
-                <td>{{matchHistory.end.relicUp}}</td>
-                <td>{{matchHistory.end.balanced}}</td>
+                <td>{{matchHistory.team1.teamNumber}}<br> {{matchHistory.team2.teamNumber}}</td>
+                <td>{{matchHistory.team1.teamNames}}<br> {{matchHistory.team2.teamNames}}</td>
+                <td>{{matchHistory.team1.rank}}<br> {{matchHistory.team2.rank}}</td>
+                <td>{{matchHistory.result.final}}</td>
+                <td>{{matchHistory.prediction}}</td>
+                <td>{{matchHistory.gameInformation.auto.jewel}}</td>
+                <td>{{matchHistory.gameInformation.auto.glyphs}}</td>
+                <td>{{matchHistory.gameInformation.auto.keys}}</td>
+                <td>{{matchHistory.gameInformation.auto.park}}</td>
+                <td>{{matchHistory.gameInformation.driver.glyphs}}</td>
+                <td>{{matchHistory.gameInformation.driver.rows}}</td>
+                <td>{{matchHistory.gameInformation.driver.columns}}</td>
+                <td>{{matchHistory.gameInformation.driver.cypher}}</td>
+                <td>{{matchHistory.gameInformation.end.relic1}}</td>
+                <td>{{matchHistory.gameInformation.end.relic2}}</td>
+                <td>{{matchHistory.gameInformation.end.relic3}}</td>
+                <td>{{matchHistory.gameInformation.end.relicUp}}</td>
+                <td>{{matchHistory.gameInformation.end.balanced}}</td>
               </tr>
             </tbody>
       </table>
