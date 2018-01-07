@@ -30,7 +30,7 @@ function orangeFarm(orchard, farmReport){
 	orangePicker.orangePickerMatchHistory(orchard, function(pickedMatchHistoryOranges){
 		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOranges){
 			juicyCalculator(peeledOranges, function(calculatedJuice){
-				console.log('calculatedJuice', calculatedJuice)
+				//console.log('calculatedJuice', calculatedJuice)
 				orangeStand.orangeStand(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
 					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())
 					console.log('[DONE]-orangeFarm')
