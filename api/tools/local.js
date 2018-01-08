@@ -1,9 +1,8 @@
 //local by Michael Leonffu
 var math = require('mathjs')
 var juicyCalculator = require('./juicyCalculator')
-// var MongoClient = require('mongodb').MongoClient
-// var configDB = require('./../config/database.js')
-// ObjectId = require('mongodb').ObjectID
+
+//local is a local (one script no DB) independnet OPR caulclator
 
 var orchard = {
 	name: 'Baka',
