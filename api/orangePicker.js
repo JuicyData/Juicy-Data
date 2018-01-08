@@ -177,8 +177,8 @@ function orangePickerMatchHistory(orchard, oranges){
 							alliance: 'red'
 						},
 						teams: {
-							team1:'$schedule.teams.red1',
-							team2:'$schedule.teams.red2'
+							team1:'$schedule.teams.red1.teamNumber',
+							team2:'$schedule.teams.red2.teamNumber'
 						}
 					}}
 				],
@@ -189,8 +189,8 @@ function orangePickerMatchHistory(orchard, oranges){
 							alliance: 'blue'
 						},
 						teams: {
-							team1:'$schedule.teams.blue1',
-							team2:'$schedule.teams.blue2'
+							team1:'$schedule.teams.blue1.teamNumber',
+							team2:'$schedule.teams.blue2.teamNumber'
 						}
 					}}
 				]
@@ -322,8 +322,8 @@ function orangePickerAverageScores(orchard, oranges){
 						_id:0,
 						teamsScore:{
 							//teams:['$schedule.teams.red1','$schedule.teams.red2'],
-							team1:'$schedule.teams.red1',
-							team2:'$schedule.teams.red2',
+							team1:'$schedule.teams.red1.teamNumber',
+							team2:'$schedule.teams.red2.teamNumber',
 							score: {
 								auto: '$matchData.resultInformation.score.auto.red',
 								driver: '$matchData.resultInformation.score.driver.red',
@@ -345,8 +345,8 @@ function orangePickerAverageScores(orchard, oranges){
 						_id:0,
 						teamsScore:{
 							//teams:['$schedule.teams.blue1','$schedule.teams.blue2'],
-							team1:'$schedule.teams.blue1',
-							team2:'$schedule.teams.blue2',
+							team1:'$schedule.teams.blue1.teamNumber',
+							team2:'$schedule.teams.blue2.teamNumber',
 							score: {
 								auto: '$matchData.resultInformation.score.auto.blue',
 								driver: '$matchData.resultInformation.score.driver.blue',
@@ -386,15 +386,24 @@ function orangePickerAverageScores(orchard, oranges){
 				teamList:[
 					{$group:{
 						_id:'Anna Li',
-						teamsList:{$addToSet:'$teamsScore.team1'},
-						teamsList:{$addToSet:'$teamsScore.team2'}
+						teamsList1:{$addToSet:'$teamsScore.team1'},
+						teamsList2:{$addToSet:'$teamsScore.team2'}
+					}},
+					{$project:{
+						_id:0,
+						teamsList: {$concatArrays:['$teamsList1','$teamsList2']}
+					}},
+					{$unwind:'$teamsList'},
+					{$group:{
+						_id:'Anna Li',
+						teamList:{$addToSet:'$teamsList'}
 					}}
 				]
 			}},
 			{$unwind:'$teamList'},
 			{$project:{
 				teamsScore:1,
-				teamsList:'$teamList.teamsList'
+				teamsList:'$teamList.teamList'
 			}}
 		], teamsScores)
 
@@ -431,6 +440,7 @@ function orangePickerAverageScores(orchard, oranges){
 			}else if(!(0 in pickedOranges)){
 				console.log('Failed to get docs')
 			}else{
+				console.log('pickedOranges',pickedOranges)
 				oranges(pickedOranges)	//All is good; this is call back
 			}
 		}
