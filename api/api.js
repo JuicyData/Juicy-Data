@@ -14,7 +14,7 @@ app.get('/api/events/read', (req, res) =>{
 			res.status(500).send(err)
 			return
 		}
-		
+
 		db.collection('eventOut').findOne(
 			{
 				_id: req.query.eventId
@@ -66,7 +66,7 @@ app.get('/api/teams/read', (req, res) =>{
 		// }
 
 		//$eq: req.query.teamNumber
-		
+
 		db.collection('events').aggregate([
 			{$match:{
 				'eventInformation.teamsList': {$elemMatch:{
@@ -168,7 +168,7 @@ app.get('/api/teams/read', (req, res) =>{
 					return
 				}else{
 					if(eventsDocs){ //NEED TO TEST THIS
-						res.json(eventsDocs)
+						res.json(eventsDocs[0])
 						db.close()
 					}else{		// if threre is no documents returned then:
 						res.status(400).send('Events not found')

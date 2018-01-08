@@ -28,30 +28,25 @@ hr1 {
 }
 body {
 	padding-top: 60px;
-	font-family: 'Open Sans', sans-serif;
 }
 h1 {
 	text-align: center;
 	width: 100%;
-	font-family: 'Open Sans', sans-serif;
 	font-size: 30px;
 }
 h2 {
 	text-align: center;
 	width: 100%;
-	font-family: 'Open Sans', sans-serif;
 	font-size: 30px;
 }
 h3 {
 	text-align: center;
 	width: 100%;
-	font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
 }
 h4 {
 	text-align: center;
 	width: 100%;
-	font-family: 'Open Sans', sans-serif;
 	font-size: 30px;
 }
 th {
@@ -77,9 +72,6 @@ a, a.active, a:hover {
 .green {
 	background-color: #26A65B;
 	color: white;
-}
-body {
-	font-family: 'Open Sans', sans-serif;
 }
 html {
 	position: relative;
@@ -137,9 +129,10 @@ html, body {
 }
 
 table.dataTable thead th, table.dataTable thead td {
-  padding: 8px 10px;
+  padding: 12px 10px;
   border-bottom: 1px solid #111;
   font-size: 14px;
+  font-weight: normal;
 }
 
 .match-number {
@@ -148,15 +141,24 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .red-alliance {
-  background-color: #fee
+  background-color: #fdd;
 }
 
 .blue-alliance {
-  background-color: #eef;
+  background-color: #ddf;
+}
+
+.red-score {
+  background-color: #fdd;
+}
+
+.blue-score {
+  background-color: #ddf;
 }
 
 table {
   color: black;
+  border: 1px solid #ddd;
 }
 
 thead {
@@ -179,10 +181,13 @@ tbody {
   background-color: rgba(38, 166, 91, 0.15);
 }
 
-.even {
-  border-bottom: 1px solid red !important;
+
+.bottom-section {
+  border-bottom: 1px solid rgb(165, 165, 165);
 }
 
-.odd {
-  border-top: 1px solid red !important;
+.table-center {
+  vertical-align:middle;
 }
+
+

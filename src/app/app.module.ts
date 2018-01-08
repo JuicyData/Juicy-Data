@@ -23,6 +23,7 @@ import { Casd1718Dlm1Component } from './events/relic-recovery/relic-recovery-ev
 import { Casd1718Glm1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-glm1/casd-1718-glm1.component';
 import { Casd1718Elm1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-elm1/casd-1718-elm1.component';
 import { Casd1718W1Component } from './events/relic-recovery/relic-recovery-event/casd-1718-w1/casd-1718-w1.component';
+import { TeamsComponent } from './teams/teams.component';
 
 const ROUTES = [
   {
@@ -60,6 +61,10 @@ const ROUTES = [
   {
     path: 'events/relic-recovery/:eventID',
     component: RelicRecoveryEventComponent
+  },
+  {
+    path: 'teams/:teamNumber',
+    component: TeamsComponent
   },
   {
     path: '',
@@ -102,7 +107,8 @@ const ROUTES = [
     Casd1718Dlm1Component,
     Casd1718Glm1Component,
     Casd1718Elm1Component,
-    Casd1718W1Component
+    Casd1718W1Component,
+    TeamsComponent
   ],
   imports: [
     DataTablesModule,

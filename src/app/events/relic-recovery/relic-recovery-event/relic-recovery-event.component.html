@@ -34,7 +34,7 @@
             <th class="green">Average</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody>
           <tr *ngFor="let ranking of data.ranking">
             <td>{{ranking.rank}}</td>
             <td>{{ranking.teamNumber}}</td>
@@ -63,51 +63,65 @@
       <span class="key">= End Game Period</span>
 
       <table class="table table-responsive" id="inputTable2" datatable [dtOptions]="dtOptions" *ngIf="data">
-          <thead>
-              <tr>
-                <th>#</th>
-                <th>Team Numbers</th>
-                <th>Team Names</th>
-                <th>Ranks</th>
-                <th>Result</th>
-                <th class="red">Jewel</th>
-                <th class="red">Glyphs</th>
-                <th class="red">Keys</th>
-                <th class="red">Park</th>
-                <th class="blue">Glyphs</th>
-                <th class="blue">Rows</th>
-                <th class="blue">Columns</th>
-                <th class="blue">Cypher</th>
-                <th class="green">Relic 1</th>
-                <th class="green">Relic 2</th>
-                <th class="green">Relic 3</th>
-                <th class="green">Relic Up</th>
-                <th class="green">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let matchHistory of data.matchHistory; index as i" [ngClass]="{'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red'}">
-                <!-- <td class="match-number" rowspan="2" [ngClass]="{'d-none': i%2 !=0}">{{matchHistory.matchNumber}}</td> -->
-                <td>{{matchHistory.matchNumber}}</td>
-                <td>{{matchHistory.team1.teamNumber}}<br> {{matchHistory.team2.teamNumber}}</td>
-                <td>{{matchHistory.team1.teamName}}<br> {{matchHistory.team2.teamName}}</td>
-                <td>{{matchHistory.team1.rank}}<br> {{matchHistory.team2.rank}}</td>
-                <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner}">{{matchHistory.result.final}}</td>
-                <td class="auto">{{matchHistory.gameInformation.auto.jewel}}</td>
-                <td class="auto">{{matchHistory.gameInformation.auto.glyphs}}</td>
-                <td class="auto">{{matchHistory.gameInformation.auto.keys}}</td>
-                <td class="auto">{{matchHistory.gameInformation.auto.park}}</td>
-                <td class="driver">{{matchHistory.gameInformation.driver.glyphs}}</td>
-                <td class="driver">{{matchHistory.gameInformation.driver.rows}}</td>
-                <td class="driver">{{matchHistory.gameInformation.driver.columns}}</td>
-                <td class="driver">{{matchHistory.gameInformation.driver.cypher}}</td>
-                <td class="end">{{matchHistory.gameInformation.end.relic1}}</td>
-                <td class="end">{{matchHistory.gameInformation.end.relic2}}</td>
-                <td class="end">{{matchHistory.gameInformation.end.relic3}}</td>
-                <td class="end">{{matchHistory.gameInformation.end.relicsUp}}</td>
-                <td class="end">{{matchHistory.gameInformation.end.balanced}}</td>
-              </tr>
-            </tbody>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Rank : Team</th>
+            <th>Result</th>
+            <th class="red left-section">Jewel</th>
+            <th class="red">Glyphs</th>
+            <th class="red">Keys</th>
+            <th class="red right-section">Park</th>
+            <th class="blue">Glyphs</th>
+            <th class="blue">Rows</th>
+            <th class="blue">Columns</th>
+            <th class="blue">Cypher</th>
+            <th class="green left-section">Relic 1</th>
+            <th class="green">Relic 2</th>
+            <th class="green">Relic 3</th>
+            <th class="green">Relic Up</th>
+            <th class="green right-section">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let matchHistory of data.matchHistory; index as i">
+            <!-- <td class="match-number" rowspan="2" [ngClass]="{'d-none': i%2 !=0}">{{matchHistory.matchNumber}}</td> -->
+            <td class="table-center" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">{{matchHistory.matchNumber}}</td>
+            <td class="table-center" style="text-align: left" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">
+              {{matchHistory.team1.rank}} : {{matchHistory.team1.teamNumber}} {{matchHistory.team1.teamName}}
+              <br> {{matchHistory.team2.rank}} : {{matchHistory.team2.teamNumber}} {{matchHistory.team2.teamName}}</td>
+            <td class="table-center" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">
+              <span *ngIf="matchHistory.result.final">{{matchHistory.result.final}}</span>
+              <span *ngIf="!matchHistory.result.final">Predicted Winner {{matchHistory.prediction}}</span>
+            </td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="auto table-center">{{matchHistory.gameInformation.auto.jewel}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="auto table-center">{{matchHistory.gameInformation.auto.glyphs}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="auto table-center">{{matchHistory.gameInformation.auto.keys}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="auto table-center">{{matchHistory.gameInformation.auto.park}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="driver table-center">{{matchHistory.gameInformation.driver.glyphs}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="driver table-center">{{matchHistory.gameInformation.driver.rows}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="driver table-center">{{matchHistory.gameInformation.driver.columns}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="driver table-center">{{matchHistory.gameInformation.driver.cypher}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="end table-center">{{matchHistory.gameInformation.end.relic1}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="end table-center">{{matchHistory.gameInformation.end.relic2}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="end table-center">{{matchHistory.gameInformation.end.relic3}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="end table-center">{{matchHistory.gameInformation.end.relicsUp}}</td>
+            <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
+              class="end table-center">{{matchHistory.gameInformation.end.balanced}}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <div style="padding-top: 10px;" id="average-scores" class="tab-pane fade table-responsive">
@@ -148,22 +162,22 @@
             <td>{{averageScores.teamNumber}}</td>
             <td>{{averageScores.teamName}}</td>
             <td>{{averageScores.averageScore}}</td>
-            <td>{{averageScores.average.auto}}</td>
-            <td>{{averageScores.average.driver}}</td>
-            <td>{{averageScores.average.end}}</td>
-            <td>{{averageScores.gameAverages.auto.jewel}}</td>
-            <td>{{averageScores.gameAverages.auto.glyphs}}</td>
-            <td>{{averageScores.gameAverages.auto.keys}}</td>
-            <td>{{averageScores.gameAverages.auto.park}}</td>
-            <td>{{averageScores.gameAverages.driver.glyphs}}</td>
-            <td>{{averageScores.gameAverages.driver.rows}}</td>
-            <td>{{averageScores.gameAverages.driver.columns}}</td>
-            <td>{{averageScores.gameAverages.driver.cypher}}</td>
-            <td>{{averageScores.gameAverages.end.relic1}}</td>
-            <td>{{averageScores.gameAverages.end.relic2}}</td>
-            <td>{{averageScores.gameAverages.end.relic3}}</td>
-            <td>{{averageScores.gameAverages.end.relicsUp}}</td>
-            <td>{{averageScores.gameAverages.end.balanced}}</td>
+            <td class="auto">{{averageScores.average.auto}}</td>
+            <td class="driver">{{averageScores.average.driver}}</td>
+            <td class="end">{{averageScores.average.end}}</td>
+            <td class="auto">{{averageScores.gameAverages.auto.jewel}}</td>
+            <td class="auto">{{averageScores.gameAverages.auto.glyphs}}</td>
+            <td class="auto">{{averageScores.gameAverages.auto.keys}}</td>
+            <td class="auto">{{averageScores.gameAverages.auto.park}}</td>
+            <td class="driver">{{averageScores.gameAverages.driver.glyphs}}</td>
+            <td class="driver">{{averageScores.gameAverages.driver.rows}}</td>
+            <td class="driver">{{averageScores.gameAverages.driver.columns}}</td>
+            <td class="driver">{{averageScores.gameAverages.driver.cypher}}</td>
+            <td class="end">{{averageScores.gameAverages.end.relic1}}</td>
+            <td class="end">{{averageScores.gameAverages.end.relic2}}</td>
+            <td class="end">{{averageScores.gameAverages.end.relic3}}</td>
+            <td class="end">{{averageScores.gameAverages.end.relicsUp}}</td>
+            <td class="end">{{averageScores.gameAverages.end.balanced}}</td>
           </tr>
         </tbody>
       </table>
