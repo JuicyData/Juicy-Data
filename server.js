@@ -7,6 +7,10 @@ var mongoose = require('mongoose');
 var morgan       = require('morgan');
 var bodyParser   = require('body-parser');
 
+var MongoClient = require('mongodb').MongoClient
+var configDB = require('./config/database.js')
+var ObjectId = require('mongodb').ObjectID
+
 mongoose.connection.openUri("mongodb://localhost/TheOrangeAlliance")
   .once('open', () => console.log('Connected to database'))
   .on('error', (error) => {
@@ -19,16 +23,20 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-require('./api/api.js')(app); // load our routes and pass in our app and fully configured passport
+MongoClient.connect(configDB.url, function(err,db){
+	if(err){
+		console.log(err)
+		res.status(500).send(err)
+		return
+	}else{
+		require('./api/api.js')(app, db, ObjectId); // load our routes and pass in our app
+	}
+})
 
-app.use(express.static(path.join(__dirname, 'dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
-
-// require('./data/locationsAndEvents.js')()
-// require('./api/locationsAndEventsAndSchedules.js')()
-require('./api/matchAndGameData.js')()
+// app.use(express.static(path.join(__dirname, 'dist')));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'dist/index.html'));
+// });
 
 app.listen(port);
 console.log('Server started on port ' + port);

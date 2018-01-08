@@ -6,7 +6,6 @@ app.get('/api', function(req, res) {
 })
 
 app.get('/api/events/read', (req, res) =>{
-	console.log('Anna Li')
 	db.collection('eventOut').findOne(
 		{
 			_id: req.query.eventId
