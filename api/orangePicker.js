@@ -27,64 +27,118 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 		}
 		db.collection('matchData').aggregate([
 			{$match:{'_id.toaEventKey':orchard}},
+			{$lookup:{
+				from:'schedules',
+				let: {matchNumber: '$_id.matchInformation.matchNumber', toaEventKey: '$_id.toaEventKey'},
+				pipeline: [
+					{$match:{$expr:
+						{$eq: ['$_id', '$$toaEventKey']}
+					}},
+					{$unwind:'$schedule'},
+					{$match:{$expr:
+						{$eq: ['$schedule.matchNumber', '$$matchNumber']}
+					}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'schedules'
+			}},
+			{$unwind:'$schedules'},
+			{$addFields:{
+				teams: '$schedules.schedule.teams'
+			}},
 			{$facet:{	//There IS a better way to do this QQ
 				red:[
 					{$project:{
-						teams:['$_id.matchInformation.teams.red1','$_id.matchInformation.teams.red2'],
+						teams:['$teams.red1','$teams.red2'],
 						score:'$resultInformation'
 					}},
 					{$unwind:'$teams'},
 					{$group:{
-						_id:'$teams',
+						_id:'$teams.teamNumber',
 						wins:{$sum:{$cond:[
-							{$eq:['red','$score.winner']},
+							{$and:[
+								{$eq:['red','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
 						losses:{$sum:{$cond:[
-							{$eq:['blue','$score.winner']},	//Since this is focusing on the red teams
+							{$and:[
+								{$eq:['blue','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},	//Since this is focusing on the red teams
 							1,	//True case
 							0	//False case
 						]}},
 						ties:{$sum:{$cond:[
-							{$eq:['tie','$score.winner']},
+							{$and:[
+								{$eq:['tie','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
+						// rankingPoints:{$sum:{$cond:[
+						// 	{$and:[
+						// 		{$eq:['red','$score.winner']},
+						// 		{$eq:[false,'$teams.surrogate']}
+						// 	]},	//This is unbias
+						// 	'$score.score.total.blue',	//True case; If red wins then take blue total score
+						// 	'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+						// ]}}
 						rankingPoints:{$sum:{$cond:[
-							{$eq:['red','$score.winner']},	//This is unbias
-							'$score.score.total.blue',	//True case; If red wins then take blue total score
-							'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+							{$eq:[false,'$teams.surrogate']},
+							{$cond:[
+								{$eq:['red','$score.winner']}, //This is unbias
+								'$score.score.total.blue',	//True case; If red wins then take blue total score
+								'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+							]},
+							0
 						]}}
 					}}
 				],
 				blue:[
 					{$project:{
-						teams:['$_id.matchInformation.teams.blue1','$_id.matchInformation.teams.blue2'],
+						teams:['$teams.blue1','$teams.blue2'],
 						score:'$resultInformation'
 					}},
 					{$unwind:'$teams'},
 					{$group:{
-						_id:'$teams',
+						_id:'$teams.teamNumber',
 						wins:{$sum:{$cond:[
-							{$eq:['blue','$score.winner']},
+							{$and:[
+								{$eq:['blue','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
 						losses:{$sum:{$cond:[
-							{$eq:['red','$score.winner']},	//Since this is focusing on the red teams
+							{$and:[
+								{$eq:['red','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},	//Since this is focusing on the red teams
 							1,	//True case
 							0	//False case
 						]}},
 						ties:{$sum:{$cond:[
-							{$eq:['tie','$score.winner']},
+							{$and:[
+								{$eq:['tie','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
-						rankingPoints:{$sum:{$cond:[	//CHECK IF THIS IS TOTAL SCORE OR FINAL SCORE!
-							{$eq:['red','$score.winner']},	//This is unbias
-							'$score.score.total.blue',	//True case; If red wins then take blue total score
-							'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+						rankingPoints:{$sum:{$cond:[
+							{$eq:[false,'$teams.surrogate']},
+							{$cond:[
+								{$eq:['red','$score.winner']}, //This is unbias
+								'$score.score.total.blue',	//True case; If red wins then take blue total score
+								'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+							]},
+							0
 						]}}
 					}}
 				]
@@ -104,6 +158,14 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 				// 	'$ties'
 				// ]},	//Ties represent 1 point while wins represent 2 points
 				rankingPoints:{$sum:'$rankingPoints'}
+				// rankingPoints:{$sum:{$cond:[
+				// 	{$and:[
+				// 		{$eq:['red','$score.winner']},
+				// 		{$eq:[false,'$teams.surrogate']}
+				// 	]},	//This is unbias
+				// 	'$score.score.total.blue',	//True case; If red wins then take blue total score
+				// 	'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+				// ]}}
 			}},
 			{$addFields:{
 				qualifyingPoints:{$sum:[
