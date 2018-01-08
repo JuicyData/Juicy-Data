@@ -130,19 +130,19 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 			teams: {
 				red1: {
 					teamNumber: Number(matchTeams[0]),
-					surrogate: matchStatus[0] === 0
+					surrogate: Number(matchStatus[0]) === 0
 				},
 				red2: {
 					teamNumber: Number(matchTeams[1]),
-					surrogate: matchStatus[1] === 0
+					surrogate: Number(matchStatus[1]) === 0
 				},
 				blue1: {
 					teamNumber: Number(matchTeams[2]),
-					surrogate: matchStatus[2] === 0
+					surrogate: Number(matchStatus[2]) === 0
 				},
 				blue2: {
 					teamNumber: Number(matchTeams[3]),
-					surrogate: matchStatus[3] === 0
+					surrogate: Number(matchStatus[3]) === 0
 				}
 			}
 		})
