@@ -13,9 +13,9 @@ var toaApi = axios.create({
 var eventKeys = [
 	'1718-NCAL-RWC', //testing
 	'1617-CASD-GAUS', //testing
-	'1718-CASD-TUR', 
-	'1718-CASD-GAUS',
-	'1718-CASD-EUCL',
+	//'1718-CASD-TUR', //Bad events
+	//'1718-CASD-GAUS',
+	//'1718-CASD-EUCL',
 
 	'1718-FIM-CMP1',	//team 5386
 	'1718-FIM-MARY',
