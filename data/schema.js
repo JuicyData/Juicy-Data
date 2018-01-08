@@ -147,7 +147,7 @@
 	}
 }
 
-//in collection 'eventOut' INCOMPLETE
+//in collection 'eventOut'
 {
 	_id: 'abc', //toaEventKey
 	lastUpdated: ISODate(), //Time of insert/update
@@ -179,12 +179,14 @@
 			team1:{
 				teamNumber: 123,
 				teamName: 'abc',
-				rank: 123
+				rank: 123,
+				surrogate: false //true if the team is playing as surrogate
 			},
 			team2:{
 				teamNumber: 123,
 				teamName: 'abc',
-				rank: 123
+				rank: 123,
+				surrogate: false
 			},
 			result:{
 				total: 123,
