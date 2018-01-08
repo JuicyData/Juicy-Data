@@ -141,3 +141,48 @@ table.dataTable thead th, table.dataTable thead td {
   border-bottom: 1px solid #111;
   font-size: 14px;
 }
+
+.match-number {
+  background-color: white;
+  vertical-align: middle;
+}
+
+.red-alliance {
+  background-color: #fee
+}
+
+.blue-alliance {
+  background-color: #eef;
+}
+
+table {
+  color: black;
+}
+
+thead {
+  background-color: #faa86f;
+  color: white;
+}
+tbody {
+  font-size: 0.875rem;
+}
+
+.auto {
+  background-color: rgba(236, 100, 75, 0.15);
+}
+
+.driver {
+  background-color:rgba(65, 131, 215, 0.15);
+}
+
+.end {
+  background-color: rgba(38, 166, 91, 0.15);
+}
+
+.even {
+  border-bottom: 1px solid red !important;
+}
+
+.odd {
+  border-top: 1px solid red !important;
+}

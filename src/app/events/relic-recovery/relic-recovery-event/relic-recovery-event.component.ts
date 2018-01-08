@@ -26,13 +26,12 @@ export class RelicRecoveryEventComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.eventID = params['eventID'];
+      this.getData();
     });
-
-    this.getData();
   }
 
   getData() {
-    this.http.get('/api/').subscribe(
+    this.http.get('/api/events/read?eventId=' + this.eventID).subscribe(
       data => {
         this.data = data;
       },

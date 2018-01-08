@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-require('./api/routes.js')(app); // load our routes and pass in our app and fully configured passport
+require('./api/api.js')(app); // load our routes and pass in our app and fully configured passport
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', (req, res) => {
@@ -27,8 +27,8 @@ app.get('*', (req, res) => {
 });
 
 // require('./data/locationsAndEvents.js')()
-require('./api/locationsAndEventsAndSchedules.js')()
-// require('./api/matchAndGameData.js')()
+// require('./api/locationsAndEventsAndSchedules.js')()
+require('./api/matchAndGameData.js')()
 
 app.listen(port);
 console.log('Server started on port ' + port);

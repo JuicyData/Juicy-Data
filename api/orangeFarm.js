@@ -20,48 +20,47 @@ which is sold by the orange stand
 function orangeFarm(orchard, farmReport){
 	//MAYBE ADD A ORCHARD CHECKER HERE!; though manager should know if it exsists or not anyways
 
-	// orchard should be in this form:
-	// {
-	// 	name: 'abc',
-	// 	date: ISODate(), //ISO Date of when it occured; 
-	// 	locationID: ObjectId() //ID of the location in the 'places' collection
-	// }
+	// orchard should be in this form of a TOA event key as a string 
 
-	//Ranking; I know this is a nexted callbacks but its really cool looking rn
+	//I know this is a nested callbacks but its really cool looking rn
+	console.log('[START]-orangeFarm')
+	var farmTimer = new Date()
 	orangePicker.orangePickerRanking(orchard, function(pickedRankingOranges){
 	orangePicker.orangePickerAverageScores(orchard, function(pickedAvergeScoresOranges){
-		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOffensiveOranges, peeledMarginalOranges){
-			juicyCalculator(peeledOffensiveOranges, function(calculatedOffensiveJuice){
-			juicyCalculator(peeledMarginalOranges, function(calculatedMarginalJuice){
-				//console.log('calculatedOffensiveJuice', calculatedOffensiveJuice)
-				//console.log('calculatedMarginalJuice',calculatedMarginalJuice)
-				//console.log(pickedRankingOranges)
-				var calculatedJuice = {
-					calculatedOffensiveJuice: calculatedOffensiveJuice,
-					calculatedMarginalJuice: calculatedMarginalJuice
-				}
-				orangeStand.orangeStand(orchard, pickedRankingOranges, calculatedJuice, function(report){
-					farmReport('Stuff happens here') //This is done
+	orangePicker.orangePickerMatchHistory(orchard, function(pickedMatchHistoryOranges){
+		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOranges){
+			juicyCalculator(peeledOranges, function(calculatedJuice){
+				console.log('calculatedJuice', calculatedJuice)
+				orangeStand.orangeStand(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
+					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())	//Timmer doens't seem to acually work?
+					console.log('[DONE]-orangeFarm')
+					farmReport(report) //This is done
 				})
-			})
-			})
+			}, true, 2) //Toggle for the console logs in juicyCalculator; 1 is for 1 place after decmiel
 		})
 	})
 	})
-
+	})
 }
 
-var orchard = {
-	name: 'Redwood City FTC QT',
-	date: '2017-11-04T07:00:00.000Z',
-	locationID: 'Lol..' //should be object Id
+var orchardList = [
+	'1718-NCAL-RWC',
+
+	'1718-FIM-CMP1',	//team 5386
+	'1718-FIM-MARY',
+	'1718-FIM-GLBR'
+]
+
+for (var i = 0; i < orchardList.length; i++) {
+	//orchardList[i]
+	orangeFarm(orchardList[i], function(farmReport){
+		console.log('farmReport:', farmReport)
+	})
 }
 
-orangeFarm(orchard, function(farmReport){
-	console.log('farmReport',farmReport)
-})
-
-module.exports = orangeFarm
+module.exports = {
+	orangeFarm: orangeFarm
+}
 // To use in another file:
 // var orangeFarm = require('./orangeFarm')
 // orangeFarm(orchard, farmReport)

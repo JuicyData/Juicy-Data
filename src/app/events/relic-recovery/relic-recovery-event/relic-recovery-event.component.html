@@ -18,7 +18,7 @@
       <br>
       <div class="greencircle"></div>
       <span class="key">= End Game Period</span>
-      <table class="table table-striped table-bordered table-responsive" id="inputTable1" datatable [dtOptions]="dtOptions">
+      <table class="table table-striped table-responsive" id="inputTable1" datatable [dtOptions]="dtOptions" *ngIf="data">
         <thead>
           <tr>
             <th>Rank</th>
@@ -34,19 +34,19 @@
             <th class="green">Average</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           <tr *ngFor="let ranking of data.ranking">
             <td>{{ranking.rank}}</td>
             <td>{{ranking.teamNumber}}</td>
             <td>{{ranking.teamName}}</td>
-            <td>{{ranking.record.win}}-{{ranking.record.losses}}-{{ranking.record.ties}}</td>
+            <td>{{ranking.record.wins}}-{{ranking.record.losses}}-{{ranking.record.ties}}</td>
             <td>{{ranking.qualifyingPoints}}</td>
             <td>{{ranking.rankingPoints}}</td>
             <td>{{ranking.averageScore}}</td>
             <td>{{ranking.averageMarginalScore}}</td>
-            <td>{{ranking.average.auto}}</td>
-            <td>{{ranking.average.driver}}</td>
-            <td>{{ranking.average.end}}</td>
+            <td class="auto">{{ranking.average.auto}}</td>
+            <td class="driver">{{ranking.average.driver}}</td>
+            <td class="end">{{ranking.average.end}}</td>
           </tr>
         </tbody>
       </table>
@@ -62,16 +62,14 @@
       <div class="greencircle"></div>
       <span class="key">= End Game Period</span>
 
-      <table class="table table-striped table-bordered table-responsive" id="inputTable2" datatable [dtOptions]="dtOptions">
+      <table class="table table-responsive" id="inputTable2" datatable [dtOptions]="dtOptions" *ngIf="data">
           <thead>
               <tr>
                 <th>#</th>
-                <th>Alliance</th>
                 <th>Team Numbers</th>
                 <th>Team Names</th>
                 <th>Ranks</th>
                 <th>Result</th>
-                <th>Predicted</th>
                 <th class="red">Jewel</th>
                 <th class="red">Glyphs</th>
                 <th class="red">Keys</th>
@@ -88,27 +86,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let matchHistory of data.matchHistory">
+              <tr *ngFor="let matchHistory of data.matchHistory; index as i" [ngClass]="{'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red'}">
+                <!-- <td class="match-number" rowspan="2" [ngClass]="{'d-none': i%2 !=0}">{{matchHistory.matchNumber}}</td> -->
                 <td>{{matchHistory.matchNumber}}</td>
-                <td>{{matchHistory.alliance}}</td>
-                <td>{{matchHistory.team1.teamNumber}} {{matchHistory.team2.teamNumber}}</td>
-                <td>{{matchHistory.team1.teamNames}} {{matchHistory.team2.teamNames}}</td>
-                <td>{{matchHistory.team1.rank}} {{matchHistory.team2.rank}}</td>
-                <td>{{matchHistory.result.total}} {{matchHistory.result.penalty}} {{matchHistory.result.final}}</td>
-                <td></td>
-                <td>{{matchHistory.auto.jewel}}</td>
-                <td>{{matchHistory.auto.glyphs}}</td>
-                <td>{{matchHistory.auto.keys}}</td>
-                <td>{{matchHistory.auto.park}}</td>
-                <td>{{matchHistory.driver.glyphs}}</td>
-                <td>{{matchHistory.driver.rows}}</td>
-                <td>{{matchHistory.driver.columns}}</td>
-                <td>{{matchHistory.driver.cypher}}</td>
-                <td>{{matchHistory.end.relic1}}</td>
-                <td>{{matchHistory.end.relic2}}</td>
-                <td>{{matchHistory.end.relic3}}</td>
-                <td>{{matchHistory.end.relicUp}}</td>
-                <td>{{matchHistory.end.balanced}}</td>
+                <td>{{matchHistory.team1.teamNumber}}<br> {{matchHistory.team2.teamNumber}}</td>
+                <td>{{matchHistory.team1.teamName}}<br> {{matchHistory.team2.teamName}}</td>
+                <td>{{matchHistory.team1.rank}}<br> {{matchHistory.team2.rank}}</td>
+                <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner}">{{matchHistory.result.final}}</td>
+                <td class="auto">{{matchHistory.gameInformation.auto.jewel}}</td>
+                <td class="auto">{{matchHistory.gameInformation.auto.glyphs}}</td>
+                <td class="auto">{{matchHistory.gameInformation.auto.keys}}</td>
+                <td class="auto">{{matchHistory.gameInformation.auto.park}}</td>
+                <td class="driver">{{matchHistory.gameInformation.driver.glyphs}}</td>
+                <td class="driver">{{matchHistory.gameInformation.driver.rows}}</td>
+                <td class="driver">{{matchHistory.gameInformation.driver.columns}}</td>
+                <td class="driver">{{matchHistory.gameInformation.driver.cypher}}</td>
+                <td class="end">{{matchHistory.gameInformation.end.relic1}}</td>
+                <td class="end">{{matchHistory.gameInformation.end.relic2}}</td>
+                <td class="end">{{matchHistory.gameInformation.end.relic3}}</td>
+                <td class="end">{{matchHistory.gameInformation.end.relicsUp}}</td>
+                <td class="end">{{matchHistory.gameInformation.end.balanced}}</td>
               </tr>
             </tbody>
       </table>
@@ -122,7 +119,7 @@
       <br>
       <div class="greencircle"></div>
       <span class="key">= End Game Period</span>
-      <table class="table table-striped table-bordered table-responsive" id="inputTable3" datatable [dtOptions]="dtOptions">
+      <table class="table table-striped table-bordered table-responsive" id="inputTable3" datatable [dtOptions]="dtOptions" *ngIf="data">
         <thead>
           <tr>
             <th>Team Number</th>
@@ -153,19 +150,20 @@
             <td>{{averageScores.averageScore}}</td>
             <td>{{averageScores.average.auto}}</td>
             <td>{{averageScores.average.driver}}</td>
-            <td>{{averageScores.gameAverage.auto.jewel}}</td>
-            <td>{{averageScores.gameAverage.auto.glyphs}}</td>
-            <td>{{averageScores.gameAverage.auto.keys}}</td>
-            <td>{{averageScores.gameAverage.auto.park}}</td>
-            <td>{{averageScores.gameAverage.driver.glyphs}}</td>
-            <td>{{averageScores.gameAverage.driver.rows}}</td>
-            <td>{{averageScores.gameAverage.driver.columns}}</td>
-            <td>{{averageScores.gameAverage.driver.cypher}}</td>
-            <td>{{averageScores.gameAverage.end.relic1}}</td>
-            <td>{{averageScores.gameAverage.end.relic2}}</td>
-            <td>{{averageScores.gameAverage.end.relic3}}</td>
-            <td>{{averageScores.gameAverage.end.relicUp}}</td>
-            <td>{{averageScores.gameAverage.end.balanced}}</td>
+            <td>{{averageScores.average.end}}</td>
+            <td>{{averageScores.gameAverages.auto.jewel}}</td>
+            <td>{{averageScores.gameAverages.auto.glyphs}}</td>
+            <td>{{averageScores.gameAverages.auto.keys}}</td>
+            <td>{{averageScores.gameAverages.auto.park}}</td>
+            <td>{{averageScores.gameAverages.driver.glyphs}}</td>
+            <td>{{averageScores.gameAverages.driver.rows}}</td>
+            <td>{{averageScores.gameAverages.driver.columns}}</td>
+            <td>{{averageScores.gameAverages.driver.cypher}}</td>
+            <td>{{averageScores.gameAverages.end.relic1}}</td>
+            <td>{{averageScores.gameAverages.end.relic2}}</td>
+            <td>{{averageScores.gameAverages.end.relic3}}</td>
+            <td>{{averageScores.gameAverages.end.relicsUp}}</td>
+            <td>{{averageScores.gameAverages.end.balanced}}</td>
           </tr>
         </tbody>
       </table>

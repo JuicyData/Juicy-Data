@@ -1,10 +1,7 @@
 //in collection 'gameData'
 {
 	_id:{
-		eventInformation:{
-			toaEventKey: 'abc',
-			date: ISODate(), //ISO Date of when it occured; 
-		},
+		toaEventKey: 'abc',
 		matchInformation:{
 			matchNumber: 123,
 			robotAlliance: 'abc', //blue or red; with lower case
@@ -36,12 +33,7 @@
 
 //in collection 'schedules'
 {
-	_id:{	//Maybe unnest this latter....
-		eventInformation:{
-			toaEventKey: 'abc'
-			date: ISODate(), //ISO Date of when it occured; 
-		}
-	},
+	_id: 'abc', //toaEventKey
 	schedule:[ //Aray of JSON
 		{
 			matchNumber: 123, //Match Number
@@ -77,10 +69,7 @@
 //in collection 'matchData'
 {
 	_id:{
-		eventInformation:{
-			toaEventKey: 'abc'
-			date: ISODate(), //ISO Date of when it occured; 
-		}
+		toaEventKey: 'abc',
 		matchInformation:{
 			matchNumber: 123,
 			teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
@@ -140,11 +129,9 @@
 
 //in collection 'events'
 {
-	_id:{	//This MUST be unique?? This is Date Place; There shouldn't be another DATEPLACE the same event (Thats the idea...)
-		toaEventKey: 'abc', //Event string for toa for this event
-		date: ISODate() //ISO Date of when it occured;
-	}
+	_id: 'abc', //toaEventKey //This MUST be unique?? This is Date Place; There shouldn't be another DATEPLACE the same event (Thats the idea...)
 	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured;
 		eventName: 'abc',
 		locationName: 'abc',	//Same as the name in the locations collection
 		locationID: ObjectId(), //ID of the location in the 'locations' collection
@@ -169,13 +156,7 @@
 
 //in collection 'eventOut' INCOMPLETE
 {
-	_id:{	
-		eventInformation:{
-			name: 'abc',
-			date: ISODate(), //ISO Date of when it occured; 
-			locationID: ObjectId() //ID of the location in the 'places' collection
-		}
-	},
+	_id: 'abc', //toaEventKey
 	lastUpdated: ISODate(), //Time of insert/update
 	ranking:[
 		{
@@ -218,6 +199,7 @@
 				final: 123
 			},
 			prediction: 'abc', //Which alliance will win; CHANGE THIS SCHEMA LATTER!!!!!
+			winner: 'abc', //blue or red
 			gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
 				auto:{
 					jewel: 123,
@@ -275,6 +257,23 @@
 			}
 		}
 	]
+}
+
+//in collection 'teams'
+{
+	_id : 123,	//team Number
+	team_key : 123,		//Also team number I think?
+	region_key : 'abc',	//State?
+	league_key : 'abc',	//not quite sure what this is... maybe for leagues?
+	team_number : 123,	//Team Number for reals?
+	team_name_short : 'abc',	//Real team name?
+	team_name_long : 'abc',	//Team Name (fake?) all are nothing
+	robot_name : 'abc',	//Robot name; but thses are all blank.
+	city : 'abc',	//city name?
+	state_prov : 'abc',	//State too? abrev
+	country : 'abc',	//Country abrviation
+	rookie_year : 123,	//Year team was established; 0 if no year
+	website : 'abc'	//website string?
 }
 
 //in collection 'gameData' OLD DO NOT USE

@@ -15,7 +15,12 @@ var eventKeys = [
 	'1617-CASD-GAUS', //testing
 	'1718-CASD-TUR', 
 	'1718-CASD-GAUS',
-	'1718-CASD-EUCL']
+	'1718-CASD-EUCL',
+
+	'1718-FIM-CMP1',	//team 5386
+	'1718-FIM-MARY',
+	'1718-FIM-GLBR'
+	]
 
 var forceUpdate = true //Set to true to write to database even if data exists, 
 						//and even if schedule is empty, but you still want the event.
@@ -31,7 +36,7 @@ function getData() {
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err
 		for (let eventKey of eventKeys) {
-			db.collection('events').findOne({'_id.toaEventKey': eventKey}, function(err, data) {
+			db.collection('events').findOne({'_id': eventKey}, function(err, data) {
 				if (err) throw err
 				if (data && !forceUpdate) {
 					console.log(eventKey + ' event already exists in the database')
@@ -92,10 +97,10 @@ function getData() {
 }
 
 function insertEventAndSchedule(db, event, teams, stations, location) {
-	let eventInformation = {
-		toaEventKey: event.event_key,
-		date: event.start_date
-	}
+	// let eventInformation = {
+	// 	toaEventKey: event.event_key,
+	// 	date: event.start_date
+	// }
 
 	let teamsList = []
 	for (let team of teams) {
@@ -129,8 +134,10 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 	}
 
 	db.collection('events').save({
-		_id: eventInformation,
+		// _id: eventInformation,
+		_id: event.event_key,
 		eventInformation:{
+			date: new Date(event.start_date),
 			eventName: event.event_name,
 			locationName: location ? location.name : null,
 			locationID: location ? location._id : null,
@@ -140,9 +147,10 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 	}, function(err) {
 		if (err) throw err
 		db.collection('schedules').save({
-			_id:{
-				eventInformation: eventInformation
-			},
+			// _id:{
+			// 	eventInformation: eventInformation
+			// },
+			_id: event.event_key,
 			schedule: scheduledMatches
 		}, function(err) {
 			if (err) throw err
