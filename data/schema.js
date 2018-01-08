@@ -65,23 +65,11 @@
 		toaEventKey: 'abc',
 		matchInformation:{
 			matchNumber: 123,
-			teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
-				red1: {
-					teamNumber: 123,
-					surrogate: false //True if this team was surrogate
-				},
-				red2: {
-					teamNumber: 123,
-					surrogate: false
-				},
-				blue1: {
-					teamNumber: 123,
-					surrogate: false
-				},
-				blue2: {
-					teamNumber: 123,
-					surrogate: false
-				}
+			teams: {
+				red1: 123,
+				red2: 123,
+				blue1: 123,
+				blue2: 123
 			}
 		}
 	},
