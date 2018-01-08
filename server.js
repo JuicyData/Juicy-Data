@@ -8,7 +8,7 @@ var morgan       = require('morgan');
 var bodyParser   = require('body-parser');
 
 var MongoClient = require('mongodb').MongoClient
-var configDB = require('./config/database.js')
+var configDB = require('./config/database')
 var ObjectId = require('mongodb').ObjectID
 
 mongoose.connection.openUri("mongodb://localhost/TheOrangeAlliance")
@@ -29,7 +29,7 @@ MongoClient.connect(configDB.url, function(err,db){
 		res.status(500).send(err)
 		return
 	}else{
-		require('./api/api.js')(app, db, ObjectId); // load our routes and pass in our app
+		require('./api/api')(app, db, ObjectId); // load our routes and pass in our app
 	}
 })
 
