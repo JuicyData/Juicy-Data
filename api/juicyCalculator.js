@@ -1,7 +1,7 @@
 //juicyCalculator by Michael Leonffu
 var math = require('mathjs')
 
-function juicyCalculator(originalOrange, calculatedJuice = function(){}, printOut = false){
+function juicyCalculator(originalOrange, calculatedJuice = function(){}, printOut = false, round = 3){
 
 	//Times how long it takes to juice the juicy oranges
 	console.log('[START]-juicyCalculator')
@@ -159,7 +159,7 @@ function juicyCalculator(originalOrange, calculatedJuice = function(){}, printOu
 		error = math.sum(math.square(errorMatrix))
 
 		//Converts the Matrix to a 2D array
-		orangeArray = math.round(orangeMatrix,3).valueOf()
+		orangeArray = math.round(orangeMatrix,round).valueOf()
 		juicyData = {juice:{}}
 		if(orange.labels){
 			for (var j = 0; orangeArray.length > j; j++) {
