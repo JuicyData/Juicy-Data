@@ -65,8 +65,6 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 		}
 	}
 
-	console.log('pickedOrange',pickedOrange)
-
 	var orangeConversionFactor = [	//Helps convert oranges into generic form
 		//GENERIC CONVERSION:
 		['scoreAutoOranges'			,		'scoreAuto'				],
@@ -106,14 +104,14 @@ function teamInfluencePeeler(pickedOranges, peeledOranges){
 			juice: [],
 			result: []
 		}	//Get a fresh template
-		for (var j = pickedOrange.teamsScore.length - 1; j >= 0; j--) {	//May be backwards bc of this
+		for (var j = 0; j < pickedOrange.teamsScore.length; j++) {	//May be backwards bc of this
 			tempOrange.result.push([pickedOrange.teamsScore[j][orangeConversionFactor[i][1]]])	//FIX LATTer
 			tempOrange.juice[j] = []
-			for (var k = tempOrange.labels.length - 1; k >= 0; k--) {
+			for (var k = 0; k < tempOrange.labels.length; k++) {
 				tempOrange.juice[j][k] = pickedOrange.teamsScore[j].teams[0] == tempOrange.labels[k] || pickedOrange.teamsScore[j].teams[1] == tempOrange.labels[k]?1:0
 			}
 		}
-		tempOrange.result.reverse() //It's backwards?
+		//tempOrange.result.reverse() //It's backwards?
 		tempOrange.dataLabel = orangeConversionFactor[i][0]
 		peeledOrangeBasket[i] = tempOrange	//Put orange into the basket
 	}
