@@ -131,7 +131,7 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 				red1: {
 					teamNumber: Number(matchTeams[0]),
 					surrogate: matchStatus[0] === 0
-				}
+				},
 				red2: {
 					teamNumber: Number(matchTeams[1]),
 					surrogate: matchStatus[1] === 0
@@ -139,7 +139,7 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 				blue1: {
 					teamNumber: Number(matchTeams[2]),
 					surrogate: matchStatus[2] === 0
-				}
+				},
 				blue2: {
 					teamNumber: Number(matchTeams[3]),
 					surrogate: matchStatus[3] === 0

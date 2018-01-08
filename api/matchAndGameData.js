@@ -61,15 +61,9 @@ function getData() {
 							for (let station of stations) {
 								allianceCode = station.station_key.charAt(station.station_key.length-2)
 								if (allianceCode === 'R') {
-									teams.red.push({
-										teamNumber: Number(station.team_key),
-										surrogate: station.station_status === 0
-									})
+									teams.red.push(Number(station.team_key))
 								} else if (allianceCode === 'B') {
-									teams.blue.push({
-										teamNumber: Number(station.team_key),
-										surrogate: station.station_status === 0
-									})
+									teams.blue.push(Number(station.team_key))
 								}
 							}
 
