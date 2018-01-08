@@ -25,6 +25,7 @@ function getData() {
 		if (err) throw err
 		let matchDatas = {}
 		let gameDatas = {red: {}, blue: {}}
+		let matchNumbers = {}
 		for (let eventKey of eventKeys) {
 			db.collection('events').findOne({'_id': eventKey}, function(err, data) {
 				if (err) throw err
@@ -36,7 +37,7 @@ function getData() {
 				}
 				toaApi.get('/event/' + eventKey + '/matches').then(function(response) {
 					let matches = response.data
-					let matchNumbers = []
+					matchNumbers[eventKey] = []
 					let relevantMatches = {}
 					matchDatas[eventKey] = {}
 					gameDatas.red[eventKey] = {}
@@ -44,13 +45,13 @@ function getData() {
 					for (let match of matches) {
 						let matchNumber = match.match_name.split('Quals ')[1]
 						if (matchNumber) {
-							if (!matchNumbers.includes(matchNumber)) {
-								matchNumbers.push(Number(matchNumber))
+							if (!matchNumbers[eventKey].includes(matchNumber)) {
+								matchNumbers[eventKey].push(Number(matchNumber))
 							}
 							relevantMatches[matchNumber] = match
 						}
 					}
-					for (let matchNumber of matchNumbers) {
+					for (let matchNumber of matchNumbers[eventKey]) {
 						let match = relevantMatches[matchNumber]
 						toaApi.get('/match/' + match.match_key + '/stations').then(function(response) {
 							let stations = response.data
@@ -178,7 +179,7 @@ function saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, 
 
 function finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas) {
 	for (let eventKey of eventKeys) {
-		for (let matchNumber of matchNumbers) {
+		for (let matchNumber of matchNumbers[eventKey]) {
 			if (!matchDatas[eventKey][matchNumber] || !gameDatas.red[eventKey][matchNumber] || !gameDatas.blue[eventKey][matchNumber]) {
 				return
 			}
@@ -190,7 +191,7 @@ function finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas) {
 
 function printDatas(eventKeys, matchNumbers, matchDatas, gameDatas) {
 	for (let eventKey of eventKeys) {
-		for (let matchNumber of matchNumbers) {
+		for (let matchNumber of matchNumbers[eventKey]) {
 			console.log(eventKey + ' Match ' + matchNumber + ' matchData:')
 			console.log(JSON.stringify(matchDatas[eventKey][matchNumber], null, 2))
 			console.log()
@@ -202,5 +203,6 @@ function printDatas(eventKeys, matchNumbers, matchDatas, gameDatas) {
 			console.log()
 			console.log()
 		}
+		console.log()
 	}
 }
