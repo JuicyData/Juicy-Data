@@ -168,7 +168,7 @@ app.get('/api/teams/read', (req, res) =>{
 					return
 				}else{
 					if(eventsDocs){ //NEED TO TEST THIS
-						res.json(eventsDocs)
+						res.json(eventsDocs[0])
 						db.close()
 					}else{		// if threre is no documents returned then:
 						res.status(400).send('Events not found')
