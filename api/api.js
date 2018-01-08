@@ -70,7 +70,7 @@ app.get('/api/teams/read', (req, res) =>{
 		db.collection('events').aggregate([
 			{$match:{
 				'eventInformation.teamsList': {$elemMatch:{
-					$eq: req.query.teamNumber
+					$eq: Number(req.query.teamNumber)
 				}}
 			}},
 			{$sort:{
@@ -85,17 +85,17 @@ app.get('/api/teams/read', (req, res) =>{
 					}},
 					{$unwind: '$ranking'},
 					{$match:{
-						'ranking.teamNumber': req.query.teamNumber
+						'ranking.teamNumber': Number(req.query.teamNumber)
 					}},
 					{$unwind: '$averageScores'},
 					{$match:{
-						'averageScores.teamNumber': req.query.teamNumber
+						'averageScores.teamNumber': Number(req.query.teamNumber)
 					}},
 					{$unwind: '$matchHistory'},
 					{$match:{$expr:{
 						$or: [
-							{$eq: ['$matchHistory.team1.teamNumber', req.query.teamNumber]},
-							{$eq: ['$matchHistory.team2.teamNumber', req.query.teamNumber]}
+							{$eq: ['$matchHistory.team1.teamNumber', Number(req.query.teamNumber)]},
+							{$eq: ['$matchHistory.team2.teamNumber', Number(req.query.teamNumber)]}
 						]
 					}}},
 					{$group:{
@@ -142,7 +142,7 @@ app.get('/api/teams/read', (req, res) =>{
 				from:'teams',
 				pipeline: [
 					{$match:{$expr:
-						{$eq: ['$_id', req.query.teamNumber]}
+						{$eq: ['$_id', Number(req.query.teamNumber)]}
 					}},
 					{$project:{
 						_id:0,
@@ -168,7 +168,7 @@ app.get('/api/teams/read', (req, res) =>{
 					return
 				}else{
 					if(eventsDocs){ //NEED TO TEST THIS
-						res.json(eventsDocs)
+						res.json(eventsDocs[0])
 						db.close()
 					}else{		// if threre is no documents returned then:
 						res.status(400).send('Events not found')
