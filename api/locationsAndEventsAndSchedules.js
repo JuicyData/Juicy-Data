@@ -109,11 +109,13 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 
 	let matchNumbers = []
 	let teamsByMatch = {}
+	let statusByMatch = {}
 	for (let station of stations) {
 		let matchNumber = station.match_name.split('Quals ')[1]
 		if (matchNumber) {
 			if (!teamsByMatch[matchNumber]) {
 				teamsByMatch[matchNumber] = station.teams.split(',')
+				statusByMatch[matchNumber] = station.station_status.split(',')
 				matchNumbers.push(matchNumber)
 			}
 		}
@@ -121,14 +123,27 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 
 	let scheduledMatches = []
 	for (let matchNumber of matchNumbers) {
-		teams = teamsByMatch[matchNumber]
+		let matchTeams = teamsByMatch[matchNumber]
+		let matchStatus = statusByMatch[matchNumber]
 		scheduledMatches.push({
 			matchNumber: Number(matchNumber),
-			teams:{	
-				red1: Number(teams[0]),
-				red2: Number(teams[1]),
-				blue1: Number(teams[2]),
-				blue2: Number(teams[3])
+			teams: {
+				red1: {
+					teamNumber: Number(matchTeams[0]),
+					surrogate: matchStatus[0] === 0
+				}
+				red2: {
+					teamNumber: Number(matchTeams[1]),
+					surrogate: matchStatus[1] === 0
+				},
+				blue1: {
+					teamNumber: Number(matchTeams[2]),
+					surrogate: matchStatus[2] === 0
+				}
+				blue2: {
+					teamNumber: Number(matchTeams[3]),
+					surrogate: matchStatus[3] === 0
+				}
 			}
 		})
 	}

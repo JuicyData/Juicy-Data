@@ -38,33 +38,26 @@
 		{
 			matchNumber: 123, //Match Number
 			teams:{
-				red1: 123, //Team Number
-				red2: 123,
-				blue1: 123,
-				blue2: 123,
+				red1: {
+					teamNumber: 123,
+					surrogate: false //True if this team was surrogate
+				},
+				red2: {
+					teamNumber: 123,
+					surrogate: false
+				},
+				blue1: {
+					teamNumber: 123,
+					surrogate: false
+				},
+				blue2: {
+					teamNumber: 123,
+					surrogate: false
+				}
 			}
 		}
 	]
 }
-
-// teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
-// 	red1: {
-// 		teamNumber: 123,
-// 		surrogate: false	//True if this team was surrgogate
-// 	},
-// 	red2: {
-// 		teamNumber: 123,
-// 		surrogate: false
-// 	},
-// 	blue1: {
-// 		teamNumber: 123,
-// 		surrogate: false
-// 	},
-// 	blue2: {
-// 		teamNumber: 123,
-// 		surrogate: false
-// 	}
-// }
 
 //in collection 'matchData'
 {
@@ -73,10 +66,22 @@
 		matchInformation:{
 			matchNumber: 123,
 			teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
-				red1: 123,
-				red2: 123,
-				blue1: 123,
-				blue2: 123
+				red1: {
+					teamNumber: 123,
+					surrogate: false //True if this team was surrogate
+				},
+				red2: {
+					teamNumber: 123,
+					surrogate: false
+				},
+				blue1: {
+					teamNumber: 123,
+					surrogate: false
+				},
+				blue2: {
+					teamNumber: 123,
+					surrogate: false
+				}
 			}
 		}
 	},

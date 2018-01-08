@@ -61,9 +61,15 @@ function getData() {
 							for (let station of stations) {
 								allianceCode = station.station_key.charAt(station.station_key.length-2)
 								if (allianceCode === 'R') {
-									teams.red.push(Number(station.team_key))
+									teams.red.push({
+										teamNumber: Number(station.team_key),
+										surrogate: station.station_status === 0
+									})
 								} else if (allianceCode === 'B') {
-									teams.blue.push(Number(station.team_key))
+									teams.blue.push({
+										teamNumber: Number(station.team_key),
+										surrogate: station.station_status === 0
+									})
 								}
 							}
 
@@ -72,7 +78,7 @@ function getData() {
 									toaEventKey: eventKey,
 									matchInformation:{
 										matchNumber: Number(matchNumber),
-										teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
+										teams: {
 											red1: teams.red[0],
 											red2: teams.red[1],
 											blue1: teams.blue[0],
