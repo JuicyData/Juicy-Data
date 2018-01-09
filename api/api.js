@@ -132,16 +132,17 @@ app.get('/api/teams/read', (req, res) =>{
 			],
 			as:'teamInformation'
 		}},
-		{$unwind:'teamInformation'},
-		// {$project:{
-		// 	teamName: {$arrayElemAt:['$teamName',0]},
-		// 	current: {$arrayElemAt:['$current.event',0]},
-		// 	old: {$arrayElemAt:['$old.event',0]}
-		// }},
-		{$addFields:{
+		{$unwind:'$teamInformation'},
+		{$project:{
 			teamName: {$arrayElemAt: [{$split: ['$teamInformation.team_name_short', ', Team #']},0]},
-			teamNumber: Number(req.query.teamNumber)
+			teamNumber: Number(req.query.teamNumber),
+			current: {$arrayElemAt:['$current.event',0]},
+			old: {$arrayElemAt:['$old.event',0]}
 		}}
+		// {$addFields:{
+		// 	teamName: {$arrayElemAt: [{$split: ['$teamInformation.team_name_short', ', Team #']},0]},
+		// 	teamNumber: Number(req.query.teamNumber)
+		// }}
 	],
 		function(err, eventsDocs){
 			if(err){
