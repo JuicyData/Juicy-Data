@@ -1,7 +1,91 @@
 <div class="container">
-  <div class="card">
+  <h1 *ngIf="data">Team {{data.current.averageScore.teamNumber}} {{data.teamName}}</h1>
+  <hr>
+  <div class="card" *ngIf="data" style="margin-bottom: 50px;">
     <div class="card-block">
-      <h1>{{data.teamName}}</h1>
+      <h2>
+        <a routerLink="/events/relic-recovery/{{data.current._id}}">{{data.current.eventInformation.eventName}}</a>
+      </h2>
+      <div class="averages">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="card">
+              <div class="card-block">
+                <p>{{data.current.averageScore.average.auto}}</p>
+                <p class="red">Average Autonomous</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="card">
+              <div class="card-block">
+                <p>{{data.current.averageScore.average.driver}}</p>
+                <p class="blue">Average Driver</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="card">
+              <div class="card-block">
+                <p>{{data.current.averageScore.average.end}}</p>
+                <p class="green">Average End</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="card">
+              <div class="card-block">
+                <p>{{data.current.averageScore.averageScore}}</p>
+                <p>Average Score</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>Match</th>
+          <th class="red-alliance">Red Alliance</th>
+          <th class="blue-alliance">Blue Alliance</th>
+          <th class="red-alliance">Results</th>
+          <th class="blue-alliance">Results</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let matchHistory of data.current.matchHistory">
+          <td>{{matchHistory.blue.matchNumber}}</td>
+          <td class="red-alliance-teams" [ngClass]="{'red-alliance-teams-winner' : matchHistory.blue.winner == 'red'}">
+            <span [ngClass]="{'font-weight-bold': matchHistory.red.team1.teamNumber == data.current.averageScore.teamNumber}">
+              <a routerLink="/teams/{{matchHistory.red.team1.teamNumber}}">{{matchHistory.red.team1.teamNumber}}</a>
+              <span class="d-none d-md-inline">{{matchHistory.red.team1.teamName}}</span>
+              <span *ngIf="matchHistory.red.team1.surrogate">*</span>
+            </span>
+            <br>
+            <span [ngClass]="{'font-weight-bold': matchHistory.red.team2.teamNumber == data.current.averageScore.teamNumber}">
+              <a routerLink="/teams/{{matchHistory.red.team2.teamNumber}}">{{matchHistory.red.team2.teamNumber}}</a>
+              <span class="d-none d-md-inline">{{matchHistory.red.team2.teamName}}</span>
+              <span *ngIf="matchHistory.red.team2.surrogate">*</span>
+            </span>
+          </td>
+          <td class="blue-alliance-teams" [ngClass]="{'blue-alliance-teams-winner' : matchHistory.blue.winner == 'blue'}">
+            <span [ngClass]="{'font-weight-bold': matchHistory.blue.team1.teamNumber == data.current.averageScore.teamNumber}">
+              <a routerLink="/teams/{{matchHistory.blue.team1.teamNumber}}">{{matchHistory.blue.team1.teamNumber}}</a>
+              <span class="d-none d-md-inline">{{matchHistory.blue.team1.teamName}}</span>
+              <span *ngIf="matchHistory.blue.team1.surrogate">*</span>
+            </span>
+            <br>
+            <span [ngClass]="{'font-weight-bold': matchHistory.blue.team2.teamNumber == data.current.averageScore.teamNumber}">
+              <a routerLink="/teams/{{matchHistory.blue.team2.teamNumber}}">{{matchHistory.blue.team2.teamNumber}}</a>
+              <span class="d-none d-md-inline">{{matchHistory.blue.team2.teamName}}</span>
+              <span *ngIf="matchHistory.blue.team2.surrogate">*</span>
+            </span>
+          </td>
+          <td class="red-alliance-teams" [ngClass]="{'red-alliance-teams-winner' : matchHistory.blue.winner == 'red'}">{{matchHistory.red.result.total}}</td>
+          <td class="blue-alliance-teams" [ngClass]="{'blue-alliance-teams-winner' : matchHistory.blue.winner == 'blue'}">{{matchHistory.blue.result.total}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

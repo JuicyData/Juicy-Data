@@ -1,4 +1,6 @@
 .content {
 	margin-top: 30px;
   color: #f77b25;
+  min-height: 90vh;
+  margin-bottom: 40px;
 }

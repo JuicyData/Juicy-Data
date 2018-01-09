@@ -55,16 +55,13 @@ th {
 td {
   text-align: center;
 }
+
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
   color: #f9690e;
 }
-a,
-a.active,
-a:hover {
-  color: #f9690e;
-}
+
 .red {
   background-color: #ec644b;
   color: white;
@@ -217,4 +214,9 @@ tbody {
   .horizontal-tip {
     display: none;
   }
+}
+
+.team-rank {
+  padding-right: 0px;
+  padding-left: 4px;
 }
