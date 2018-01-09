@@ -1,11 +1,11 @@
 //orangeStand by Michael Leonffu
-var MongoClient = require('mongodb').MongoClient
-var configDB = require('./../config/database.js')
-ObjectId = require('mongodb').ObjectID
+// var MongoClient = require('mongodb').MongoClient
+// var configDB = require('./../config/database.js')
+// ObjectId = require('mongodb').ObjectID
 
 //This handles putting the data into the database to present onto the website; all this really does is a mongodb insert or update.
 
-var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, orangeStandMenu){
+var orangeStand = function(mongodb, orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, orangeStandMenu){
 	console.log('[START]-orangeStand')
 	var standTime = new Date()
 
@@ -176,12 +176,12 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 	}
 
 	//Saving it to the dataBase
-	MongoClient.connect(configDB.url, function(err,db){
-		if(err){
-			console.log(err)
-			return
-		}
-		db.collection('eventOut').save(
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
+		mongodb.db.collection('eventOut').save(
 			{
 				_id: orchard,	//orcahrd is toaeventkey
 				lastUpdated: new Date(), //Time of insert/update
@@ -193,27 +193,25 @@ var orangeStand = function(orchard, pickedRankingOranges, pickedMatchHistoryOran
 				if(err){
 					orangeStandMenu('Failure')
 					console.log(err)
-					db.close()
+					// db.close()
 					return
 				}else{
 					if(result.result.ok == 1){
 						console.log('Operation orangeStand time(Milliseconds):',new Date(new Date()-standTime).getMilliseconds())
 						console.log('[DONE]-orangeStand')
 						orangeStandMenu('Sucess')
-						db.close()
+						// db.close()
 					}else{
 						orangeStandMenu('Failure 2.0')
-						db.close()
+						// db.close()
 					}
 				}
 			}
 		)
-	})
+	// })
 }
 
-module.exports = {
-	orangeStand: orangeStand
-}
+module.exports = orangeStand
 
 // To use in another file:
 // var orangeStand = require('./orangeStand')

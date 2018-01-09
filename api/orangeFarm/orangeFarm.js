@@ -1,11 +1,5 @@
 //orangeFarm by Michael Leonffu
 
-var orangePicker = require('./orangePicker')
-var orangePeeler = require('./orangePeeler')
-var juicyCalculator = require('./juicyCalculator')
-var orangeStand = require('./orangeStand')
-
-
 /*
 Runs all the peeling scripts with the correct juicyCalculator scripts
 
@@ -17,7 +11,13 @@ the peeled oranges are finally sent to the juicyCalculators to produce juicy dat
 which is sold by the orange stand
 */
 
-function orangeFarm(orchard, farmReport){
+function orangeFarm(mongodb, orchard, farmReport){
+
+	var orangePicker = require('./orangePicker')(mongodb)
+	var orangePeeler = require('./orangePeeler')
+	var algorithms = require('./../algorithms/algorithms')
+	var orangeStand = require('./orangeStand')
+
 	//MAYBE ADD A ORCHARD CHECKER HERE!; though manager should know if it exsists or not anyways
 
 	// orchard should be in this form of a TOA event key as a string 
@@ -29,9 +29,9 @@ function orangeFarm(orchard, farmReport){
 	orangePicker.orangePickerAverageScores(orchard, function(pickedAvergeScoresOranges){
 	orangePicker.orangePickerMatchHistory(orchard, function(pickedMatchHistoryOranges){
 		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOranges){
-			juicyCalculator(peeledOranges, function(calculatedJuice){
+			algorithms.juicyCalculator(peeledOranges, function(calculatedJuice){
 				//console.log('calculatedJuice', calculatedJuice)
-				orangeStand.orangeStand(orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
+				orangeStand(mongodb, orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
 					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())	//Timmer doens't seem to acually work?
 					console.log('[DONE]-orangeFarm')
 					farmReport(report) //This is done
@@ -43,24 +43,23 @@ function orangeFarm(orchard, farmReport){
 	})
 }
 
-var orchardList = [
-	'1718-NCAL-RWC',
+// var orchardList = [
+// 	'1718-NCAL-RWC',
 
-	'1718-FIM-CMP1',	//team 5386
-	'1718-FIM-MARY',
-	'1718-FIM-GLBR'
-]
+// 	'1718-FIM-CMP1',	//team 5386
+// 	'1718-FIM-MARY',
+// 	'1718-FIM-GLBR'
+// ]
 
-for (var i = 0; i < orchardList.length; i++) {
-	//orchardList[i]
-	orangeFarm(orchardList[i], function(farmReport){
-		console.log('farmReport:', farmReport)
-	})
-}
+// for (var i = 0; i < orchardList.length; i++) {
+// 	//orchardList[i]
+// 	orangeFarm(orchardList[i], function(farmReport){
+// 		console.log('farmReport:', farmReport)
+// 	})
+// }
 
-module.exports = {
-	orangeFarm: orangeFarm
-}
+module.exports = orangeFarm
+
 // To use in another file:
 // var orangeFarm = require('./orangeFarm')
 // orangeFarm(orchard, farmReport)

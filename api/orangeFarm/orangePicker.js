@@ -1,13 +1,15 @@
 //orangePicker by Michael Leonffu
-var MongoClient = require('mongodb').MongoClient
-var configDB = require('./../config/database.js')
-ObjectId = require('mongodb').ObjectID
+
+// var MongoClient = require('mongodb').MongoClient
+// var configDB = require('./../config/database.js')
+// ObjectId = require('mongodb').ObjectID
 
 /*
 Picks the oranges that manager told to pick; dose all the calls to the database to get the data for all the peelers and calculators
 
 Can pick oranges from the gameData or matchData collections
 */
+function orangePicker(mongodb){
 
 function orangePickerRanking(orchard, oranges){	//only supports matchData; rankings rightnow
 	console.log('[START]-orangePickerRanking')
@@ -20,12 +22,12 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 	// }
 
 	var pickerTimer = new Date()
-	MongoClient.connect(configDB.url, function(err,db){
-		if(err){
-			console.log(err)
-			return
-		}
-		db.collection('matchData').aggregate([
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
+		mongodb.db.collection('matchData').aggregate([
 			{$match:{'_id.toaEventKey':orchard}},
 			{$lookup:{
 				from:'schedules',
@@ -206,29 +208,29 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 		],function(err,pickedOranges){
 			console.log('Operation orangePickerRanking time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
 			console.log('[DONE]-orangePickerRanking')
-			db.close()	//We don't need the database anymore
+			// db.close()	//We don't need the database anymore
 			if(err){
 				console.log(err)
 			}else{
 				oranges(pickedOranges)	//Thses oranges don't need peeling;	this is the call back.
 			}
 		})
-	})
+	// })
 }
 
 function orangePickerMatchHistory(orchard, oranges){
 	//Gets all the stuff for match history using schedule and gamedata
 	console.log('[START]-orangePickerMatchHistory')
 	var pickerTimer = new Date()
-	MongoClient.connect(configDB.url, function(err,db){
-		//If there is an error while connecting to the database
-		if(err){
-			console.log(err)
-			return
-		}
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	//If there is an error while connecting to the database
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
 
 		//Make the schedule and matchData.....
-		db.collection('schedules').aggregate([
+		mongodb.db.collection('schedules').aggregate([
 			{$match:{'_id':orchard}},
 			{$unwind:'$schedule'},
 			{$facet:{
@@ -319,7 +321,7 @@ function orangePickerMatchHistory(orchard, oranges){
 		function matchHistory(err, pickedOranges){
 			console.log('Operation orangePickerMatchHistory time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
 			console.log('[DONE]-orangePickerMatchHistory')
-			db.close()
+			// db.close()
 			if(err){
 				console.log(err)
 			}else if(!(0 in pickedOranges)){
@@ -328,7 +330,7 @@ function orangePickerMatchHistory(orchard, oranges){
 				oranges(pickedOranges)	//All is good; this is call back
 			}
 		}
-	})
+	// })
 }
 
 function orangePickerAverageScores(orchard, oranges){
@@ -336,15 +338,15 @@ function orangePickerAverageScores(orchard, oranges){
 	//This make sure to find the oranges that are important for calculating OPR; schedule and matchdata
 	console.log('[START]-orangePickerAverageScores')
 	var pickerTimer = new Date()
-	MongoClient.connect(configDB.url, function(err,db){
-		//If there is an error while connecting to the database
-		if(err){
-			console.log(err)
-			return
-		}
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	//If there is an error while connecting to the database
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
 
 		//Make the schedule and matchData.....
-		db.collection('schedules').aggregate([
+		mongodb.db.collection('schedules').aggregate([
 			{$match:{'_id':orchard}},
 			{$unwind:'$schedule'},
 			{$lookup:{
@@ -496,7 +498,7 @@ function orangePickerAverageScores(orchard, oranges){
 		function teamsScores(err, pickedOranges){
 			console.log('Operation orangePickerAverageScores time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
 			console.log('[DONE]-orangePickerAverageScores')
-			db.close()
+			// db.close()
 			if(err){
 				console.log(err)
 			}else if(!(0 in pickedOranges)){
@@ -506,14 +508,22 @@ function orangePickerAverageScores(orchard, oranges){
 				oranges(pickedOranges)	//All is good; this is call back
 			}
 		}
-	})
+	// })
 }
-
-module.exports = {
+return {
 	orangePickerRanking: orangePickerRanking,
 	orangePickerMatchHistory: orangePickerMatchHistory,
 	orangePickerAverageScores: orangePickerAverageScores
 }
+
+}
+
+module.exports = orangePicker
+	// orangePickerRanking: orangePickerRanking,
+	// orangePickerMatchHistory: orangePickerMatchHistory,
+	// orangePickerAverageScores: orangePickerAverageScores
+
+
 // To use in another file:
 // var orangePicker = require('./orangePicker')
 // orangePicker.orangePickerRanking(orchard, oranges)
