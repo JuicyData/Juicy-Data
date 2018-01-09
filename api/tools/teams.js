@@ -1,8 +1,8 @@
 //teams by Michael Leonffu
 var MongoClient = require('mongodb').MongoClient	//CHANGE
-var url = "mongodb://localhost:27017/JuicyData"	//CHANGE 
+var url = "mongodb://localhost:27017/JuicyData"	//CHANGE
 
-var apiKey = require('../config/apiKey.js')
+var apiKey = require('../../config/apiKey.js')
 var axios = require('axios')
 var toaApi = axios.create({
 	baseURL: 'http://theorangealliance.org/apiv2/',

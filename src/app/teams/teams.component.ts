@@ -28,11 +28,11 @@ export class TeamsComponent implements OnInit {
     this.http.get('/api/teams/read?teamNumber=' + this.teamNumber).subscribe(
       data => {
         this.data = data;
-        console.log(this.data)
+        console.log('data', this.data)
       },
       error => {
         this.error = error.error;
-        console.log(this.error)
+        console.log('error: ', this.error)
       }
     );
   }

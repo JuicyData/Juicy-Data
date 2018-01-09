@@ -10,3 +10,11 @@ h3, h4{
 hr{
   max-width: 600px;
 }
+
+.table {
+  margin-bottom: 40px;
+}
+
+h3 {
+  margin-top: 10px;
+}
