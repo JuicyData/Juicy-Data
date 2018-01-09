@@ -72,7 +72,7 @@
 // 	Add/Fix make an acual "prediction rate"
 
 var math = require('mathjs')
-var juicyCalculator = require('./juicyCalculator')
+var juicyCalculator = require('./../juicyCalculator')
 // var MongoClient = require('mongodb').MongoClient
 // var configDB = require('./../config/database.js')
 // ObjectId = require('mongodb').ObjectID
