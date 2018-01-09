@@ -100,6 +100,9 @@ app.get('/api/teams/read', (req, res) =>{
 					},
 					averageScores: '$red.averageScores'
 				}},
+				{$sort:{
+					'matchHistory.red.matchNumber': 1
+				}},
 				{$group:{
 					_id:{
 						_id: '$_id',
