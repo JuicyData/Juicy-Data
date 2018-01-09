@@ -17,8 +17,6 @@ function orangeFarm(mongodb, orchard, farmReport){
 	var orangePeeler = require('./orangePeeler')
 	var algorithms = require('./../algorithms/algorithms')
 	var orangeStand = require('./orangeStand')
-	require('./matchAndGameData.js')()
-	require('./locationsAndEventsAndSchedules.js')()
 
 	//MAYBE ADD A ORCHARD CHECKER HERE!; though manager should know if it exsists or not anyways
 
@@ -44,21 +42,6 @@ function orangeFarm(mongodb, orchard, farmReport){
 	})
 	})
 }
-
-// var orchardList = [
-// 	'1718-NCAL-RWC',
-
-// 	'1718-FIM-CMP1',	//team 5386
-// 	'1718-FIM-MARY',
-// 	'1718-FIM-GLBR'
-// ]
-
-// for (var i = 0; i < orchardList.length; i++) {
-// 	//orchardList[i]
-// 	orangeFarm(orchardList[i], function(farmReport){
-// 		console.log('farmReport:', farmReport)
-// 	})
-// }
 
 module.exports = orangeFarm
 

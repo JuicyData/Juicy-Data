@@ -11,6 +11,9 @@ var ObjectId = require('mongodb').ObjectID
 
 module.exports = {}
 
+// require('./orangeFarm/matchAndGameData.js')()
+// require('./orangeFarm/locationsAndEventsAndSchedules.js')()
+
 MongoClient.connect(configDB.url, function(err,db){
 	if(err){
 		console.log(err)
@@ -19,9 +22,24 @@ MongoClient.connect(configDB.url, function(err,db){
 	}else{
 
 		var orangeFarm = require('./orangeFarm/orangeFarm') // load our routes and pass in our app
-		orangeFarm({db:db, ObjectId:ObjectId}, '1718-NCAL-RWC', function(farmReport){
-			console.log(farmReport)
-			db.close()
-		})
+		// orangeFarm({db:db, ObjectId:ObjectId}, '1718-NCAL-RWC', function(farmReport){
+		// 	console.log(farmReport)
+		// 	db.close()
+		// })
+
+		var orchardList = [
+			'1718-NCAL-RWC',
+
+			'1718-FIM-CMP1',	//team 5386
+			'1718-FIM-MARY',
+			'1718-FIM-GLBR'
+		]
+
+		for (var i = 0; i < orchardList.length; i++) {
+			//orchardList[i]
+			orangeFarm({db:db, ObjectId:ObjectId}, orchardList[i], function(farmReport){
+				console.log('farmReport:', farmReport)
+			})
+		}
 	}
 })
