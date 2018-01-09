@@ -73,12 +73,33 @@ app.get('/api/teams/read', (req, res) =>{
 					'averageScores.teamNumber': Number(req.query.teamNumber)
 				}},
 				{$unwind: '$matchHistory'},
+				{$group:{
+					_id: '$matchHistory.matchNumber',
+					eventOut: {$push:'$$ROOT'}
+				}},
+				{$project:{
+					red: {$arrayElemAt:['$eventOut',0]},
+					blue: {$arrayElemAt:['$eventOut',1]}
+				}},
 				{$match:{$expr:{
 					$or: [
-						{$eq: ['$matchHistory.team1.teamNumber', Number(req.query.teamNumber)]},
-						{$eq: ['$matchHistory.team2.teamNumber', Number(req.query.teamNumber)]}
+						{$eq: ['$red.matchHistory.team1.teamNumber', Number(req.query.teamNumber)]},
+						{$eq: ['$red.matchHistory.team2.teamNumber', Number(req.query.teamNumber)]},
+						{$eq: ['$blue.matchHistory.team1.teamNumber', Number(req.query.teamNumber)]},
+						{$eq: ['$blue.matchHistory.team2.teamNumber', Number(req.query.teamNumber)]}
 					]
 				}}},
+				{$project:{
+					_id: '$red._id',
+					lastUpdated: '$red.lastUpdated',
+					eventInformation: '$red.eventInformation',
+					ranking: '$red.ranking',
+					matchHistory: {
+						red: '$red.matchHistory',
+						blue: '$blue.matchHistory'
+					},
+					averageScores: '$red.averageScores'
+				}},
 				{$group:{
 					_id:{
 						_id: '$_id',
@@ -125,10 +146,6 @@ app.get('/api/teams/read', (req, res) =>{
 				{$match:{$expr:
 					{$eq: ['$_id', Number(req.query.teamNumber)]}
 				}}
-				// {$project:{
-				// 	_id:0,
-				// 	team_name_short:1
-				// }}
 			],
 			as:'teamInformation'
 		}},
