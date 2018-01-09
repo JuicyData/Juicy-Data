@@ -138,7 +138,7 @@ app.get('/api/teams/read', (req, res) =>{
 			old: {$arrayElemAt:['$old.event',0]}
 		}},
 		{$addFields:{
-			teamName: '$teamName.team_name_short',
+			teamName: {$arrayElemAt: [{$split: ['$teamName.team_name_short', ', Team #']},0]},
 			teamNumber: Number(req.query.teamNumber)
 		}}
 	],
