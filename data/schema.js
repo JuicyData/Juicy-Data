@@ -151,6 +151,14 @@
 {
 	_id: 'abc', //toaEventKey
 	lastUpdated: ISODate(), //Time of insert/update
+	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured;
+		eventName: 'abc',
+		locationName: 'abc',	//Same as the name in the locations collection
+		locationID: ObjectId(), //ID of the location in the 'locations' collection
+		teamsList:[123, 123, 123],
+		season: 'Y1Y2', //for relic recovery 2017-2018 the season is '1718'
+	},
 	ranking:[
 		{
 			rank: 123,

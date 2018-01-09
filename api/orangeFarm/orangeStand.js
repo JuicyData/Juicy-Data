@@ -5,7 +5,7 @@
 
 //This handles putting the data into the database to present onto the website; all this really does is a mongodb insert or update.
 
-var orangeStand = function(mongodb, orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, orangeStandMenu){
+var orangeStand = function(mongodb, orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, pickedOrchardOranges, orangeStandMenu){
 	console.log('[START]-orangeStand')
 	var standTime = new Date()
 
@@ -187,6 +187,7 @@ var orangeStand = function(mongodb, orchard, pickedRankingOranges, pickedMatchHi
 			{
 				_id: orchard,	//orcahrd is toaeventkey
 				lastUpdated: new Date(), //Time of insert/update
+				eventInformation: pickedOrchardOranges.eventInformation,
 				ranking: ranking,
 				matchHistory: matchHistory,
 				averageScores: averageScores

@@ -11,15 +11,25 @@ Can pick oranges from the gameData or matchData collections
 */
 function orangePicker(mongodb){
 
-function orangePickerRanking(orchard, oranges){	//only supports matchData; rankings rightnow
-	console.log('[START]-orangePickerRanking')
+function orangePickerOrchard(orchard, oranges){
+	console.log('[START]-orangePickerOrchard')
+	var pickerTimer = new Date()
+	mongodb.db.collection('events').findOne(
+		{_id: orchard},
+		function(err, pickedOranges){
+			console.log('Operation orangePickerOrchard time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
+			console.log('[DONE]-orangePickerOrchard')
+			if(err){
+				console.log(err)
+			}else{
+				oranges(pickedOranges)	//Thses oranges don't need peeling;	this is the call back.
+			}
+		}
+	)
+}
 
-	// orchard should be in this form:
-	// {
-	// 	name: 'abc',
-	// 	date: ISODate(), //ISO Date of when it occured; 
-	// 	locationID: ObjectId() //ID of the location in the 'places' collection
-	// }
+function orangePickerRanking(orchard, oranges){
+	console.log('[START]-orangePickerRanking')
 
 	var pickerTimer = new Date()
 	// MongoClient.connect(configDB.url, function(err,db){

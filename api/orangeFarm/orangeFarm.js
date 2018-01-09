@@ -11,6 +11,15 @@ the peeled oranges are finally sent to the juicyCalculators to produce juicy dat
 which is sold by the orange stand
 */
 
+// 123456789 123456789 123456789 12345 123456789 123456789 12345 123456789 123456789 123456789 123456789
+// [blank	] [file   ] [method ] [sta] [log   		      ] [sta] [file   ] [method ] [log   		    ]
+			
+// Start Start
+// Done  Done
+// [Log] Log
+// [Err] Error
+// [Wrn] Warning
+
 function orangeFarm(mongodb, orchard, farmReport){
 
 	var orangePicker = require('./orangePicker')(mongodb)
@@ -28,16 +37,18 @@ function orangeFarm(mongodb, orchard, farmReport){
 	orangePicker.orangePickerRanking(orchard, function(pickedRankingOranges){
 	orangePicker.orangePickerAverageScores(orchard, function(pickedAvergeScoresOranges){
 	orangePicker.orangePickerMatchHistory(orchard, function(pickedMatchHistoryOranges){
+	orangePicker.orangePickerOrchard(orchard, function(pickedOrchardOranges){
 		orangePeeler.teamInfluencePeeler(pickedAvergeScoresOranges, function(peeledOranges){
 			algorithms.juicyCalculator(peeledOranges, function(calculatedJuice){
 				//console.log('calculatedJuice', calculatedJuice)
-				orangeStand(mongodb, orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, function(report){
+				orangeStand(mongodb, orchard, pickedRankingOranges, pickedMatchHistoryOranges, calculatedJuice, pickedOrchardOranges, function(report){
 					console.log('Operation orangeFarm time(Milliseconds):',new Date(new Date()-farmTimer).getMilliseconds())	//Timmer doens't seem to acually work?
 					console.log('[DONE]-orangeFarm')
 					farmReport(report) //This is done
 				})
 			}, true, 2) //Toggle for the console logs in juicyCalculator; 1 is for 1 place after decmiel
 		})
+	})
 	})
 	})
 	})
