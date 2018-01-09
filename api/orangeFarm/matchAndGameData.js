@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient
 var url = "mongodb://localhost:27017/JuicyData"
 
-var apiKey = require('../config/apiKey.js')
+var apiKey = require('./../../config/apiKey.js')
 var axios = require('axios')
 var toaApi = axios.create({
 	baseURL: 'http://theorangealliance.org/apiv2/',
@@ -16,9 +16,7 @@ var eventKeys = [
 	'1718-FIM-GLBR'
 	] //Currently ongoing events
 
-module.exports = function() {
-	getData()
-}
+module.exports = getData
 
 function getData() {
 	MongoClient.connect(url, function(err, db) {

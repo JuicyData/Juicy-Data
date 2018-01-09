@@ -17,6 +17,8 @@ function orangeFarm(mongodb, orchard, farmReport){
 	var orangePeeler = require('./orangePeeler')
 	var algorithms = require('./../algorithms/algorithms')
 	var orangeStand = require('./orangeStand')
+	require('./matchAndGameData.js')()
+	require('./locationsAndEventsAndSchedules.js')()
 
 	//MAYBE ADD A ORCHARD CHECKER HERE!; though manager should know if it exsists or not anyways
 

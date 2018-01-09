@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient
 var url = "mongodb://localhost:27017/JuicyData"
 
-var apiKey = require('../config/apiKey.js')
+var apiKey = require('./../../config/apiKey.js')
 var axios = require('axios')
 var toaApi = axios.create({
 	baseURL: 'http://theorangealliance.org/apiv2/',
@@ -27,9 +27,7 @@ var forceUpdate = true //Set to true to write to database even if data exists,
 
 var completedEvents = []
 
-module.exports = function() {
-	getData()
-}
+module.exports = getData
 
 function getData() {
 	completedEvents = []
