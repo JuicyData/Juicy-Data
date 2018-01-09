@@ -2,22 +2,34 @@
   <h1>{{eventID}}</h1>
   <hr>
 
-  <nav class="nav nav-tabs" id="myTab" role="tablist">
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    Error: {{error}}
+  </div>
+
+  <div class="alert alert-info horizontal-tip alert-dismissible fade show" role="alert">
+    This event page is best viewed in a horizontal view <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+
+  <nav class="nav nav-tabs" id="myTab" role="tablist" *ngIf="!error">
     <a class="nav-item nav-link active" data-toggle="tab" href="#rankings" role="tab">Rankings</a>
     <a class="nav-item nav-link" data-toggle="tab" href="#match-history" role="tab">Match History</a>
     <a class="nav-item nav-link" data-toggle="tab" href="#average-scores" role="tab">Average Scores</a>
   </nav>
 
-  <div class="tab-content">
+  <div class="tab-content" *ngIf="!error">
     <div style="padding-top: 10px;" id="rankings" class="tab-pane fade show active table-responsive">
-      <div class="redcircle"></div>
-      <span class="key">= Autonomous Period</span>
-      <br>
-      <div class="bluecircle"></div>
-      <span class="key">= Teleop Period</span>
-      <br>
-      <div class="greencircle"></div>
-      <span class="key">= End Game Period</span>
+      <div class="legend">
+        <div class="redcircle"></div>
+        <span class="key">= Autonomous Period</span>
+        <br>
+        <div class="bluecircle"></div>
+        <span class="key">= Teleop Period</span>
+        <br>
+        <div class="greencircle"></div>
+        <span class="key">= End Game Period</span>
+      </div>
       <table class="table table-striped table-responsive" id="inputTable1" datatable [dtOptions]="dtOptions" *ngIf="data">
         <thead>
           <tr>
@@ -53,14 +65,16 @@
     </div>
 
     <div style="padding-top: 10px;" id="match-history" class="tab-pane fade table-responsive">
-      <div class="redcircle"></div>
-      <span class="key">= Autonomous Period</span>
-      <br>
-      <div class="bluecircle"></div>
-      <span class="key">= Teleop Period</span>
-      <br>
-      <div class="greencircle"></div>
-      <span class="key">= End Game Period</span>
+      <div class="legend">
+        <div class="redcircle"></div>
+        <span class="key">= Autonomous Period</span>
+        <br>
+        <div class="bluecircle"></div>
+        <span class="key">= Teleop Period</span>
+        <br>
+        <div class="greencircle"></div>
+        <span class="key">= End Game Period</span>
+      </div>
 
       <table class="table table-responsive" id="inputTable2" datatable [dtOptions]="dtOptions" *ngIf="data">
         <thead>
@@ -88,8 +102,8 @@
             <!-- <td class="match-number" rowspan="2" [ngClass]="{'d-none': i%2 !=0}">{{matchHistory.matchNumber}}</td> -->
             <td class="table-center" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">{{matchHistory.matchNumber}}</td>
             <td class="table-center" style="text-align: left" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">
-              {{matchHistory.team1.rank}} : {{matchHistory.team1.teamNumber}} {{matchHistory.team1.teamName}}
-              <br> {{matchHistory.team2.rank}} : {{matchHistory.team2.teamNumber}} {{matchHistory.team2.teamName}}</td>
+              {{matchHistory.team1.rank}}:{{matchHistory.team1.teamNumber}} <span class="d-none d-xl-inline">{{matchHistory.team1.teamName}}</span>
+              <br> {{matchHistory.team2.rank}}:{{matchHistory.team2.teamNumber}} <span class="d-none d-xl-inline">{{matchHistory.team2.teamName}}</span></td>
             <td class="table-center" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">
               <span *ngIf="matchHistory.result.final">{{matchHistory.result.final}}</span>
               <span *ngIf="!matchHistory.result.final">Predicted Winner {{matchHistory.prediction}}</span>
@@ -125,14 +139,16 @@
       </table>
     </div>
     <div style="padding-top: 10px;" id="average-scores" class="tab-pane fade table-responsive">
-      <div class="redcircle"></div>
-      <span class="key">= Autonomous Period</span>
-      <br>
-      <div class="bluecircle"></div>
-      <span class="key">= Teleop Period</span>
-      <br>
-      <div class="greencircle"></div>
-      <span class="key">= End Game Period</span>
+      <div class="legend">
+        <div class="redcircle"></div>
+        <span class="key">= Autonomous Period</span>
+        <br>
+        <div class="bluecircle"></div>
+        <span class="key">= Teleop Period</span>
+        <br>
+        <div class="greencircle"></div>
+        <span class="key">= End Game Period</span>
+      </div>
       <table class="table table-striped table-bordered table-responsive" id="inputTable3" datatable [dtOptions]="dtOptions" *ngIf="data">
         <thead>
           <tr>

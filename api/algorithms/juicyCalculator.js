@@ -249,4 +249,4 @@ sampleOrange3 = {	//This is bad orange... not juicy enough to juice
 module.exports = juicyCalculator
 // To use in another file:
 // var juicyCalculator = require('./juicyCalculator')
-// calculatedJuice = juicyCalculator(orange)	or as a callback
+// calculatedJuice = juicyCalculator(orange)

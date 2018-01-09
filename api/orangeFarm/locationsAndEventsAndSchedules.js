@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient
 var url = "mongodb://localhost:27017/JuicyData"
 
-var apiKey = require('../config/apiKey.js')
+var apiKey = require('./../../config/apiKey.js')
 var axios = require('axios')
 var toaApi = axios.create({
 	baseURL: 'http://theorangealliance.org/apiv2/',
@@ -13,9 +13,9 @@ var toaApi = axios.create({
 var eventKeys = [
 	'1718-NCAL-RWC', //testing
 	'1617-CASD-GAUS', //testing
-	'1718-CASD-TUR', 
-	'1718-CASD-GAUS',
-	'1718-CASD-EUCL',
+	//'1718-CASD-TUR', //Bad events
+	//'1718-CASD-GAUS',
+	//'1718-CASD-EUCL',
 
 	'1718-FIM-CMP1',	//team 5386
 	'1718-FIM-MARY',
@@ -27,9 +27,7 @@ var forceUpdate = true //Set to true to write to database even if data exists,
 
 var completedEvents = []
 
-module.exports = function() {
-	getData()
-}
+module.exports = getData
 
 function getData() {
 	completedEvents = []
@@ -130,19 +128,19 @@ function insertEventAndSchedule(db, event, teams, stations, location) {
 			teams: {
 				red1: {
 					teamNumber: Number(matchTeams[0]),
-					surrogate: matchStatus[0] === 0
-				}
+					surrogate: Number(matchStatus[0]) === 0
+				},
 				red2: {
 					teamNumber: Number(matchTeams[1]),
-					surrogate: matchStatus[1] === 0
+					surrogate: Number(matchStatus[1]) === 0
 				},
 				blue1: {
 					teamNumber: Number(matchTeams[2]),
-					surrogate: matchStatus[2] === 0
-				}
+					surrogate: Number(matchStatus[2]) === 0
+				},
 				blue2: {
 					teamNumber: Number(matchTeams[3]),
-					surrogate: matchStatus[3] === 0
+					surrogate: Number(matchStatus[3]) === 0
 				}
 			}
 		})

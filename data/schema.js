@@ -65,23 +65,11 @@
 		toaEventKey: 'abc',
 		matchInformation:{
 			matchNumber: 123,
-			teams:{	//NOT SURE IF WE ACUALLY NEED THIS; WE HAVE SCHEDULE WHICH SHOULD BE A MATCH OF THIS
-				red1: {
-					teamNumber: 123,
-					surrogate: false //True if this team was surrogate
-				},
-				red2: {
-					teamNumber: 123,
-					surrogate: false
-				},
-				blue1: {
-					teamNumber: 123,
-					surrogate: false
-				},
-				blue2: {
-					teamNumber: 123,
-					surrogate: false
-				}
+			teams: {
+				red1: 123,
+				red2: 123,
+				blue1: 123,
+				blue2: 123
 			}
 		}
 	},
@@ -159,10 +147,18 @@
 	}
 }
 
-//in collection 'eventOut' INCOMPLETE
+//in collection 'eventOut'
 {
 	_id: 'abc', //toaEventKey
 	lastUpdated: ISODate(), //Time of insert/update
+	eventInformation:{
+		date: ISODate(), //ISO Date of when it occured;
+		eventName: 'abc',
+		locationName: 'abc',	//Same as the name in the locations collection
+		locationID: ObjectId(), //ID of the location in the 'locations' collection
+		teamsList:[123, 123, 123],
+		season: 'Y1Y2', //for relic recovery 2017-2018 the season is '1718'
+	},
 	ranking:[
 		{
 			rank: 123,
@@ -191,12 +187,14 @@
 			team1:{
 				teamNumber: 123,
 				teamName: 'abc',
-				rank: 123
+				rank: 123,
+				surrogate: false //true if the team is playing as surrogate
 			},
 			team2:{
 				teamNumber: 123,
 				teamName: 'abc',
-				rank: 123
+				rank: 123,
+				surrogate: false
 			},
 			result:{
 				total: 123,

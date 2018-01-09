@@ -1,90 +1,156 @@
 //orangePicker by Michael Leonffu
-var MongoClient = require('mongodb').MongoClient
-var configDB = require('./../config/database.js')
-ObjectId = require('mongodb').ObjectID
+
+// var MongoClient = require('mongodb').MongoClient
+// var configDB = require('./../config/database.js')
+// ObjectId = require('mongodb').ObjectID
 
 /*
 Picks the oranges that manager told to pick; dose all the calls to the database to get the data for all the peelers and calculators
 
 Can pick oranges from the gameData or matchData collections
 */
+function orangePicker(mongodb){
 
-function orangePickerRanking(orchard, oranges){	//only supports matchData; rankings rightnow
+function orangePickerOrchard(orchard, oranges){
+	console.log('[START]-orangePickerOrchard')
+	var pickerTimer = new Date()
+	mongodb.db.collection('events').findOne(
+		{_id: orchard},
+		function(err, pickedOranges){
+			console.log('Operation orangePickerOrchard time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
+			console.log('[DONE]-orangePickerOrchard')
+			if(err){
+				console.log(err)
+			}else{
+				oranges(pickedOranges)	//Thses oranges don't need peeling;	this is the call back.
+			}
+		}
+	)
+}
+
+function orangePickerRanking(orchard, oranges){
 	console.log('[START]-orangePickerRanking')
 
-	// orchard should be in this form:
-	// {
-	// 	name: 'abc',
-	// 	date: ISODate(), //ISO Date of when it occured; 
-	// 	locationID: ObjectId() //ID of the location in the 'places' collection
-	// }
-
 	var pickerTimer = new Date()
-	MongoClient.connect(configDB.url, function(err,db){
-		if(err){
-			console.log(err)
-			return
-		}
-		db.collection('matchData').aggregate([
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
+		mongodb.db.collection('matchData').aggregate([
 			{$match:{'_id.toaEventKey':orchard}},
+			{$lookup:{
+				from:'schedules',
+				let: {matchNumber: '$_id.matchInformation.matchNumber', toaEventKey: '$_id.toaEventKey'},
+				pipeline: [
+					{$match:{$expr:
+						{$eq: ['$_id', '$$toaEventKey']}
+					}},
+					{$unwind:'$schedule'},
+					{$match:{$expr:
+						{$eq: ['$schedule.matchNumber', '$$matchNumber']}
+					}}
+				],
+				// localField:'schedule.match',
+				// foreignField:'matchInformation.matchNumber',
+				as:'schedules'
+			}},
+			{$unwind:'$schedules'},
+			{$addFields:{
+				teams: '$schedules.schedule.teams'
+			}},
 			{$facet:{	//There IS a better way to do this QQ
 				red:[
 					{$project:{
-						teams:['$_id.matchInformation.teams.red1','$_id.matchInformation.teams.red2'],
+						teams:['$teams.red1','$teams.red2'],
 						score:'$resultInformation'
 					}},
 					{$unwind:'$teams'},
 					{$group:{
-						_id:'$teams',
+						_id:'$teams.teamNumber',
 						wins:{$sum:{$cond:[
-							{$eq:['red','$score.winner']},
+							{$and:[
+								{$eq:['red','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
 						losses:{$sum:{$cond:[
-							{$eq:['blue','$score.winner']},	//Since this is focusing on the red teams
+							{$and:[
+								{$eq:['blue','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},	//Since this is focusing on the red teams
 							1,	//True case
 							0	//False case
 						]}},
 						ties:{$sum:{$cond:[
-							{$eq:['tie','$score.winner']},
+							{$and:[
+								{$eq:['tie','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
+						// rankingPoints:{$sum:{$cond:[
+						// 	{$and:[
+						// 		{$eq:['red','$score.winner']},
+						// 		{$eq:[false,'$teams.surrogate']}
+						// 	]},	//This is unbias
+						// 	'$score.score.total.blue',	//True case; If red wins then take blue total score
+						// 	'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+						// ]}}
 						rankingPoints:{$sum:{$cond:[
-							{$eq:['red','$score.winner']},	//This is unbias
-							'$score.score.total.blue',	//True case; If red wins then take blue total score
-							'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+							{$eq:[false,'$teams.surrogate']},
+							{$cond:[
+								{$eq:['red','$score.winner']}, //This is unbias
+								'$score.score.total.blue',	//True case; If red wins then take blue total score
+								'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+							]},
+							0
 						]}}
 					}}
 				],
 				blue:[
 					{$project:{
-						teams:['$_id.matchInformation.teams.blue1','$_id.matchInformation.teams.blue2'],
+						teams:['$teams.blue1','$teams.blue2'],
 						score:'$resultInformation'
 					}},
 					{$unwind:'$teams'},
 					{$group:{
-						_id:'$teams',
+						_id:'$teams.teamNumber',
 						wins:{$sum:{$cond:[
-							{$eq:['blue','$score.winner']},
+							{$and:[
+								{$eq:['blue','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
 						losses:{$sum:{$cond:[
-							{$eq:['red','$score.winner']},	//Since this is focusing on the red teams
+							{$and:[
+								{$eq:['red','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},	//Since this is focusing on the red teams
 							1,	//True case
 							0	//False case
 						]}},
 						ties:{$sum:{$cond:[
-							{$eq:['tie','$score.winner']},
+							{$and:[
+								{$eq:['tie','$score.winner']},
+								{$eq:[false,'$teams.surrogate']}
+							]},
 							1,	//True case
 							0	//False case
 						]}},
-						rankingPoints:{$sum:{$cond:[	//CHECK IF THIS IS TOTAL SCORE OR FINAL SCORE!
-							{$eq:['red','$score.winner']},	//This is unbias
-							'$score.score.total.blue',	//True case; If red wins then take blue total score
-							'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+						rankingPoints:{$sum:{$cond:[
+							{$eq:[false,'$teams.surrogate']},
+							{$cond:[
+								{$eq:['red','$score.winner']}, //This is unbias
+								'$score.score.total.blue',	//True case; If red wins then take blue total score
+								'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+							]},
+							0
 						]}}
 					}}
 				]
@@ -104,6 +170,14 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 				// 	'$ties'
 				// ]},	//Ties represent 1 point while wins represent 2 points
 				rankingPoints:{$sum:'$rankingPoints'}
+				// rankingPoints:{$sum:{$cond:[
+				// 	{$and:[
+				// 		{$eq:['red','$score.winner']},
+				// 		{$eq:[false,'$teams.surrogate']}
+				// 	]},	//This is unbias
+				// 	'$score.score.total.blue',	//True case; If red wins then take blue total score
+				// 	'$score.score.total.red'	//False case; If red loses then take red total score; or if tie then take red score
+				// ]}}
 			}},
 			{$addFields:{
 				qualifyingPoints:{$sum:[
@@ -144,29 +218,29 @@ function orangePickerRanking(orchard, oranges){	//only supports matchData; ranki
 		],function(err,pickedOranges){
 			console.log('Operation orangePickerRanking time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
 			console.log('[DONE]-orangePickerRanking')
-			db.close()	//We don't need the database anymore
+			// db.close()	//We don't need the database anymore
 			if(err){
 				console.log(err)
 			}else{
 				oranges(pickedOranges)	//Thses oranges don't need peeling;	this is the call back.
 			}
 		})
-	})
+	// })
 }
 
 function orangePickerMatchHistory(orchard, oranges){
 	//Gets all the stuff for match history using schedule and gamedata
 	console.log('[START]-orangePickerMatchHistory')
 	var pickerTimer = new Date()
-	MongoClient.connect(configDB.url, function(err,db){
-		//If there is an error while connecting to the database
-		if(err){
-			console.log(err)
-			return
-		}
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	//If there is an error while connecting to the database
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
 
 		//Make the schedule and matchData.....
-		db.collection('schedules').aggregate([
+		mongodb.db.collection('schedules').aggregate([
 			{$match:{'_id':orchard}},
 			{$unwind:'$schedule'},
 			{$facet:{
@@ -257,7 +331,7 @@ function orangePickerMatchHistory(orchard, oranges){
 		function matchHistory(err, pickedOranges){
 			console.log('Operation orangePickerMatchHistory time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
 			console.log('[DONE]-orangePickerMatchHistory')
-			db.close()
+			// db.close()
 			if(err){
 				console.log(err)
 			}else if(!(0 in pickedOranges)){
@@ -266,7 +340,7 @@ function orangePickerMatchHistory(orchard, oranges){
 				oranges(pickedOranges)	//All is good; this is call back
 			}
 		}
-	})
+	// })
 }
 
 function orangePickerAverageScores(orchard, oranges){
@@ -274,15 +348,15 @@ function orangePickerAverageScores(orchard, oranges){
 	//This make sure to find the oranges that are important for calculating OPR; schedule and matchdata
 	console.log('[START]-orangePickerAverageScores')
 	var pickerTimer = new Date()
-	MongoClient.connect(configDB.url, function(err,db){
-		//If there is an error while connecting to the database
-		if(err){
-			console.log(err)
-			return
-		}
+	// MongoClient.connect(configDB.url, function(err,db){
+	// 	//If there is an error while connecting to the database
+	// 	if(err){
+	// 		console.log(err)
+	// 		return
+	// 	}
 
 		//Make the schedule and matchData.....
-		db.collection('schedules').aggregate([
+		mongodb.db.collection('schedules').aggregate([
 			{$match:{'_id':orchard}},
 			{$unwind:'$schedule'},
 			{$lookup:{
@@ -322,8 +396,8 @@ function orangePickerAverageScores(orchard, oranges){
 						_id:0,
 						teamsScore:{
 							//teams:['$schedule.teams.red1','$schedule.teams.red2'],
-							team1:'$schedule.teams.red1',
-							team2:'$schedule.teams.red2',
+							team1:'$schedule.teams.red1.teamNumber',
+							team2:'$schedule.teams.red2.teamNumber',
 							score: {
 								auto: '$matchData.resultInformation.score.auto.red',
 								driver: '$matchData.resultInformation.score.driver.red',
@@ -345,8 +419,8 @@ function orangePickerAverageScores(orchard, oranges){
 						_id:0,
 						teamsScore:{
 							//teams:['$schedule.teams.blue1','$schedule.teams.blue2'],
-							team1:'$schedule.teams.blue1',
-							team2:'$schedule.teams.blue2',
+							team1:'$schedule.teams.blue1.teamNumber',
+							team2:'$schedule.teams.blue2.teamNumber',
 							score: {
 								auto: '$matchData.resultInformation.score.auto.blue',
 								driver: '$matchData.resultInformation.score.driver.blue',
@@ -386,15 +460,24 @@ function orangePickerAverageScores(orchard, oranges){
 				teamList:[
 					{$group:{
 						_id:'Anna Li',
-						teamsList:{$addToSet:'$teamsScore.team1'},
-						teamsList:{$addToSet:'$teamsScore.team2'}
+						teamsList1:{$addToSet:'$teamsScore.team1'},
+						teamsList2:{$addToSet:'$teamsScore.team2'}
+					}},
+					{$project:{
+						_id:0,
+						teamsList: {$concatArrays:['$teamsList1','$teamsList2']}
+					}},
+					{$unwind:'$teamsList'},
+					{$group:{
+						_id:'Anna Li',
+						teamList:{$addToSet:'$teamsList'}
 					}}
 				]
 			}},
 			{$unwind:'$teamList'},
 			{$project:{
 				teamsScore:1,
-				teamsList:'$teamList.teamsList'
+				teamsList:'$teamList.teamList'
 			}}
 		], teamsScores)
 
@@ -415,7 +498,7 @@ function orangePickerAverageScores(orchard, oranges){
 		// 				auto:{},
 		// 				driver:{},
 		// 				end:{}
-		// 			}	All the game elements 
+		// 			}	All the game elements
 		// 		}
 		// 	],
 		// 	teamList:[123,123,123,] Team numbers unique list
@@ -425,23 +508,33 @@ function orangePickerAverageScores(orchard, oranges){
 		function teamsScores(err, pickedOranges){
 			console.log('Operation orangePickerAverageScores time(Milliseconds):',new Date(new Date()-pickerTimer).getMilliseconds())
 			console.log('[DONE]-orangePickerAverageScores')
-			db.close()
+			// db.close()
 			if(err){
 				console.log(err)
 			}else if(!(0 in pickedOranges)){
 				console.log('Failed to get docs')
 			}else{
+				console.log('pickedOranges',pickedOranges)
 				oranges(pickedOranges)	//All is good; this is call back
 			}
 		}
-	})
+	// })
 }
-
-module.exports = {
+return {
 	orangePickerRanking: orangePickerRanking,
 	orangePickerMatchHistory: orangePickerMatchHistory,
-	orangePickerAverageScores: orangePickerAverageScores
+  orangePickerAverageScores: orangePickerAverageScores,
+  orangePickerOrchard: orangePickerOrchard
 }
+
+}
+
+module.exports = orangePicker
+	// orangePickerRanking: orangePickerRanking,
+	// orangePickerMatchHistory: orangePickerMatchHistory,
+	// orangePickerAverageScores: orangePickerAverageScores
+
+
 // To use in another file:
 // var orangePicker = require('./orangePicker')
 // orangePicker.orangePickerRanking(orchard, oranges)
