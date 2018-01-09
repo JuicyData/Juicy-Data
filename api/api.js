@@ -132,7 +132,7 @@ app.get('/api/teams/read', (req, res) =>{
 			],
 			as:'teamInformation'
 		}},
-		{$unwind:'teamInformation'}
+		{$unwind:'teamInformation'},
 		// {$project:{
 		// 	teamName: {$arrayElemAt:['$teamName',0]},
 		// 	current: {$arrayElemAt:['$current.event',0]},
