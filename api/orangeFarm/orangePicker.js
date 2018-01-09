@@ -523,7 +523,8 @@ function orangePickerAverageScores(orchard, oranges){
 return {
 	orangePickerRanking: orangePickerRanking,
 	orangePickerMatchHistory: orangePickerMatchHistory,
-	orangePickerAverageScores: orangePickerAverageScores
+	orangePickerAverageScores: orangePickerAverageScores,
+	orangePickerOrchard: orangePickerOrchard
 }
 
 }
