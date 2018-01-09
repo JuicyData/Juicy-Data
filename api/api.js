@@ -124,21 +124,22 @@ app.get('/api/teams/read', (req, res) =>{
 			pipeline: [
 				{$match:{$expr:
 					{$eq: ['$_id', Number(req.query.teamNumber)]}
-				}},
-				{$project:{
-					_id:0,
-					team_name_short:1
 				}}
+				// {$project:{
+				// 	_id:0,
+				// 	team_name_short:1
+				// }}
 			],
-			as:'teamName'
+			as:'teamInformation'
 		}},
-		{$project:{
-			teamName: {$arrayElemAt:['$teamName',0]},
-			current: {$arrayElemAt:['$current.event',0]},
-			old: {$arrayElemAt:['$old.event',0]}
-		}},
+		{$unwind:'teamInformation'}
+		// {$project:{
+		// 	teamName: {$arrayElemAt:['$teamName',0]},
+		// 	current: {$arrayElemAt:['$current.event',0]},
+		// 	old: {$arrayElemAt:['$old.event',0]}
+		// }},
 		{$addFields:{
-			teamName: {$arrayElemAt: [{$split: ['$teamName.team_name_short', ', Team #']},0]},
+			teamName: {$arrayElemAt: [{$split: ['$teamInformation.team_name_short', ', Team #']},0]},
 			teamNumber: Number(req.query.teamNumber)
 		}}
 	],
