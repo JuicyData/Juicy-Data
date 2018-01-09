@@ -13,7 +13,11 @@ var eventKeys = [
 
 	'1718-FIM-CMP1',	//team 5386
 	'1718-FIM-MARY',
-	'1718-FIM-GLBR'
+	'1718-FIM-GLBR',
+
+	'1718-FIM-CMP2',
+
+	'1718-OH-AUS'	//highest scoreing 593
 	] //Currently ongoing events
 
 module.exports = getData
