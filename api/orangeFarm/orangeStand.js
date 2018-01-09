@@ -115,14 +115,16 @@ var orangeStand = function(mongodb, orchard, pickedRankingOranges, pickedMatchHi
 			matchNumber: pickedMatchHistoryOranges[i]._id.matchNumber,
 			alliance: pickedMatchHistoryOranges[i]._id.alliance,
 			team1: {
-				teamNumber: pickedMatchHistoryOranges[i].teams.team1,
-				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1)].teamName,
-				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1)].rank
+				teamNumber: pickedMatchHistoryOranges[i].teams.team1.teamNumber,
+				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1.teamNumber)].teamName,
+				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team1.teamNumber)].rank,
+				surrogate: pickedMatchHistoryOranges[i].teams.team1.surrogate
 			},
 			team2: {
-				teamNumber: pickedMatchHistoryOranges[i].teams.team2,
-				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2)].teamName,
-				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2)].rank
+				teamNumber: pickedMatchHistoryOranges[i].teams.team2.teamNumber,
+				teamName: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2.teamNumber)].teamName,
+				rank: rankingsJson[String(pickedMatchHistoryOranges[i].teams.team2.teamNumber)].rank,
+				surrogate: pickedMatchHistoryOranges[i].teams.team2.surrogate
 			},
 			result: {
 				total: pickedMatchHistoryOranges[i].matchData.resultInformation.score.total[String(pickedMatchHistoryOranges[i]._id.alliance)],

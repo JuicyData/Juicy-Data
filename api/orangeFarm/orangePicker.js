@@ -241,8 +241,8 @@ function orangePickerMatchHistory(orchard, oranges){
 							alliance: 'red'
 						},
 						teams: {
-							team1:'$schedule.teams.red1.teamNumber',
-							team2:'$schedule.teams.red2.teamNumber'
+							team1:'$schedule.teams.red1',
+							team2:'$schedule.teams.red2'
 						}
 					}}
 				],
@@ -253,8 +253,8 @@ function orangePickerMatchHistory(orchard, oranges){
 							alliance: 'blue'
 						},
 						teams: {
-							team1:'$schedule.teams.blue1.teamNumber',
-							team2:'$schedule.teams.blue2.teamNumber'
+							team1:'$schedule.teams.blue1',
+							team2:'$schedule.teams.blue2'
 						}
 					}}
 				]
