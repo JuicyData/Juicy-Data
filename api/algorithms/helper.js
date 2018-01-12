@@ -126,6 +126,69 @@ module.exports = {
 
 		return formattedData
 	}
+
+	formattingNeuralSimpleOPR: function(data){
+		var formattedData = []
+
+		//Formatting it to only use combined alliance OPR to predict the score and the winner of the games
+
+		// data: {
+		// 	matchData: [],
+		// 	juice: {}
+		// }
+
+		//to
+
+		// formattedData = [		RECYLCE TO BETTER FORMATTER LATTEr
+		// 	{
+		// 		input: {
+		// 			redAuto: .123,
+		// 			redDriver: .123,
+		// 			redEnd: .123,
+		// 			redTotal: .123,
+		// 			redPenalty: .123,
+		// 			redFinal: .123,
+		// 			redOPRTotal: .123,
+
+		// 			blueAuto: .123,
+		// 			blueDriver: .123,
+		// 			blueEnd: .123,
+		// 			blueTotal: .123,
+		// 			bluePenalty: .123,
+		// 			blueFinal: .123,
+		// 			blueOPRTotal: .123
+		// 		},
+		// 		output: {
+		// 			red: 123,
+		// 			blue 123
+		// 		}
+		// 	}
+		// ]
+
+		// formattedData = [
+		// 	{
+		// 		input: {
+		// 			redOPRTotal: .123,
+		// 			blueOPRTotal: .123
+		// 		},
+		// 		output: {
+		// 			redTotal: .123,
+		// 			blueTotal: .123,
+		// 			red: 123,
+		// 			blue 123
+		// 		}
+		// 	}
+		// ]
+
+		for (var i = 0; i < data.matchData.length; i++) {
+			
+			//data.matchData[i]
+			
+		}
+
+
+		return formattedData
+	}
 }
 
 
