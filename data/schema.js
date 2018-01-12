@@ -202,6 +202,8 @@
 				final: 123
 			},
 			prediction: 'abc', //Which alliance will win; CHANGE THIS SCHEMA LATTER!!!!!
+			predictionChanceTeam1: .123, //chance
+			predictionChanceTeam2: .123, //chance
 			winner: 'abc', //blue or red
 			gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
 				auto:{

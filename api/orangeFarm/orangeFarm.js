@@ -19,6 +19,8 @@ which is sold by the orange stand
 // [Log] Log
 // [Err] Error
 // [Wrn] Warning
+//https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+//https://stackoverflow.com/questions/19837697/node-js-formatted-console-output
 
 function orangeFarm(mongodb, orchard, farmReport){
 

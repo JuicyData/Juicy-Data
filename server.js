@@ -26,14 +26,13 @@ app.use(bodyParser.urlencoded({
 MongoClient.connect(configDB.url, function(err,db){
 	if(err){
 		console.log(err)
-		res.status(500).send(err)
 		return
 	}else{
 		require('./api/api')(app, db, ObjectId); // load our routes and pass in our app
 	}
 })
 
-require('./api/orangeFarm/matchAndGameData.js')()
+require('./api/orangeFarm/matchAndGameData.js')(function() {}) //empty callback for now
 require('./api/orangeFarm/locationsAndEventsAndSchedules.js')()
 
 // app.use(express.static(path.join(__dirname, 'dist')));

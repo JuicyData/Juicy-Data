@@ -13,18 +13,71 @@ var eventKeys = [
 
 	'1718-FIM-CMP1',	//team 5386
 	'1718-FIM-MARY',
-	'1718-FIM-GLBR'
+	'1718-FIM-GLBR',
+
+	'1718-FIM-CMP2',
+
+	'1718-OH-AUS'	//highest scoreing 593
 	] //Currently ongoing events
 
 module.exports = getData
 
-function getData() {
+function getData(callback) {
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err
 		let matchDatas = {}
 		let gameDatas = {red: {}, blue: {}}
 		let matchNumbers = {}
+
+		let printDatas = function() {
+			for (let eventKey of eventKeys) {
+				for (let matchNumber of matchNumbers[eventKey]) {
+					console.log(eventKey + ' Match ' + matchNumber + ' matchData:')
+					console.log(JSON.stringify(matchDatas[eventKey][matchNumber], null, 2))
+					console.log()
+					console.log(eventKey + ' Match ' + matchNumber + ' red gameData:')
+					console.log(JSON.stringify(gameDatas.red[eventKey][matchNumber], null, 2))
+					console.log()
+					console.log(eventKey + ' Match ' + matchNumber + ' blue gameData:')
+					console.log(JSON.stringify(gameDatas.blue[eventKey][matchNumber], null, 2))
+					console.log()
+					console.log()
+				}
+				console.log('-----------------------------------------------------------------')
+			}
+		}
+
+		let finishIfDone = function() {
+			for (let eventKey of eventKeys) {
+				for (let matchNumber of matchNumbers[eventKey]) {
+					if (!matchDatas[eventKey][matchNumber] || !gameDatas.red[eventKey][matchNumber] || !gameDatas.blue[eventKey][matchNumber]) {
+						return
+					}
+				}
+			}
+			db.close()
+			printDatas()
+			console.log('Completed Retrieval of Match and Game Data!')
+			callback()
+		}
+
 		for (let eventKey of eventKeys) {
+			let saveMatchData = function(matchData, matchNumber) {
+			  	db.collection('matchData').save(matchData, function(err, res) {
+			    	if (err) throw err
+			    	matchDatas[eventKey][matchNumber] = matchData
+			    	finishIfDone()
+			  	})
+			}
+
+			let saveGameData = function(gameData, matchNumber, alliance) {
+			  	db.collection('gameData').save(gameData, function(err, res) {
+			    	if (err) throw err
+			    	gameDatas[alliance][eventKey][matchNumber] = gameData
+			    	finishIfDone()
+			  	})
+			}
+
 			db.collection('events').findOne({'_id': eventKey}, function(err, data) {
 				if (err) throw err
 				let eventInformation = null
@@ -120,7 +173,7 @@ function getData() {
 											}
 										}
 									}
-									saveMatchData(db, matchData, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas)
+									saveMatchData(matchData, matchNumber)
 
 									let getDetails = function() {
 										toaApi.get('/match/' + match.match_key + '/details').then(function(response) {
@@ -157,7 +210,7 @@ function getData() {
 														}
 													}
 												}
-												saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas)
+												saveGameData(gameData, matchNumber, alliance)
 											}
 										}).catch(function(e) {
 											console.log("Couldn't get details for " + eventKey + " match " + matchNumber + ", retrying: " + e)
@@ -181,52 +234,4 @@ function getData() {
 			})
 		}
 	})
-	// setTimeout(getData, 180000) Do it all again in 3 minutes
-}
-
-function saveMatchData(db, matchData, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas) {
-  	db.collection('matchData').save(matchData, function(err, res) {
-    	if (err) throw err
-    	matchDatas[eventKey][matchNumber] = matchData
-    	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
-  	})
-}
-
-function saveGameData(db, gameData, alliance, eventKey, matchNumber, eventKeys, matchNumbers, matchDatas, gameDatas) {
-  	db.collection('gameData').save(gameData, function(err, res) {
-    	if (err) throw err
-    	gameDatas[alliance][eventKey][matchNumber] = gameData
-    	finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas)
-  	})
-}
-
-function finishIfDone(db, eventKeys, matchNumbers, matchDatas, gameDatas) {
-	for (let eventKey of eventKeys) {
-		for (let matchNumber of matchNumbers[eventKey]) {
-			if (!matchDatas[eventKey][matchNumber] || !gameDatas.red[eventKey][matchNumber] || !gameDatas.blue[eventKey][matchNumber]) {
-				return
-			}
-		}
-	}
-	db.close()
-	printDatas(eventKeys, matchNumbers, matchDatas, gameDatas)
-	console.log('Completed Retrieval of Match and Game Data!')
-}
-
-function printDatas(eventKeys, matchNumbers, matchDatas, gameDatas) {
-	for (let eventKey of eventKeys) {
-		for (let matchNumber of matchNumbers[eventKey]) {
-			console.log(eventKey + ' Match ' + matchNumber + ' matchData:')
-			console.log(JSON.stringify(matchDatas[eventKey][matchNumber], null, 2))
-			console.log()
-			console.log(eventKey + ' Match ' + matchNumber + ' red gameData:')
-			console.log(JSON.stringify(gameDatas.red[eventKey][matchNumber], null, 2))
-			console.log()
-			console.log(eventKey + ' Match ' + matchNumber + ' blue gameData:')
-			console.log(JSON.stringify(gameDatas.blue[eventKey][matchNumber], null, 2))
-			console.log()
-			console.log()
-		}
-		console.log('-----------------------------------------------------------------')
-	}
 }

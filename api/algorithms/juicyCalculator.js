@@ -163,7 +163,11 @@ function juicyCalculator(originalOrange, calculatedJuice = function(){}, printOu
 		juicyData = {juice:{}}
 		if(orange.labels){
 			for (var j = 0; orangeArray.length > j; j++) {
-				juicyData.juice[orange.labels[j]] = orangeArray[j][0]
+				if(originalOrange.constructor === Object){
+					juicyData.juice[orange.labels[j]] = orangeArray[j]
+				}else{
+					juicyData.juice[orange.labels[j]] = orangeArray[j][0]
+				}
 			}
 		}else{
 			juicyData = {juice:orangeArray}
