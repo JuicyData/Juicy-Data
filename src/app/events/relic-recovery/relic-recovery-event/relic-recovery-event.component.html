@@ -117,7 +117,7 @@
             </td>
             <td class="table-center" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">
               <span *ngIf="matchHistory.result.final">{{matchHistory.result.final}}</span>
-              <span *ngIf="!matchHistory.result.final">Predicted Winner {{matchHistory.prediction}}</span>
+              <!-- <span *ngIf="!matchHistory.result.final">Predicted Winner {{matchHistory.prediction}}</span> -->
             </td>
             <td [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'bottom-section': matchHistory.alliance === 'blue'}"
               class="auto table-center">{{matchHistory.gameInformation.auto.jewel}}</td>
