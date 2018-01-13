@@ -125,7 +125,7 @@ module.exports = {
 		}
 
 		return formattedData
-	}
+	},
 
 	formattingNeuralSimpleOPR: function(data){
 		var formattedData = []
