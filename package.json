@@ -28,6 +28,7 @@
     "angular-datatables": "^4.4.1",
     "axios": "^0.17.0",
     "bootstrap": "^3.3.7",
+    "brain.js": "^1.0.0",
     "connect-mongo": "^2.0.0",
     "core-js": "^2.4.1",
     "datatables.net": "^1.10.16",
