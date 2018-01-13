@@ -8,16 +8,20 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./relic-recovery-event.component.css']
 })
 export class RelicRecoveryEventComponent implements OnInit {
-
   dtOptions: DataTables.Settings = {};
+
+  alliance1team1: string;
+  alliance1team2: string;
+  alliance2team1: string;
+  alliance2team2: string;
 
   eventID: string; // ID of the event
   data: any;
+  predictionData: any;
 
   error: string;
 
-
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
     this.dtOptions = {
@@ -34,6 +38,7 @@ export class RelicRecoveryEventComponent implements OnInit {
     this.http.get('/api/events/read?eventId=' + this.eventID).subscribe(
       data => {
         this.data = data;
+        console.log(this.data);
       },
       error => {
         this.error = error.error;
@@ -41,4 +46,28 @@ export class RelicRecoveryEventComponent implements OnInit {
     );
   }
 
+  predict() {
+    this.http
+      .get(
+        '/api/predict?eventId=' +
+          this.eventID +
+          '&alliance1team1=' +
+          this.alliance1team1 +
+          '&alliance1team2=' +
+          this.alliance1team2 +
+          '&alliance2team1=' +
+          this.alliance2team1 +
+          '&alliance2team2=' +
+          this.alliance2team2
+      )
+      .subscribe(
+        data => {
+          this.predictionData = data;
+          console.log(this.predictionData);
+        },
+        error => {
+          this.error = error.error;
+        }
+      );
+  }
 }
