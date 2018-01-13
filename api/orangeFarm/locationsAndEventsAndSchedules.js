@@ -12,18 +12,20 @@ var toaApi = axios.create({
 // Find these at theorangealliance.org
 var eventKeys = [
 	'1718-NCAL-RWC', //testing
-	'1617-CASD-GAUS', //testing
-	//'1718-CASD-TUR', //Bad events
-	//'1718-CASD-GAUS',
-	//'1718-CASD-EUCL',
+	
 
-	'1718-FIM-CMP1',	//team 5386
-	'1718-FIM-MARY',
-	'1718-FIM-GLBR',
+	// '1617-CASD-GAUS', //testing
+	// //'1718-CASD-TUR', //Bad events
+	// //'1718-CASD-GAUS',
+	// //'1718-CASD-EUCL',
 
-	'1718-FIM-CMP2',
+	// '1718-FIM-CMP1',	//team 5386
+	// '1718-FIM-MARY',
+	// '1718-FIM-GLBR',
 
-	'1718-OH-AUS'	//Highest scoreing 593
+	// '1718-FIM-CMP2',
+
+	// '1718-OH-AUS'	//Highest scoreing 593
 	]
 
 var forceUpdate = true //Set to true to write to database even if data exists, 
