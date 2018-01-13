@@ -11,39 +11,46 @@ var ObjectId = require('mongodb').ObjectID
 
 module.exports = {}
 
-// require('./orangeFarm/matchAndGameData.js')()
-// require('./orangeFarm/locationsAndEventsAndSchedules.js')()
+var matchAndGameData = require('./orangeFarm/matchAndGameData.js')
+var locationsAndEventsAndSchedules = require('./orangeFarm/locationsAndEventsAndSchedules.js')
 
-MongoClient.connect(configDB.url, function(err,db){
-	if(err){
-		console.log(err)
-		res.status(500).send(err)
-		return
-	}else{
+locationsAndEventsAndSchedules()
 
-		var orangeFarm = require('./orangeFarm/orangeFarm') // load our routes and pass in our app
-		// orangeFarm({db:db, ObjectId:ObjectId}, '1718-NCAL-RWC', function(farmReport){
-		// 	console.log(farmReport)
-		// 	db.close()
-		// })
+function manager(){
+	matchAndGameData()
+	MongoClient.connect(configDB.url, function(err,db){
+		if(err){
+			console.log(err)
+			res.status(500).send(err)
+			return
+		}else{
 
-		var orchardList = [
-			'1718-NCAL-RWC',
+			var orangeFarm = require('./orangeFarm/orangeFarm') // load our routes and pass in our app
+			// orangeFarm({db:db, ObjectId:ObjectId}, '1718-NCAL-RWC', function(farmReport){
+			// 	console.log(farmReport)
+			// 	db.close()
+			// })
 
-			// '1718-FIM-CMP1',	//team 5386
-			// '1718-FIM-MARY',
-			// '1718-FIM-GLBR',
+			var orchardList = [
+				'1718-CASD-SCHS2',
 
-			// '1718-FIM-CMP2',
+				// '1718-FIM-CMP1',	//team 5386
+				// '1718-FIM-MARY',
+				// '1718-FIM-GLBR',
 
-			// '1718-OH-AUS'	//highest scoreing 593
-		]
+				// '1718-FIM-CMP2',
 
-		for (var i = 0; i < orchardList.length; i++) {
-			//orchardList[i]
-			orangeFarm({db:db, ObjectId:ObjectId}, orchardList[i], function(farmReport){
-				console.log('farmReport:', farmReport)
-			})
+				// '1718-OH-AUS'	//highest scoreing 593
+			]
+
+			for (var i = 0; i < orchardList.length; i++) {
+				//orchardList[i]
+				orangeFarm({db:db, ObjectId:ObjectId}, orchardList[i], function(farmReport){
+					console.log('farmReport:', farmReport)
+				})
+			}
 		}
-	}
-})
+	})
+	setTimeout(manager, 240000)
+}
+

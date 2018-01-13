@@ -9,7 +9,7 @@ var toaApi = axios.create({
 	headers: {'X-Application-Origin': 'JuicyData', 'X-TOA-Key': apiKey}
 })
 var eventKeys = [
-	'1718-NCAL-RWC',	
+	'1718-CASD-SCHS2',	
 
 	// '1718-FIM-CMP1',	//team 5386
 	// '1718-FIM-MARY',

@@ -11,7 +11,7 @@ var toaApi = axios.create({
 
 // Find these at theorangealliance.org
 var eventKeys = [
-	'1718-NCAL-RWC', //testing
+	'1718-CASD-SCHS2', //testing
 	
 
 	// '1617-CASD-GAUS', //testing
