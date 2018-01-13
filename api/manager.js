@@ -54,3 +54,5 @@ function manager(){
 	setTimeout(manager, 240000)
 }
 
+manager()
+

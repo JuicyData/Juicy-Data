@@ -89,12 +89,12 @@ var orangeStand = function(mongodb, orchard, pickedRankingOranges, pickedMatchHi
 			},
 			qualifyingPoints: pickedRankingOranges[i].qualifyingPoints,
 			rankingPoints: pickedRankingOranges[i].rankingPoints,
-			averageScore: calculatedJuice.offensiveOranges.juice[String(pickedRankingOranges[i]._id)],
-			averageMarginalScore: calculatedJuice.marginalOranges.juice[String(pickedRankingOranges[i]._id)],
+			averageScore: calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.offensiveOranges.juice[String(pickedRankingOranges[i]._id)],
+			averageMarginalScore: calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.marginalOranges.juice[String(pickedRankingOranges[i]._id)],
 			average:{
-				auto: 		calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
-				driver: 	calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
-				end: 		calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
+				auto: 		calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
+				driver: 	calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
+				end: 		calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
 			}
 		}
 	}
@@ -146,32 +146,32 @@ var orangeStand = function(mongodb, orchard, pickedRankingOranges, pickedMatchHi
 		averageScores[i] = {
 			teamNumber: pickedRankingOranges[i]._id,
 			teamName: pickedRankingOranges[i].teamName,
-			averageScore: 			calculatedJuice.offensiveOranges		.juice[String(pickedRankingOranges[i]._id)],	//Maybe it dont need String()
-			averageMarginalScore: 	calculatedJuice.marginalOranges			.juice[String(pickedRankingOranges[i]._id)],
+			averageScore: 			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.offensiveOranges		.juice[String(pickedRankingOranges[i]._id)],	//Maybe it dont need String()
+			averageMarginalScore: 	calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.marginalOranges			.juice[String(pickedRankingOranges[i]._id)],
 			average: {
-				auto: 				calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
-				driver: 			calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
-				end: 				calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
+				auto: 				calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.scoreAutoOranges		.juice[String(pickedRankingOranges[i]._id)],
+				driver: 			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.scoreDriverOranges		.juice[String(pickedRankingOranges[i]._id)],
+				end: 				calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.scoreEndOranges			.juice[String(pickedRankingOranges[i]._id)]
 			},
 			gameAverages: {
 				auto: {
-					jewel:			calculatedJuice.autoJewelOranges		.juice[String(pickedRankingOranges[i]._id)],
-					glyphs:			calculatedJuice.autoGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
-					keys:			calculatedJuice.autoKeysOranges			.juice[String(pickedRankingOranges[i]._id)],
-					park:			calculatedJuice.autoParkOranges			.juice[String(pickedRankingOranges[i]._id)]
+					jewel:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.autoJewelOranges		.juice[String(pickedRankingOranges[i]._id)],
+					glyphs:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.autoGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					keys:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.autoKeysOranges			.juice[String(pickedRankingOranges[i]._id)],
+					park:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.autoParkOranges			.juice[String(pickedRankingOranges[i]._id)]
 				},
 				driver: {
-					glyphs:			calculatedJuice.driverGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
-					rows:			calculatedJuice.driverRowsOranges		.juice[String(pickedRankingOranges[i]._id)],
-					columns:		calculatedJuice.driverColumnsOranges	.juice[String(pickedRankingOranges[i]._id)],
-					cypher:			calculatedJuice.driverCypherOranges		.juice[String(pickedRankingOranges[i]._id)]
+					glyphs:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.driverGlyphsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					rows:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.driverRowsOranges		.juice[String(pickedRankingOranges[i]._id)],
+					columns:		calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.driverColumnsOranges	.juice[String(pickedRankingOranges[i]._id)],
+					cypher:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.driverCypherOranges		.juice[String(pickedRankingOranges[i]._id)]
 				},
 				end: {
-					relic1:			calculatedJuice.endRelic1Oranges		.juice[String(pickedRankingOranges[i]._id)],
-					relic2:			calculatedJuice.endRelic2Oranges		.juice[String(pickedRankingOranges[i]._id)],
-					relic3:			calculatedJuice.endRelic3Oranges		.juice[String(pickedRankingOranges[i]._id)],
-					relicsUp:		calculatedJuice.endRelicsUpOranges		.juice[String(pickedRankingOranges[i]._id)],
-					balanced:		calculatedJuice.endBalancedOranges		.juice[String(pickedRankingOranges[i]._id)]
+					relic1:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.endRelic1Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relic2:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.endRelic2Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relic3:			calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.endRelic3Oranges		.juice[String(pickedRankingOranges[i]._id)],
+					relicsUp:		calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.endRelicsUpOranges		.juice[String(pickedRankingOranges[i]._id)],
+					balanced:		calculatedJuice == 'Not juicy enough' ? 'NJE' :calculatedJuice.endBalancedOranges		.juice[String(pickedRankingOranges[i]._id)]
 				}
 			}
 		}
