@@ -26,7 +26,7 @@ function getData(callback) {
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err
 		let matchDatas = {}
-		//let gameDatas = {red: {}, blue: {}}
+		let gameDatas = {red: {}, blue: {}}
 		let matchNumbers = {}
 
 		let printDatas = function() {
@@ -35,13 +35,13 @@ function getData(callback) {
 					console.log(eventKey + ' Match ' + matchNumber + ' matchData:')
 					console.log(JSON.stringify(matchDatas[eventKey][matchNumber], null, 2))
 					console.log()
-					//console.log(eventKey + ' Match ' + matchNumber + ' red gameData:')
-					//console.log(JSON.stringify(gameDatas.red[eventKey][matchNumber], null, 2))
-					//console.log()
-					//console.log(eventKey + ' Match ' + matchNumber + ' blue gameData:')
-					//console.log(JSON.stringify(gameDatas.blue[eventKey][matchNumber], null, 2))
-					//console.log()
-					//console.log()
+					console.log(eventKey + ' Match ' + matchNumber + ' red gameData:')
+					console.log(JSON.stringify(gameDatas.red[eventKey][matchNumber], null, 2))
+					console.log()
+					console.log(eventKey + ' Match ' + matchNumber + ' blue gameData:')
+					console.log(JSON.stringify(gameDatas.blue[eventKey][matchNumber], null, 2))
+					console.log()
+					console.log()
 				}
 				console.log('-----------------------------------------------------------------')
 			}
@@ -50,8 +50,7 @@ function getData(callback) {
 		let finishIfDone = function() {
 			for (let eventKey of eventKeys) {
 				for (let matchNumber of matchNumbers[eventKey]) {
-					//if (!matchDatas[eventKey][matchNumber] || !gameDatas.red[eventKey][matchNumber] || !gameDatas.blue[eventKey][matchNumber]) {
-					if (!matchDatas[eventKey][matchNumber]) {
+					if (!matchDatas[eventKey][matchNumber] || !gameDatas.red[eventKey][matchNumber] || !gameDatas.blue[eventKey][matchNumber]) {
 						return
 					}
 				}
@@ -71,13 +70,13 @@ function getData(callback) {
 			  	})
 			}
 
-			// let saveGameData = function(gameData, matchNumber, alliance) {
-			//   	db.collection('gameData').save(gameData, function(err, res) {
-			//     	if (err) throw err
-			//     	gameDatas[alliance][eventKey][matchNumber] = gameData
-			//     	finishIfDone()
-			//   	})
-			// }
+			let saveGameData = function(gameData, matchNumber, alliance) {
+			  	db.collection('gameData').save(gameData, function(err, res) {
+			    	if (err) throw err
+			    	gameDatas[alliance][eventKey][matchNumber] = gameData
+			    	finishIfDone()
+			  	})
+			}
 
 			db.collection('events').findOne({'_id': eventKey}, function(err, data) {
 				if (err) throw err
@@ -105,8 +104,8 @@ function getData(callback) {
 								matchNumbers[eventKey] = []
 								let relevantMatches = {}
 								matchDatas[eventKey] = {}
-								//gameDatas.red[eventKey] = {}
-								//gameDatas.blue[eventKey] = {}
+								gameDatas.red[eventKey] = {}
+								gameDatas.blue[eventKey] = {}
 								for (let match of matches) {
 									let matchNumber = match.match_name.split('Quals ')[1]
 									if (matchNumber) {
@@ -176,49 +175,49 @@ function getData(callback) {
 									}
 									saveMatchData(matchData, matchNumber)
 
-									// let getDetails = function() {
-									// 	toaApi.get('/match/' + match.match_key + '/details').then(function(response) {
-									// 		let matchDetails = response.data[0]
-									// 		for (let alliance of ['red', 'blue']) {
-									// 			let gameData = {
-									// 				_id:{
-									// 					toaEventKey: eventKey,
-									// 					matchInformation:{
-									// 						matchNumber: matchNumber,
-									// 						robotAlliance: alliance, //blue or red; with lower case
-									// 						teams: teams[alliance]
-									// 					}
-									// 				},
-									// 				gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
-									// 					auto:{
-									// 						jewel: matchDetails[alliance+'_auto_jewel'],
-									// 						glyphs: matchDetails[alliance+'_auto_glyphs'],
-									// 						keys: matchDetails[alliance+'_auto_keys'],
-									// 						park: matchDetails[alliance+'_auto_park']
-									// 					},
-									// 					driver:{
-									// 						glyphs: matchDetails[alliance+'_tele_glyphs'],
-									// 						rows: matchDetails[alliance+'_tele_rows'],
-									// 						columns: matchDetails[alliance+'_tele_columns'],
-									// 						cypher: matchDetails[alliance+'_tele_cypher']
-									// 					},
-									// 					end:{
-									// 						relic1: matchDetails[alliance+'_end_relic_one'],	//Amount of relics in that zone
-									// 						relic2: matchDetails[alliance+'_end_relic_two'],
-									// 						relic3: matchDetails[alliance+'_end_relic_three'],
-									// 						relicsUp: matchDetails[alliance+'_end_relic_up'],	//Amount of relects standing up
-									// 						balanced: matchDetails[alliance+'_end_robot_bal']	//How many robots are balanced
-									// 					}
-									// 				}
-									// 			}
-									// 			saveGameData(gameData, matchNumber, alliance)
-									// 		}
-									// 	}).catch(function(e) {
-									// 		console.log("Couldn't get details for " + eventKey + " match " + matchNumber + ", retrying: " + e)
-									// 		setTimeout(getDetails, 100)
-									// 	})
-									// }
-									// getDetails()
+									let getDetails = function() {
+										toaApi.get('/match/' + match.match_key + '/details').then(function(response) {
+											let matchDetails = response.data[0]
+											for (let alliance of ['red', 'blue']) {
+												let gameData = {
+													_id:{
+														toaEventKey: eventKey,
+														matchInformation:{
+															matchNumber: matchNumber,
+															robotAlliance: alliance, //blue or red; with lower case
+															teams: teams[alliance]
+														}
+													},
+													gameInformation:{	//CHECK IF ALL THSES TYPES ARE CORRECT AND ALSO HAVE COFRRECT MEANING!
+														auto:{
+															jewel: matchDetails[alliance+'_auto_jewel'],
+															glyphs: matchDetails[alliance+'_auto_glyphs'],
+															keys: matchDetails[alliance+'_auto_keys'],
+															park: matchDetails[alliance+'_auto_park']
+														},
+														driver:{
+															glyphs: matchDetails[alliance+'_tele_glyphs'],
+															rows: matchDetails[alliance+'_tele_rows'],
+															columns: matchDetails[alliance+'_tele_columns'],
+															cypher: matchDetails[alliance+'_tele_cypher']
+														},
+														end:{
+															relic1: matchDetails[alliance+'_end_relic_one'],	//Amount of relics in that zone
+															relic2: matchDetails[alliance+'_end_relic_two'],
+															relic3: matchDetails[alliance+'_end_relic_three'],
+															relicsUp: matchDetails[alliance+'_end_relic_up'],	//Amount of relects standing up
+															balanced: matchDetails[alliance+'_end_robot_bal']	//How many robots are balanced
+														}
+													}
+												}
+												saveGameData(gameData, matchNumber, alliance)
+											}
+										}).catch(function(e) {
+											console.log("Couldn't get details for " + eventKey + " match " + matchNumber + ", retrying: " + e)
+											setTimeout(getDetails, 100)
+										})
+									}
+									getDetails()
 								}
 							}).catch(function(e) {
 								console.log("Couldn't get matches for " + eventKey + ", retrying: " + e)
