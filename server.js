@@ -32,8 +32,8 @@ MongoClient.connect(configDB.url, function(err,db){
 	}
 })
 
-require('./api/orangeFarm/matchAndGameData.js')(function() {}) //empty callback for now
-require('./api/orangeFarm/locationsAndEventsAndSchedules.js')()
+// require('./api/orangeFarm/matchAndGameData.js')(function() {}) //empty callback for now
+// require('./api/orangeFarm/locationsAndEventsAndSchedules.js')()
 
 // app.use(express.static(path.join(__dirname, 'dist')));
 // app.get('*', (req, res) => {

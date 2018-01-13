@@ -1,6 +1,6 @@
 <div class="container">
   <h1 *ngIf="data">{{data.eventInformation.eventName}}</h1>
-  <hr>
+  <hr *ngIf="data">
 
   <div class="alert alert-danger" role="alert" *ngIf="error">
     Error: {{error}}
@@ -17,6 +17,7 @@
     <a class="nav-item nav-link active" data-toggle="tab" href="#rankings" role="tab">Rankings</a>
     <a class="nav-item nav-link" data-toggle="tab" href="#match-history" role="tab">Match History</a>
     <a class="nav-item nav-link" data-toggle="tab" href="#average-scores" role="tab">Average Scores</a>
+    <!-- <a class="nav-item nav-link" data-toggle="tab" href="#alliance-calculator" role="tab">Alliance Calculator</a> -->
   </nav>
 
   <div class="tab-content" *ngIf="!error">
@@ -50,7 +51,9 @@
         <tbody>
           <tr *ngFor="let ranking of data.ranking">
             <td>{{ranking.rank}}</td>
-            <td><a routerLink="/teams/{{ranking.teamNumber}}">{{ranking.teamNumber}}</a></td>
+            <td>
+              <a routerLink="/teams/{{ranking.teamNumber}}">{{ranking.teamNumber}}</a>
+            </td>
             <td>{{ranking.teamName}}</td>
             <td>{{ranking.record.wins}}-{{ranking.record.losses}}-{{ranking.record.ties}}</td>
             <td>{{ranking.qualifyingPoints}}</td>
@@ -183,7 +186,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let averageScores of data.averageScores">
-            <td><a routerLink="/teams/{{averageScores.teamNumber}}">{{averageScores.teamNumber}}</a></td>
+            <td>
+              <a routerLink="/teams/{{averageScores.teamNumber}}">{{averageScores.teamNumber}}</a>
+            </td>
             <td>{{averageScores.teamName}}</td>
             <td>{{averageScores.averageScore}}</td>
             <td class="auto">{{averageScores.average.auto}}</td>
@@ -205,6 +210,29 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div style="padding-top: 10px;" id="alliance-calculator" class="tab-pane fade" *ngIf="data">
+      <div class="row">
+        <div class="col-6">
+          <h3>Alliance 1</h3>
+          <select [(ngModel)]="alliance1team1" id="alliance1team1" class="form-control">
+            <option *ngFor="let teamNumber of data.eventInformation.teamsList">{{teamNumber}}</option>
+          </select>
+          <select [(ngModel)]="alliance1team2" id="alliance1team2" class="form-control">
+            <option *ngFor="let teamNumber of data.eventInformation.teamsList">{{teamNumber}}</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <h3>Alliance 2</h3>
+          <select [(ngModel)]="alliance2team1" id="alliance2team1" class="form-control">
+            <option *ngFor="let teamNumber of data.eventInformation.teamsList">{{teamNumber}}</option>
+          </select>
+          <select [(ngModel)]="alliance2team2" id="alliance2team2" class="form-control">
+            <option *ngFor="let teamNumber of data.eventInformation.teamsList">{{teamNumber}}</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" (click)="predict()">Test</button>
     </div>
   </div>
 </div>
