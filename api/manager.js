@@ -11,13 +11,33 @@ var ObjectId = require('mongodb').ObjectID
 
 module.exports = {}
 
+// Find these at theorangealliance.org
+var eventKeys = [
+	'1718-CASD-SCHS2', //testing
+	
+
+	// '1617-CASD-GAUS', //testing
+	// //'1718-CASD-TUR', //Bad events
+	// //'1718-CASD-GAUS',
+	// //'1718-CASD-EUCL',
+
+	// '1718-FIM-CMP1',	//team 5386
+	// '1718-FIM-MARY',
+	// '1718-FIM-GLBR',
+
+	// '1718-FIM-CMP2',
+
+	// '1718-OH-AUS'	//Highest scoreing 593
+]
 var matchAndGameData = require('./orangeFarm/matchAndGameData.js')
 var locationsAndEventsAndSchedules = require('./orangeFarm/locationsAndEventsAndSchedules.js')
+var initializeMatchData = require('./orangeFarm/initializeMatchData.js')
 
-locationsAndEventsAndSchedules()
+locationsAndEventsAndSchedules(eventKeys, function() {/*callback*/})//TODO: might want to use the callback
+initializeMatchData(eventKeys, function() {/*callback*/})//TODO: might want to use the callback
 
 function manager(){
-	matchAndGameData()
+	matchAndGameData(eventKeys, function() {/*callback*/})//TODO: might want to use the callback
 	MongoClient.connect(configDB.url, function(err,db){
 		if(err){
 			console.log(err)

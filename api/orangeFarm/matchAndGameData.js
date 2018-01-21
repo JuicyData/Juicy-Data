@@ -8,21 +8,10 @@ var toaApi = axios.create({
 	timeout: 10000,
 	headers: {'X-Application-Origin': 'JuicyData', 'X-TOA-Key': apiKey}
 })
-var eventKeys = [
-	'1718-CASD-SCHS2',	
-
-	// '1718-FIM-CMP1',	//team 5386
-	// '1718-FIM-MARY',
-	// '1718-FIM-GLBR',
-
-	// '1718-FIM-CMP2',
-
-	// '1718-OH-AUS'	//highest scoreing 593
-	] //Currently ongoing events
 
 module.exports = getData
 
-function getData(callback) {
+function getData(eventKeys, callback) {
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err
 		let matchDatas = {}
@@ -108,7 +97,7 @@ function getData(callback) {
 								gameDatas.blue[eventKey] = {}
 								for (let match of matches) {
 									let matchNumber = match.match_name.split('Quals ')[1]
-									if (matchNumber && (match.red_score || match.blue_score)) {
+									if (matchNumber && (match.red_score != null && match.blue_score != null)) {
 										if (!matchNumbers[eventKey].includes(matchNumber)) {
 											matchNumbers[eventKey].push(Number(matchNumber))
 										}
