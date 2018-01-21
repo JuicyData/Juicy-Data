@@ -32,8 +32,10 @@ MongoClient.connect(configDB.url, function(err,db){
 	}
 })
 
-// require('./api/orangeFarm/locationsAndEventsAndSchedules.js')(['1718-CASD-SCHS2'], function() {/*callback*/})
-require('./api/orangeFarm/initializeMatchData.js')(['1718-CASD-SCHS2'], function() {/*callback*/})
+let eventKeys = ['1718-CASD-SCHS2']
+require('./api/orangeFarm/locationsAndEventsAndSchedules.js')(eventKeys, function() {
+	require('./api/orangeFarm/initializeMatchData.js')(eventKeys, function() {/*callback*/})
+})
 // require('./api/orangeFarm/matchAndGameData.js')(['1718-CASD-SCHS2'], function() {/*callback*/})
 
 // app.use(express.static(path.join(__dirname, 'dist')));
