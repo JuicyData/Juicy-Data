@@ -108,7 +108,7 @@ function getData(callback) {
 								gameDatas.blue[eventKey] = {}
 								for (let match of matches) {
 									let matchNumber = match.match_name.split('Quals ')[1]
-									if (matchNumber) {
+									if (matchNumber && match.red_score && match.blue_score) {
 										if (!matchNumbers[eventKey].includes(matchNumber)) {
 											matchNumbers[eventKey].push(Number(matchNumber))
 										}
