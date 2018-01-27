@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently --kill-others \"npm run serve-api\" \"npm run serve-open\"",
+    "start": "concurrently --kill-others \"npm run serve-open\"",
     "serve": "ng serve --host '0.0.0.0' --proxy-config proxy.conf.json --aot",
     "serve-open": "ng serve --proxy-config proxy.conf.json --open",
     "build": "ng build",
