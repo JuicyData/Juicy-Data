@@ -8,7 +8,6 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IconsModule } from './icons.module';
 
 import { RelicRecoveryComponent } from './events/relic-recovery/relic-recovery.component';
 import { RelicRecoveryEventComponent } from './events/relic-recovery/relic-recovery-event/relic-recovery-event.component';
@@ -59,8 +58,7 @@ const ROUTES = [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
     HttpClientModule,
-    FormsModule,
-    IconsModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
