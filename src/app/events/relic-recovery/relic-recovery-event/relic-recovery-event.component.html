@@ -1,27 +1,40 @@
-<div class="container">
-  <h1 *ngIf="data">{{data.eventInformation.eventName}}</h1>
-  <hr *ngIf="data">
+<div [ngClass]="{'container': width >= 1119, 'container-fluid': width < 1119 }">
+  <div class="text-center">
+    <i *ngIf="loading" class="fas fa-circle-notch fa-spin fa-5x"></i>
+  </div>
 
-  <div class="alert alert-danger" role="alert" *ngIf="error">
+  <h1 *ngIf="data && !loading">{{data.eventInformation.eventName}}</h1>
+  <hr *ngIf="data && !loading">
+
+  <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
     Error: {{error}}
   </div>
 
-  <div class="alert alert-info horizontal-tip alert-dismissible fade show" role="alert">
-    This event page is best viewed in a horizontal view
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <div class="alert alert-info horizontal-tip alert-dismissible fade show" role="alert" *ngIf="!error && !loading">
+    <div class="row no-gutters">
+      <div class="col-10">
+        This event page is best viewed in a horizontal view.
+        <strong>Please refresh after switching to horizontal!</strong>
+      </div>
+      <div class="col-2">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <nav class="nav nav-tabs" id="myTab" role="tablist" *ngIf="!error">
-    <a class="nav-item nav-link active" data-toggle="tab" href="#rankings" role="tab">Rankings</a>
-    <a class="nav-item nav-link" data-toggle="tab" href="#match-history" role="tab">Match History</a>
-    <a class="nav-item nav-link" data-toggle="tab" href="#average-scores" role="tab">Average Scores</a>
-    <!-- <a class="nav-item nav-link" data-toggle="tab" href="#alliance-calculator" role="tab">Alliance Calculator</a> -->
+  <nav class="nav nav-tabs" id="myTab" role="tablist" *ngIf="!error && !loading">
+    <a class="nav-item nav-link active" data-toggle="tab" href="#rankings" role="tab" (click)="definitions = true">Rankings</a>
+    <a class="nav-item nav-link" data-toggle="tab" href="#match-history" role="tab" (click)="definitions = false">
+      <span class="d-none d-sm-inline">Match </span>History</a>
+    <a class="nav-item nav-link" data-toggle="tab" href="#average-scores" role="tab" (click)="definitions = true">OPR</a>
+    <a class="nav-item nav-link" data-toggle="tab" href="#alliance-calculator" role="tab" (click)="definitions = false">Calc<span class="d-none d-sm-inline">ulator</span>
+    </a>
   </nav>
 
-  <div class="tab-content" *ngIf="!error">
-    <div style="padding-top: 10px;" id="rankings" class="tab-pane fade show active table-responsive">
+  <div class="tab-content" *ngIf="!error && !loading">
+    <div style="padding-top: 10px;" id="rankings" class="tab-pane active table-responsive">
       <div class="legend">
         <div class="redcircle"></div>
         <span class="key">= Autonomous Period</span>
@@ -41,11 +54,11 @@
             <th>Record W-L-T</th>
             <th>QP</th>
             <th>RP</th>
-            <th>Total Average</th>
-            <th>Marginal Average</th>
-            <th class="red">Average</th>
-            <th class="blue">Average</th>
-            <th class="green">Average</th>
+            <th>Total OPR</th>
+            <th>CCWM</th>
+            <th class="red">OPR</th>
+            <th class="blue">OPR</th>
+            <th class="green">OPR</th>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +81,7 @@
       </table>
     </div>
 
-    <div style="padding-top: 10px;" id="match-history" class="tab-pane fade table-responsive">
+    <div style="padding-top: 10px;" id="match-history" class="tab-pane table-responsive">
       <div class="legend">
         <div class="redcircle"></div>
         <span class="key">= Autonomous Period</span>
@@ -149,7 +162,7 @@
         </tbody>
       </table>
     </div>
-    <div style="padding-top: 10px;" id="average-scores" class="tab-pane fade table-responsive">
+    <div style="padding-top: 10px;" id="average-scores" class="tab-pane table-responsive">
       <div class="legend">
         <div class="redcircle"></div>
         <span class="key">= Autonomous Period</span>
@@ -165,10 +178,10 @@
           <tr>
             <th>Team Number</th>
             <th>Team Name</th>
-            <th>Average Score</th>
-            <th class="red">Average</th>
-            <th class="blue">Average</th>
-            <th class="green">Average</th>
+            <th>Total OPR</th>
+            <th class="red">OPR</th>
+            <th class="blue">OPR</th>
+            <th class="green">OPR</th>
             <th class="red">Jewel</th>
             <th class="red">Glyphs</th>
             <th class="red">Keys</th>
@@ -232,8 +245,19 @@
           </select>
         </div>
       </div>
-      <button class="btn btn-primary btn-block" (click)="predict()">Test</button>
+      <button class="btn btn-primary btn-block" (click)="predict()">Predict</button>
+      <div class="alert alert-success" role="alert" style="margin-top: 20px;" *ngIf="predictionData">
+        Predicted Winning Alliance: {{predictionData.prediction.winner}} <br>
+        Chance: {{predictionData.prediction.chance}} <br>
+        Predicted Alliance 1 Score : {{predictionData.prediction.aliance1.score}} <br>
+        Predicted Alliance 2 Score : {{predictionData.prediction.aliance2.score}}
+      </div>
     </div>
-    <p>NJE: Not Juicy Enough; There isn't enough matches played to produce data yet (normally data is produced by match 6)</p>
   </div>
+  <div class="alert alert-info" role="alert" style="margin-top: 20px;" *ngIf="definitions && !error && !loading">
+      NJE: Not Juicy Enough; There isn't enough matches played to produce data yet (normally data is produced by match 6)
+      <br> OPR: Offensive Power Ranking;
+      <br> CCWM: Calculated Contribution to Winning Margain
+      <br>
+    </div>
 </div>

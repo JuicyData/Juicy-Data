@@ -8,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   showCollapsedNavbar = false;
+  width: any;
 
   constructor() { }
 
   ngOnInit() {
+    this.width = window.innerWidth;
   }
 
 }

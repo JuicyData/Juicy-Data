@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('the-orange-alliance App', () => {
+describe('juicydata App', () => {
   let page: AppPage;
 
   beforeEach(() => {

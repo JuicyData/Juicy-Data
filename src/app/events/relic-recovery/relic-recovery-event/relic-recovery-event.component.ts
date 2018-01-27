@@ -21,9 +21,17 @@ export class RelicRecoveryEventComponent implements OnInit {
 
   error: string;
 
+  width: any;
+
+  definitions = true;
+  loading = true;
+
+
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
+
+    this.width = window.innerWidth;
     this.dtOptions = {
       paging: false
     };
@@ -32,6 +40,7 @@ export class RelicRecoveryEventComponent implements OnInit {
       this.eventID = params['eventID'];
       this.getData();
     });
+
   }
 
   getData() {
@@ -39,9 +48,11 @@ export class RelicRecoveryEventComponent implements OnInit {
       data => {
         this.data = data;
         console.log(this.data);
+        this.loading = false;
       },
       error => {
         this.error = error.error;
+        this.loading = false;
       }
     );
   }
@@ -63,7 +74,6 @@ export class RelicRecoveryEventComponent implements OnInit {
       .subscribe(
         data => {
           this.predictionData = data;
-          console.log(this.predictionData);
         },
         error => {
           this.error = error.error;
