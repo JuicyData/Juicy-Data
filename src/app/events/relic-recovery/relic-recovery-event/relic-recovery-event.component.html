@@ -32,8 +32,8 @@
     <a class="nav-item nav-link" data-toggle="tab" href="#match-history" role="tab" (click)="definitions = false">
       <span class="d-none d-sm-inline">Match </span>History</a>
     <a class="nav-item nav-link" data-toggle="tab" href="#average-scores" role="tab" (click)="definitions = true">OPR</a>
-    <!-- <a class="nav-item nav-link" data-toggle="tab" href="#alliance-calculator" role="tab" (click)="definitions = false">Calc<span class="d-none d-sm-inline">ulator</span>
-    </a> -->
+    <a class="nav-item nav-link" data-toggle="tab" href="#alliance-calculator" role="tab" (click)="definitions = false">Calc<span class="d-none d-sm-inline">ulator</span>
+    </a>
   </nav>
 
   <div class="tab-content" *ngIf="!error && !loading">
@@ -252,8 +252,8 @@
       <div class="alert alert-success" role="alert" style="margin-top: 20px;" *ngIf="predictionData">
         Predicted Winning Alliance: {{predictionData.prediction.winner}} <br>
         Chance: {{predictionData.prediction.chance}} <br>
-        Predicted Alliance 1 Score : {{predictionData.prediction.aliance1.score}} <br>
-        Predicted Alliance 2 Score : {{predictionData.prediction.aliance2.score}}
+        Predicted Alliance 1 Score : {{predictionData.prediction.alliance1.score}} <br>
+        Predicted Alliance 2 Score : {{predictionData.prediction.alliance2.score}}
       </div>
     </div>
   </div>
