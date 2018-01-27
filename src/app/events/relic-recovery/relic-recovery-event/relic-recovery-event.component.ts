@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-relic-recovery-event',
@@ -26,11 +27,13 @@ export class RelicRecoveryEventComponent implements OnInit {
   definitions = true;
   loading = true;
 
+  // Time stuff
+  subscription: any;
+  timer = Observable.timer(1000, 180000);
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
-
     this.width = window.innerWidth;
     this.dtOptions = {
       paging: false
@@ -38,9 +41,10 @@ export class RelicRecoveryEventComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.eventID = params['eventID'];
-      this.getData();
+      this.subscription = this.timer.subscribe(t => {
+        this.getData();
+      });
     });
-
   }
 
   getData() {

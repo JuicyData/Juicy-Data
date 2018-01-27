@@ -3,12 +3,15 @@
     <i *ngIf="loading" class="fas fa-circle-notch fa-spin fa-5x"></i>
   </div>
 
-  <h1 *ngIf="data && !loading">{{data.eventInformation.eventName}}</h1>
+  <h1 *ngIf="data && !loading">{{data.eventInformation.eventName}} </h1>
   <hr *ngIf="data && !loading">
+  <h1 *ngIf="data && !loading" style="color: #F22613;"><i class="far fa-dot-circle"></i> Live</h1>
 
   <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
     Error: {{error}}
   </div>
+
+
 
   <div class="alert alert-info horizontal-tip alert-dismissible fade show" role="alert" *ngIf="!error && !loading">
     <div class="row no-gutters">
