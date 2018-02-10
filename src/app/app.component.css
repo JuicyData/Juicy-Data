@@ -1,6 +1,7 @@
 .content {
-	margin-top: 30px;
   color: #f77b25;
-  min-height: 90vh;
-  margin-bottom: 40px;
+  min-height: 100vh;
+  padding-bottom: 40px;
+  background-color: rgb(250,249,250);
+  padding-top: 30px;
 }

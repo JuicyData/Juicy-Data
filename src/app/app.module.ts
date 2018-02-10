@@ -16,10 +16,6 @@ import { TeamsComponent } from './teams/teams.component';
 
 const ROUTES = [
   {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
     path: 'events',
     component: RelicRecoveryComponent
   },
@@ -37,7 +33,7 @@ const ROUTES = [
   },
   {
     path: '',
-    component: RelicRecoveryComponent
+    component: HomeComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];

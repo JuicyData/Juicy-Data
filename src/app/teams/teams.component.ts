@@ -15,6 +15,8 @@ export class TeamsComponent implements OnInit {
 
   data: any;
 
+  loading = true;
+
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -28,11 +30,13 @@ export class TeamsComponent implements OnInit {
     this.http.get('/api/teams/read?teamNumber=' + this.teamNumber).subscribe(
       data => {
         this.data = data;
-        console.log('data', this.data)
+        console.log('data', this.data);
+        this.loading = false;
       },
       error => {
         this.error = error.error;
-        console.log('error: ', this.error)
+        console.log('error: ', this.error);
+        this.loading = false;
       }
     );
   }

@@ -1,7 +1,10 @@
 <div class="container">
-  <h1 *ngIf="data">Team {{data.current.averageScore.teamNumber}} {{data.teamName}}</h1>
+  <div class="text-center">
+    <i *ngIf="loading" class="fas fa-circle-notch fa-spin fa-5x"></i>
+  </div>
+  <h1 *ngIf="!error && !loading">Team {{data.current.averageScore.teamNumber}} {{data.teamName}}</h1>
   <hr>
-  <div class="card" *ngIf="data" style="margin-bottom: 50px;">
+  <div class="card" *ngIf="!error && !loading" style="margin-bottom: 50px;">
     <div class="card-block">
       <h2>
         <a routerLink="/events/relic-recovery/{{data.current._id}}">{{data.current.eventInformation.eventName}}</a>

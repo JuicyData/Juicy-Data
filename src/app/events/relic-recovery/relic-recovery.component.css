@@ -11,10 +11,14 @@ hr{
   max-width: 600px;
 }
 
-.table {
-  margin-bottom: 40px;
+h3 {
+  margin-top: 15px;
 }
 
-h3 {
-  margin-top: 10px;
+table {
+  margin-bottom: 0px;
+}
+
+.card {
+  margin-bottom: 60px;
 }

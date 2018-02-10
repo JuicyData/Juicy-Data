@@ -10,7 +10,6 @@ hr {
   padding: 0;
 }
 
-
 body {
   padding-top: 60px;
 }
@@ -241,3 +240,28 @@ select {
 .alert {
   font-size: 0.875rem;
 }
+
+.dataTables_filter {
+  margin-right: 30px;
+}
+
+.table {
+  border: none;
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #ddd;
+}
+
+.nav-tabs > a {
+  border: none;
+  color: #666;
+}
+.nav-tabs > a.active,
+.nav-tabs > a:hover {
+  border: none;
+  color: #fa9235 !important;
+  background: transparent;
+  border-bottom: 2px solid #fa9235;
+}
+

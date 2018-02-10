@@ -27,9 +27,7 @@ export class RelicRecoveryEventComponent implements OnInit {
   definitions = true;
   loading = true;
 
-  // Time stuff
-  subscription: any;
-  timer = Observable.timer(1000, 180000);
+  liveEvents = ['1718-CASD-DESC', '1718-CASD-ELLC', '1718-CASD-GALC', '1718-CASD-TLC'];
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
@@ -41,9 +39,7 @@ export class RelicRecoveryEventComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.eventID = params['eventID'];
-      this.subscription = this.timer.subscribe(t => {
         this.getData();
-      });
     });
   }
 
