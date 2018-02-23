@@ -1,0 +1,104 @@
+<div class="container">
+  <h1>Current Regional Championship OPR</h1>
+  <hr>
+
+  <div class="alert alert-info horizontal-tip alert-dismissible fade show" role="alert">
+    <div class="row no-gutters">
+      <div class="col-10">
+        This event page is best viewed in a horizontal view.
+        <strong>Please refresh after switching to horizontal!</strong>
+      </div>
+      <div class="col-2">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <div class="row no-gutters">
+      <div class="col-10">
+        This page shows the teams that will be competing at the San Diego Regional Champioship and their Offensive Power Rating.
+        Please take these OPR caluclations with a grain of salt, as they were calculated with a small sample size of 6 games from the League Championships. OPRs will be reset and recalcuated during the regional on Juciy Data.
+        <br>
+        <a href="https://blog.thebluealliance.com/2017/10/05/the-math-behind-opr-an-introduction/">Click here for more information about OPR and how it is calculated.</a>
+      </div>
+      <div class="col-2">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <nav class="nav nav-tabs" id="myTab" role="tablist">
+      <a class="nav-item nav-link active" data-toggle="tab" href="#average-scores" role="tab">Offensive Power Rating</a>
+    </nav>
+    <div class="tab-content active">
+      <div style="padding-top: 10px;" id="rankings" class="tab-pane active table-responsive">
+        <div class="legend">
+          <div class="redcircle"></div>
+          <span class="key">= Autonomous Period</span>
+          <br>
+          <div class="bluecircle"></div>
+          <span class="key">= Teleop Period</span>
+          <br>
+          <div class="greencircle"></div>
+          <span class="key">= End Game Period</span>
+        </div>
+        <table class="table table-striped table-responsive" id="inputTable1" datatable [dtOptions]="dtOptions">
+          <thead>
+            <tr>
+              <th>Team Number</th>
+              <th>Team Name</th>
+              <th>Total OPR</th>
+              <th class="red">OPR</th>
+              <th class="blue">OPR</th>
+              <th class="green">OPR</th>
+              <th class="red">Jewel</th>
+              <th class="red">Glyphs</th>
+              <th class="red">Keys</th>
+              <th class="red">Park</th>
+              <th class="blue">Glyphs</th>
+              <th class="blue">Rows</th>
+              <th class="blue">Columns</th>
+              <th class="blue">Cypher</th>
+              <th class="green">Relic 1</th>
+              <th class="green">Relic 2</th>
+              <th class="green">Relic 3</th>
+              <th class="green">Relic Up</th>
+              <th class="green">Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let opr of oprs">
+              <td>
+                <a routerLink="/teams/{{opr[0]}}">{{opr[0]}}</a>
+              </td>
+              <td>{{opr[1]}}</td>
+              <td>{{opr[2]}}</td>
+              <td class="auto">{{opr[3]}}</td>
+              <td class="driver">{{opr[4]}}</td>
+              <td class="end">{{opr[5]}}</td>
+              <td class="auto">{{opr[6]}}</td>
+              <td class="auto">{{opr[7]}}</td>
+              <td class="auto">{{opr[8]}}</td>
+              <td class="auto">{{opr[9]}}</td>
+              <td class="driver">{{opr[10]}}</td>
+              <td class="driver">{{opr[11]}}</td>
+              <td class="driver">{{opr[12]}}</td>
+              <td class="driver">{{opr[13]}}</td>
+              <td class="end">{{opr[14]}}</td>
+              <td class="end">{{opr[15]}}</td>
+              <td class="end">{{opr[16]}}</td>
+              <td class="end">{{opr[17]}}</td>
+              <td class="end">{{opr[18]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

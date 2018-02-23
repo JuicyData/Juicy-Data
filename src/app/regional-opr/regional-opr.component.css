@@ -1,0 +1,267 @@
+hr {
+  position: relative;
+  display: block;
+  height: 1px;
+  max-width: 600px;
+  border: 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: #ffa46b;
+  padding: 0;
+}
+
+body {
+  padding-top: 60px;
+}
+h1 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+}
+h2 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+}
+h3 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.25rem;
+}
+h4 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.875rem;
+}
+th {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  color: #f9690e;
+}
+
+.red {
+  background-color: #ec644b;
+  color: white;
+}
+.blue {
+  background-color: #4183d7;
+  color: white;
+}
+.green {
+  background-color: #26a65b;
+  color: white;
+}
+html {
+  position: relative;
+}
+html,
+body {
+  height: 100%;
+}
+.redcircle {
+  vertical-align: middle;
+  position: absolute;
+  display: inline;
+  width: 14px;
+  height: 14px;
+  background-color: #ec644b;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin-top: 3px;
+  margin-left: 10px;
+}
+.bluecircle {
+  vertical-align: middle;
+  position: absolute;
+  display: inline;
+  width: 14px;
+  height: 14px;
+  background: #4183d7;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin-top: 3px;
+  margin-left: 10px;
+}
+.greencircle {
+  vertical-align: middle;
+  position: absolute;
+  margin-left: 10px;
+  width: 14px;
+  height: 14px;
+  background: #26a65b;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+.key {
+  font-size: 0.75rem;
+  padding-left: 20px;
+  padding-right: 5px;
+  position: absolute;
+  margin-left: 10px;
+}
+.table-responsive {
+  overflow-x: auto;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #111;
+  font-size: 0.875rem;
+  font-weight: normal;
+}
+
+.match-number {
+  background-color: white;
+  vertical-align: middle;
+}
+
+.red-alliance {
+  background-color: #fdd;
+}
+
+.blue-alliance {
+  background-color: #ddf;
+}
+
+.red-score {
+  background-color: #fdd;
+}
+
+.blue-score {
+  background-color: #ddf;
+}
+
+table {
+  color: black;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: #faa86f;
+  color: white;
+}
+tbody {
+  font-size: 0.875rem;
+}
+
+.auto {
+  background-color: rgba(236, 100, 75, 0.15);
+}
+
+.driver {
+  background-color: rgba(65, 131, 215, 0.15);
+}
+
+.end {
+  background-color: rgba(38, 166, 91, 0.15);
+}
+
+.bottom-section {
+  border-bottom: 1px solid rgb(165, 165, 165);
+}
+
+.table-center {
+  vertical-align: middle;
+}
+
+.legend {
+  margin-bottom: 30px !important;
+}
+
+@media (max-width: 767px) {
+  .nav-link {
+    font-size: 1rem;
+  }
+
+  table.dataTable tbody td {
+    font-size: 0.8rem;
+  }
+
+  table.dataTable thead th,
+  table.dataTable thead td {
+    font-size: 0.8rem;
+  }
+}
+
+/* @media (max-width: 770px) {
+  .container {
+    max-width: 700px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .container {
+    max-width: 900px;
+  }
+} */
+
+@media screen and (orientation: landscape) {
+  .horizontal-tip {
+    display: none;
+  }
+}
+
+.nav-link {
+  padding: 10px 10px;
+}
+
+.team-rank {
+  padding-right: 0px;
+  padding-left: 4px;
+}
+
+select {
+  margin-bottom: 15px;
+}
+
+.btn-primary,
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #ffa46b;
+  border: #ffa46b;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 3px rgba(255, 164, 107, 0.5);
+}
+
+.alert {
+  font-size: 0.875rem;
+}
+
+.dataTables_filter {
+  margin-right: 30px;
+}
+
+.table {
+  border: none;
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #ddd;
+}
+
+.nav-tabs > a {
+  border: none;
+  color: #666;
+}
+.nav-tabs > a.active,
+.nav-tabs > a:hover {
+  border: none;
+  color: #fa9235 !important;
+  background: transparent;
+  border-bottom: 2px solid #fa9235;
+}
+

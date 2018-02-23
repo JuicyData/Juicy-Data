@@ -1,35 +1,37 @@
-import { DataTablesModule } from 'angular-datatables';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { DataTablesModule } from 'angular-datatables';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { RelicRecoveryComponent } from './events/relic-recovery/relic-recovery.component';
-import { RelicRecoveryEventComponent } from './events/relic-recovery/relic-recovery-event/relic-recovery-event.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { TeamsComponent } from './teams/teams.component';
+import { RegionalOprComponent } from './regional-opr/regional-opr.component';
 
 const ROUTES = [
   {
     path: 'events',
-    component: RelicRecoveryComponent
+    loadChildren: 'app/events/relic-recovery/relic-recovery.module#RelicRecoveryModule'
   },
   {
     path: 'events/relic-recovery',
-    component: RelicRecoveryComponent
+    redirectTo: '/events',
+    pathMatch: 'full'
   },
   {
     path: 'events/relic-recovery/:eventID',
-    component: RelicRecoveryEventComponent
+    loadChildren: 'app/events/relic-recovery/relic-recovery-event/relic-recovery-event.module#RelicRecoveryEventModule'
   },
   {
-    path: 'teams/:teamNumber',
-    component: TeamsComponent
+    path: 'teams',
+    loadChildren: 'app/teams/teams.module#TeamsModule'
+  },
+  {
+    path: 'regional-opr',
+    component: RegionalOprComponent
   },
   {
     path: '',
@@ -43,20 +45,17 @@ const ROUTES = [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    RelicRecoveryComponent,
-    RelicRecoveryEventComponent,
     PageNotFoundComponent,
-    TeamsComponent,
-    HomeComponent
+    HomeComponent,
+    RegionalOprComponent
   ],
   imports: [
-    DataTablesModule,
     BrowserModule,
     RouterModule.forRoot(ROUTES),
     HttpClientModule,
-    FormsModule
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

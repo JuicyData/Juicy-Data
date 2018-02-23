@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-relic-recovery-event',
@@ -26,10 +26,11 @@ export class RelicRecoveryEventComponent implements OnInit {
 
   definitions = true;
   loading = true;
+  eventName: string;
 
-  liveEvents = ['1718-CASD-DESC', '1718-CASD-ELLC', '1718-CASD-GALC', '1718-CASD-TLC'];
+  liveEvents = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private titleService: Title) {}
 
   ngOnInit() {
     this.width = window.innerWidth;
@@ -40,6 +41,7 @@ export class RelicRecoveryEventComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.eventID = params['eventID'];
         this.getData();
+        this.titleService.setTitle('Events - Juicy Data');
     });
   }
 
@@ -74,6 +76,7 @@ export class RelicRecoveryEventComponent implements OnInit {
       .subscribe(
         data => {
           this.predictionData = data;
+          this.eventName = data['eventInformation']['eventName'];
         },
         error => {
           this.error = error.error;
