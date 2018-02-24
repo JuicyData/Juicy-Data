@@ -11,7 +11,7 @@ export class PageNotFoundComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Juicy Data');
+    this.titleService.setTitle('Page not found - Juicy Data');
   }
 
 }

@@ -8,6 +8,7 @@
   <hr *ngIf="data && !loading">
   <h1 *ngIf="data && !loading && liveEvents.includes(eventID)" style="color: #F22613;">
     <i class="far fa-dot-circle"></i> Live</h1>
+    <h4 *ngIf="data && !loading && liveEvents.includes(eventID)">Last Updated: {{data.lastUpdated | date:'shortTime'}}</h4>
 
   <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
     Error: {{error}}
@@ -70,8 +71,8 @@
           <tbody>
             <tr *ngFor="let ranking of data.ranking">
               <td>{{ranking.rank}}</td>
-              <td>
-                <a routerLink="/teams/{{ranking.teamNumber}}">{{ranking.teamNumber}}</a>
+              <td>{{ranking.teamNumber}}
+                <!-- <a routerLink="/teams/{{ranking.teamNumber}}">{{ranking.teamNumber}}</a> -->
               </td>
               <td>{{ranking.teamName}}</td>
               <td>{{ranking.record.wins}}-{{ranking.record.losses}}-{{ranking.record.ties}}</td>
@@ -125,12 +126,12 @@
               <td class="table-center" [ngClass]="{'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">{{matchHistory.matchNumber}}</td>
               <td class="table-center team-rank" style="text-align: left" [ngClass]="{'font-weight-bold': matchHistory.alliance === matchHistory.winner, 'blue-alliance': matchHistory.alliance === 'blue', 'red-alliance': matchHistory.alliance === 'red', 'bottom-section': matchHistory.alliance === 'blue'}">
                 <span class="font-weight-normal">{{matchHistory.team1.rank}}:</span>
-                <a class="font-weight-normal" routerLink="/teams/{{matchHistory.team1.teamNumber}}">{{matchHistory.team1.teamNumber}}</a>
+                <a class="font-weight-normal">{{matchHistory.team1.teamNumber}}</a>
                 <span class="d-none d-xl-inline">{{matchHistory.team1.teamName}}</span>
                 <span *ngIf="matchHistory.team1.surrogate">*</span>
                 <br>
                 <span class="font-weight-normal">{{matchHistory.team2.rank}}:</span>
-                <a class="font-weight-normal" routerLink="/teams/{{matchHistory.team2.teamNumber}}">{{matchHistory.team2.teamNumber}}</a>
+                <a class="font-weight-normal">{{matchHistory.team2.teamNumber}}</a>
                 <span class="d-none d-xl-inline">{{matchHistory.team2.teamName}}</span>
                 <span *ngIf="matchHistory.team2.surrogate">*</span>
               </td>
@@ -206,7 +207,7 @@
           <tbody>
             <tr *ngFor="let averageScores of data.averageScores">
               <td>
-                <a routerLink="/teams/{{averageScores.teamNumber}}">{{averageScores.teamNumber}}</a>
+                <a>{{averageScores.teamNumber}}</a>
               </td>
               <td>{{averageScores.teamName}}</td>
               <td>{{averageScores.averageScore}}</td>

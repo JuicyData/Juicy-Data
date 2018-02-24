@@ -28,7 +28,7 @@ export class RelicRecoveryEventComponent implements OnInit {
   loading = true;
   eventName: string;
 
-  liveEvents = [];
+  liveEvents = ['1718-CASD-CMP'];
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private titleService: Title) {}
 
@@ -41,7 +41,7 @@ export class RelicRecoveryEventComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.eventID = params['eventID'];
         this.getData();
-        this.titleService.setTitle('Events - Juicy Data');
+        this.titleService.setTitle(this.eventID + ' - Juicy Data');
     });
   }
 
