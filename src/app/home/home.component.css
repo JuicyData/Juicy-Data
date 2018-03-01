@@ -32,19 +32,18 @@ i {
   padding: 10px 35px;
   text-decoration: none;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.08);
-
 }
 
 .header-button:hover {
-  background-color: #E06F0B;
-  border: 2px solid #E06F0B;
+  background-color: #e06f0b;
+  border: 2px solid #e06f0b;
 }
 
 .header-main-text {
   text-align: center;
   color: white;
   font-size: 60px;
-  text-shadow: 0px 2px 3px rgba(0,0,0,0.4);
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
   font-weight: 300;
 }
 
@@ -52,7 +51,7 @@ i {
   text-align: center;
   color: white;
   font-size: 40px;
-  text-shadow: 0px 2px 3px rgba(0,0,0,0.4);
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
   font-weight: 300;
   margin-bottom: 30px;
 }
@@ -85,7 +84,11 @@ h2 {
   text-align: center;
 }
 
-.features h3{
+.features h3 {
   font-weight: 700;
   margin-top: 15px;
+}
+
+.features p {
+  color: rgb(33, 37, 41);
 }
