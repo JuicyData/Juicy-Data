@@ -9,7 +9,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { RegionalOprComponent } from './regional-opr/regional-opr.component';
 
 const ROUTES = [
   {
@@ -26,12 +25,20 @@ const ROUTES = [
     loadChildren: 'app/events/relic-recovery/relic-recovery-event/relic-recovery-event.module#RelicRecoveryEventModule'
   },
   {
-    path: 'teams',
-    loadChildren: 'app/teams/teams.module#TeamsModule'
+    path: 'events/FLL-CEF-SHOWCASE',
+    loadChildren: 'app/fll/fll.module#FllModule'
   },
   {
-    path: 'regional-opr',
-    component: RegionalOprComponent
+    path: 'events/FLL-CEF-SHOWCASE/input',
+    loadChildren: 'app/fll-input/fll-input.module#FllInputModule'
+  },
+  {
+    path: 'events/FLL-CEF-SHOWCASE/view',
+    loadChildren: 'app/fll-view/fll-view.module#FllViewModule'
+  },
+  {
+    path: 'teams',
+    loadChildren: 'app/teams/teams.module#TeamsModule'
   },
   {
     path: '',
@@ -46,8 +53,7 @@ const ROUTES = [
     NavbarComponent,
     FooterComponent,
     PageNotFoundComponent,
-    HomeComponent,
-    RegionalOprComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

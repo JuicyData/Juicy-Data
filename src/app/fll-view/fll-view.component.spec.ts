@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegionalOprComponent } from './regional-opr.component';
+import { FllViewComponent } from './fll-view.component';
 
-describe('RegionalOprComponent', () => {
-  let component: RegionalOprComponent;
-  let fixture: ComponentFixture<RegionalOprComponent>;
+describe('FllViewComponent', () => {
+  let component: FllViewComponent;
+  let fixture: ComponentFixture<FllViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegionalOprComponent ]
+      declarations: [ FllViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegionalOprComponent);
+    fixture = TestBed.createComponent(FllViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

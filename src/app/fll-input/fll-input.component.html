@@ -1,0 +1,503 @@
+<div class="container">
+  <input [(ngModel)]="password" type="password" name="password" class="form-control" *ngIf="!auth" (keyup)="checkPassword()">
+  <div class="card mission" *ngIf="auth">
+      <h2 style="text-align: center">TEAM PIT NUMBER</h2>
+      <input style="text-align: center" class="form-control" type="number" [(ngModel)]="pit">
+    </div>
+  <div class="row" *ngIf="auth">
+    <div class="col-6">
+      <div class="card mission">
+        <h2>M01 - PIPE REMOVAL</h2>
+        <h3>Broken Pipe is completely in Base
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M01', 'Yes')">
+                <input type="radio" name="M01" [(ngModel)]="M01" autocomplete="off"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M01', 'No')">
+                <input type="radio" name="M01" [(ngModel)]="M01" autocomplete="off"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M02 - FLOW</h2>
+        <h3>Big Water is on other team's Field
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M02', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M02" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M02', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M02" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M03 – PUMP ADDITION</h2>
+        <h3>Pump Addition has contact with the mat,
+          <br>completely inside the target area
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M03', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M03" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M03', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M03" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M04 – RAIN</h2>
+        <h3>At least one Rain is out of the Rain Cloud
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M04', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M04" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M04', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M04" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M05 – FILTER</h2>
+        <h3>Lock latch is in dropped position
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M05', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M05" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M05', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M05" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M06 – WATER TREATMENT</h2>
+        <h3>Big Water is ejected from Water Treatment model
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M06', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M06" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M06', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M06" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M07 – FOUNTAIN</h2>
+        <h3>Middle layer is raised
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M07', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M07" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M07', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M07" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M08 – MANHOLE COVERS</h2>
+        <h3>Manhole Cover(s) are flipped over past vertical
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M08Manholes', '0')">
+                <input type="radio" name="options" [(ngModel)]="M08Manholes" autocomplete="off" value="0"> 0
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M08Manholes', '1')">
+                <input type="radio" name="options" [(ngModel)]="M08Manholes" autocomplete="off" value="1"> 1
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M08Manholes', '2')">
+                <input type="radio" name="options" [(ngModel)]="M08Manholes" autocomplete="off" value="2"> 2
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>Both Manhole Covers are flipped over and
+          <br> completely in separate Tripod targets
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M08Flipped', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M08Flipped" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M08Flipped', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M08Flipped" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M09 – TRIPOD</h2>
+        <h3>All the Tripod’s feet are touching the mat
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M09Flat', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M09Flat" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M09Flat', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M09Flat" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>Tripod is partially in a Tripod target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M09Partially', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M09Partially" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M09Partially', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M09Partially" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>Tripod is completely in a Tripod target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M09Completely', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M09Completely" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M09Completely', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M09Completely" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M10 – PIPE REPLACEMENT</h2>
+        <h3>New Pipe is installed where Broken Pipe was
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M10NewPipe', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M10NewPipe" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M10NewPipe', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M10NewPipe" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>This New Pipe has full/flat contact with the mat
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M10FlatPipe', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M10FlatPipe" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M10FlatPipe', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M10FlatPipe" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card mission">
+        <h2>M11 – PIPE CONSTRUCTION</h2>
+        <h3>New Pipe has full/flat contact with the mat
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M11FlatPipe', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M11FlatPipe" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M11FlatPipe', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M11FlatPipe" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>This New Pipe is partially in its target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M11PipePartially', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M11PipePartially" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M11PipePartially', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M11PipePartially" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>This New Pipe is completely in its target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M11PipeCompletely', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M11PipeCompletely" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M11PipeCompletely', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M11PipeCompletely" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M12 – SLUDGE</h2>
+        <h3>Sludge touching visible wood of a drawn garden box
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M12', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M12" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M12', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M12" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M13 – FLOWER</h2>
+        <h3>Flower is raised
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M13Raised', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M13Raised" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M13Raised', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M13Raised" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>At least 1 Rain in purple part, touching nothing but Flower
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M13Rain', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M13Rain" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M13Rain', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M13Rain" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M14 – WATER WELL</h2>
+        <h3>Water Well contacting mat partially inside target area
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M14Partially', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M14Partially" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M14Partially', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M14Partially" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>Water Well contacting mat completely inside target area
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M14Completely', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M14Completely" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M14Completely', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M14Completely" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M15 – FIRE</h2>
+        <h3>Fire is dropped
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M15', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M15" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M15', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M15" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M16 – WATER COLLECTION</h2>
+        <h3>Water Target is East of Off-Limits line
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16East', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M16East" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16East', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M16East" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>At least one Rain is touching mat in Water Target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16Rain', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M16Rain" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16Rain', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M16Rain" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>Big Water touching mat in Water Target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16BigWater', '0')">
+                <input type="radio" name="options" [(ngModel)]="M16BigWater" autocomplete="off" value="0"> 0
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16BigWater', '1')">
+                <input type="radio" name="options" [(ngModel)]="M16BigWater" autocomplete="off" value="1"> 1
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16BigWater', '2')">
+                <input type="radio" name="options" [(ngModel)]="M16BigWater" autocomplete="off" value="2"> 2
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16BigWater', '3')">
+                <input type="radio" name="options" [(ngModel)]="M16BigWater" autocomplete="off" value="3"> 3
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16BigWater', '4')">
+                <input type="radio" name="options" [(ngModel)]="M16BigWater" autocomplete="off" value="4"> 4
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16BigWater', '5')">
+                <input type="radio" name="options" [(ngModel)]="M16BigWater" autocomplete="off" value="5"> 5
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>At least one pair of Big Waters stacked in Water Target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16Stack', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M16Stack" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M16Stack', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M16Stack" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M17 – SLINGSHOT</h2>
+        <h3>Slingshot is completely in the Slingshot target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M17Target', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M17Target" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M17Target', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M17Target" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+        <h3>Rain AND Dirty Water completely in Slingshot target
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M17Water', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M17Water" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M17Water', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M17Water" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>M18 – FAUCET</h2>
+        <h3>Water level is more blue than white
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M18', 'Yes')">
+                <input type="radio" name="options" [(ngModel)]="M18" autocomplete="off" value="Yes"> Yes
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('M18', 'No')">
+                <input type="radio" name="options" [(ngModel)]="M18" autocomplete="off" value="No"> No
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+      <div class="card mission">
+        <h2>PENALTIES</h2>
+        <h3>Penalty discs in the white triangle area
+          <span style="float:right;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('penalties', '0')">
+                <input type="radio" name="options" [(ngModel)]="penalties" autocomplete="off" value="0"> 0
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('penalties', '1')">
+                <input type="radio" name="options" [(ngModel)]="penalties" autocomplete="off" value="1"> 1
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('penalties', '2')">
+                <input type="radio" name="options" [(ngModel)]="penalties" autocomplete="off" value="2"> 2
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('penalties', '3')">
+                <input type="radio" name="options" [(ngModel)]="penalties" autocomplete="off" value="3"> 3
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('penalties', '4')">
+                <input type="radio" name="options" [(ngModel)]="penalties" autocomplete="off" value="4"> 4
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('penalties', '5')">
+                <input type="radio" name="options" [(ngModel)]="penalties" autocomplete="off" value="5"> 5
+              </label>
+              <label class="btn btn-outline-success btn-sm" (click)="setValue('penalties', '6')">
+                <input type="radio" name="options" [(ngModel)]="penalties" autocomplete="off" value="6"> 6
+              </label>
+            </div>
+          </span>
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+    <div class="col-6">
+      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="calculate()">Calculate</button>
+    </div>
+    <div class="col-6">
+      <button type="button" class="btn btn-success btn-lg btn-block" [disabled]="!calculated" data-toggle="modal" data-target="#saveModal">Save</button>
+    </div>
+  </div>
+  <h1>Score: {{score}}</h1>
+  <div class="alert alert-danger" role="alert" *ngIf="calculateError != ''">
+    Error with mission {{calculateError}}
+  </div>
+</div>
+
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="saveModalLabel">Are you sure you want to save?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

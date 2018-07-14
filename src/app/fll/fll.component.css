@@ -1,0 +1,124 @@
+hr {
+  position: relative;
+  display: block;
+  height: 1px;
+  max-width: 600px;
+  border: 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: #ffa46b;
+  padding: 0;
+}
+
+body {
+  padding-top: 60px;
+}
+h1 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+}
+h2 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+}
+h3 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.25rem;
+}
+h4 {
+  text-align: center;
+  width: 100%;
+  font-size: 1rem;
+}
+th {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+html {
+  position: relative;
+}
+html,
+body {
+  height: 100%;
+}
+.table-responsive {
+  overflow-x: auto;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+  border-bottom: 1px solid #111;
+  font-weight: 500;
+  padding: 10px 6px;
+}
+
+table {
+  color: rgb(33, 37, 41);
+  border: 1px solid #ddd;
+}
+
+.font-weight-bold {
+  font-weight: 700
+}
+
+thead {
+  background-color: #faa86f;
+  color: white;
+}
+
+.card {
+  padding-top: 15px;
+}
+
+.dataTables_filter {
+  margin-right: 5px;
+}
+
+.red {
+  background-color: #ec644b;
+  color: white;
+}
+.blue {
+  background-color: #4183d7;
+  color: white;
+}
+.green {
+  background-color: #26a65b;
+  color: white;
+}
+
+
+.red-light {
+  background-color: rgba(236, 100, 75, 0.15);
+}
+
+.blue-light {
+  background-color: rgba(65, 131, 215, 0.15);
+}
+
+.green-light {
+  background-color: rgba(38,166,91, 0.15)
+}
+
+@media (max-width: 520px) {
+  table.dataTable tbody td {
+    font-size: 0.8rem;
+    padding: 10px 6px;
+  }
+
+  table.dataTable thead th,
+  table.dataTable thead td {
+    font-size: 0.8rem;
+    padding: 10px 6px;
+  }
+}
+
+.table {
+  border: none;
+}
+
