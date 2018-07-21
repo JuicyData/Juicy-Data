@@ -28,7 +28,7 @@ export class RelicRecoveryEventComponent implements OnInit {
   loading = true;
   eventName: string;
 
-  liveEvents = ['1718-CAL-GAMES'];
+  liveEvents = [];
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private titleService: Title) {}
 

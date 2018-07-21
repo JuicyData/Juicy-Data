@@ -1,0 +1,30 @@
+<div class="content">
+  <div class="container">
+    <div class="card">
+      <div class="card-block">
+        <h1>Sign In</h1>
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="error" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{error}}
+        </div>
+        <form #signinForm="ngForm">
+          <input class="form-control" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
+          <input class="form-control" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
+          <div [hidden]="p.valid || p.pristine" class="alert alert-danger">Password is required</div>
+          <button [disabled]="!signinForm.form.valid || buttonText == ''" class="btn btn-primary btn-block" (click)="signin()">
+            <i *ngIf="buttonText == ''" class="fas fa-circle-notch fa-spin"></i>
+            {{buttonText}}
+          </button>
+        </form>
+        <div class="options">
+          <a routerLink="/sign-up">Sign Up</a>
+        </div>
+        <div class="options"></div>
+        <a routerLink="/reset-password">Forgot Password</a>
+      </div>
+    </div>
+  </div>
+</div>

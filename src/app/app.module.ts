@@ -9,8 +9,18 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
 
 const ROUTES = [
+  {
+    path: 'sign-in',
+    loadChildren: 'app/sign-in/sign-in.module#SignInModule'
+  },
+  {
+    path: 'sign-up',
+    loadChildren: 'app/sign-up/sign-up.module#SignUpModule'
+  },
   {
     path: 'events',
     loadChildren: 'app/events/relic-recovery/relic-recovery.module#RelicRecoveryModule'
@@ -23,18 +33,6 @@ const ROUTES = [
   {
     path: 'events/relic-recovery/:eventID',
     loadChildren: 'app/events/relic-recovery/relic-recovery-event/relic-recovery-event.module#RelicRecoveryEventModule'
-  },
-  {
-    path: 'events/FLL-CEF-SHOWCASE',
-    loadChildren: 'app/fll/fll.module#FllModule'
-  },
-  {
-    path: 'events/FLL-CEF-SHOWCASE/input',
-    loadChildren: 'app/fll-input/fll-input.module#FllInputModule'
-  },
-  {
-    path: 'events/FLL-CEF-SHOWCASE/view',
-    loadChildren: 'app/fll-view/fll-view.module#FllViewModule'
   },
   {
     path: 'teams',
@@ -53,7 +51,9 @@ const ROUTES = [
     NavbarComponent,
     FooterComponent,
     PageNotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    ForgotPasswordComponent,
+    EmailVerificationComponent
   ],
   imports: [
     BrowserModule,
