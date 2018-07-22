@@ -9,10 +9,20 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { EmailVerificationComponent } from './email-verification/email-verification.component';
 
 const ROUTES = [
+  {
+    path: 'upload',
+    loadChildren: 'app/upload/upload.module#UploadModule'
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: 'app/forgot-password/forgot-password.module#ForgotPasswordModule'
+  },
+  {
+    path: 'email-verification/verify/:data',
+    loadChildren: 'app/email-verification/email-verification.module#EmailVerificationModule'
+  },
   {
     path: 'sign-in',
     loadChildren: 'app/sign-in/sign-in.module#SignInModule'
@@ -51,9 +61,7 @@ const ROUTES = [
     NavbarComponent,
     FooterComponent,
     PageNotFoundComponent,
-    HomeComponent,
-    ForgotPasswordComponent,
-    EmailVerificationComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

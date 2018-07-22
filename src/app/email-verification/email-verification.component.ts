@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-email-verification',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmailVerificationComponent implements OnInit {
 
-  constructor() { }
+  verificationCode: any;
+  data: any;
+  error: any;
+
+  constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.verificationCode = params['data'];
+        this.sendVerification();
+    });
+  }
+
+  sendVerification() {
+    this.http.get('/api/email-verification/verify?data=' + this.verificationCode).subscribe(
+      data => {
+        this.data = data;
+        console.log(this.data);
+      },
+      error => {
+        this.error = error.error;
+      }
+    );
   }
 
 }
