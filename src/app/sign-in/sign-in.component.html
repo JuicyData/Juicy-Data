@@ -10,20 +10,39 @@
           {{error}}
         </div>
         <form #signinForm="ngForm">
-          <input class="form-control" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          <div class="input-wrapper">
+            <input class="email-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+            <div class="input-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+          </div>
           <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
-          <input class="form-control" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
+          <div class="input-wrapper">
+            <input class="email-input" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
+            <div class="input-icon">
+              <i class="fas fa-key"></i>
+            </div>
+          </div>
           <div [hidden]="p.valid || p.pristine" class="alert alert-danger">Password is required</div>
-          <button [disabled]="!signinForm.form.valid || buttonText == ''" class="btn btn-primary btn-block" (click)="signin()">
+          <div class="row options no-gutters">
+            <div class="col-lg-5" style="margin-bottom: 1rem;">
+              <i *ngIf="rememberMe" class="far fa-check-square" (click)="rememberMe = false"></i>
+              <i *ngIf="!rememberMe" class="far fa-square" (click)="rememberMe = true"></i>
+              Remember me
+            </div>
+            <div class="col-lg-7">
+              <a class="forgot-password" routerLink="/reset-password">Forgot your password?</a>
+            </div>
+          </div>
+          <button type="submit" [disabled]="!signinForm.form.valid || buttonText == ''" class="sign-in-button btn-block" (click)="signin()">
             <i *ngIf="buttonText == ''" class="fas fa-circle-notch fa-spin"></i>
             {{buttonText}}
           </button>
         </form>
-        <div class="options">
-          <a routerLink="/sign-up">Sign Up</a>
-        </div>
-        <div class="options"></div>
-        <a routerLink="/reset-password">Forgot Password</a>
+      </div>
+      <div class="create-account">
+        Don't have an account yet?&nbsp;
+        <a routerLink="/sign-up">Create your account</a>
       </div>
     </div>
   </div>

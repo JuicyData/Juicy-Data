@@ -11,9 +11,17 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const ROUTES = [
+  // {
+  //   path: 'upload',
+  //   loadChildren: 'app/upload/upload.module#UploadModule'
+  // },
   {
-    path: 'upload',
-    loadChildren: 'app/upload/upload.module#UploadModule'
+    path: 'blog',
+    loadChildren: 'app/blog/blog.module#BlogModule'
+  },
+  {
+    path: 'blog/create',
+    loadChildren: 'app/blog-create/blog-create.module#BlogCreateModule'
   },
   {
     path: 'forgot-password',

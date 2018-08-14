@@ -1,16 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-light">
   <div [ngClass]="{'container': width >= 1119, 'container-fluid': width < 1119 }">
     <a class="navbar-brand" routerLink="/">
-      <img src="assets/logo.png" alt="Juicy Data orange logo">Juicy Data</a>
+      <img src="assets/logo-text.png" alt="Juicy Data orange logo"></a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" type="button" aria-controls="navbarNav" aria-expanded="false"
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <hr>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
           <a class="nav-link" routerLink="/events">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/sign-in">Sign In</a>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link cta-button" routerLink="/sign-up">Sign Up</button>
         </li>
       </ul>
     </div>

@@ -1,46 +1,124 @@
-.card-block{
+.card-block {
   padding: 50px;
   width: 100%;
   height: 100%;
+  padding-bottom: 0px;
 }
 
-.card{
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+.card {
   min-height: 400px;
   max-width: 400px;
   margin: 0 auto;
-  box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.2);
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
+  border-top: 5px solid orange;
 }
 
-.content{
-  height: 100vh;
-  background-color: rgb(250,249,250);
-}
-
-.container{
-  height: 100%;
-}
-
-h1{
+h1 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  color: #4a4541;
 }
 
-input{
-  margin-bottom: 1rem;
+.input-wrapper {
+  position: relative;
+  padding-left: 40px;
+  background: #fff;
+  height: 40px;
+  text-align: left;
 }
 
-a{
-  margin: 0 auto;
+.input-wrapper:nth-of-type(n + 2) {
+  margin-top: 1.5rem;
 }
 
-.options{
-  margin-bottom: 0.5rem;
+.input-wrapper > input {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  padding: 5px 14px;
+  line-height: 40px;
+  border: 1px solid #d3c9bf;
+  border-left-width: 0px;
+  color: #4a4541;
 }
 
-button{
-  margin-bottom: 0.5rem;
+.fa-envelope,
+.fa-key {
+  font-size: 19px;
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  z-index: 2;
+}
+
+.input-icon {
+  background-color: white;
+  color: #4a4541;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 2px 0 0 2px;
+  transition: 0.57s background cubic-bezier(0.25, 1, 0.25, 1);
+  border: 1px solid #d3c9bf;
+  border-right-width: 0px;
+}
+
+.email-input:focus + .input-icon,
+.password-input:focus + .input-icon {
+  background-color: #fa9235;
+  color: white;
+}
+
+.email-input:focus,
+.password-input:focus {
+  outline-width: 0px;
+}
+
+.options {
+  font-size: 15px;
+  color: #4a4541;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.sign-in-button {
+  background-color: #fa9235;
+  border: 0;
+  color: white;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  display: inline-block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.sign-in-button:hover {
+  background-color: #E06F0B;
+}
+
+.create-account {
+  background-color: #f9f9f9;
+  padding: 30px 0px;
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a4541;
+  font-size: 14px;
+}
+
+.forgot-password {
+  font-size: 14px;
+}
+
+.fa-check-square, .fa-square {
+  font-size: 19px;
 }

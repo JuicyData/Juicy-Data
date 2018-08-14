@@ -1,0 +1,6 @@
+<div class="container">
+  <input type="file" class="form-control-file" (change)="fileUpload($event, 'images')" multiple>
+  <img *ngIf="images" src="{{images[0]}}" alt="">
+  <input type="file"  class="form-control-file" (change)="fileUpload($event, 'html')">
+  <button (click)="createPost()">Upload</button>
+</div>

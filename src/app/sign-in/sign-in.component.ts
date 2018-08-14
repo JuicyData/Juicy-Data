@@ -16,6 +16,7 @@ export class SignInComponent implements OnInit {
   password: string;
   error: string;
   buttonText = 'Sign In';
+  rememberMe = true;
 
   constructor(private http: HttpClient, private router: Router) { }
 

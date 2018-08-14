@@ -1,12 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
-body{font-family: 'Roboto', sans-serif;}
-.card{
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-	margin-top: 30px;
-	border-width: 0px;
-	border-radius: 0px;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
-.card-block{
-  padding: 20px
+.card {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  margin-top: 30px;
+  border-width: 0px;
+  border-radius: 0px;
+}
+
+.card-block {
+  padding: 20px;
+}
+
+.content {
+  min-height: 100vh;
+  padding-bottom: 40px;
+  background-color: rgb(250,249,250);
+  padding-top: 30px;
+}
+
+.cta-button {
+  background-color: #29c23c;
+  border-color: #29c23c;
+  color: #fff !important;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background-color: #08AE1C;
 }

@@ -1,0 +1,41 @@
+.featured-article {
+  background-color: white;
+  margin-top: -30px;
+  color: black;
+}
+
+.featured-article-title {
+  font-size: 3.5rem;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+.featured-article-picture {
+  width: 100%;
+  height: 100%;
+}
+
+.featured-article-description {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  padding: 30px;
+}
+
+.read-more-button {
+  width: 120px;
+}
+
+.category {
+  font-size: 0.875rem;
+  margin-bottom: 15px;
+}
+
+.blog-post-details {
+  padding: 20px;
+}
+
+.blog-post{
+  height: 430px;
+}
