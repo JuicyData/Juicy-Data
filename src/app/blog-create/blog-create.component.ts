@@ -34,7 +34,7 @@ export class BlogCreateComponent implements OnInit {
       html: this.html
     };
     console.log(doc);
-    this.http.post('/api/accounts/accounts/signin', doc).subscribe(
+    this.http.post('/api/blog/posts/create', doc).subscribe(
       data => {
         console.log(data);
       },
