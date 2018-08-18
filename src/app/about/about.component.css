@@ -1,0 +1,48 @@
+.bio-picture > img {
+  max-width: 250px;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 50px;
+  color: #fa9235;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+h2 {
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #4a4541;
+}
+
+h3 {
+  color: #fa9235;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+p {
+  color: #4a4541;
+}
+
+.bio-links a {
+  color: #4a4541;
+}
+
+.fa-twitter-square:hover {
+  color: #fa9235;
+}
+
+.fa-twitter-square {
+  cursor: pointer;
+}
+
+.header {
+  background-color: #fa9235;
+  margin-top: -30px;
+  padding-top: 80px;
+  padding-bottom: 50px;
+  margin-bottom: 40px;
+}

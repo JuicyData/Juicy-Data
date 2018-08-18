@@ -29,10 +29,11 @@ export class BlogCreateComponent implements OnInit {
   }
 
   createPost() {
-    const doc = {
-      images: this.images,
-      html: this.html
-    };
+    const doc = new FormData();
+
+    for (let i = 0; i < this.images.length; i++) {
+      doc.append('images[]', this.images[i]);
+    }
     console.log(doc);
     this.http.post('/api/blog/posts/create', doc).subscribe(
       data => {

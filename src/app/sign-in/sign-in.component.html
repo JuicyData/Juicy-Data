@@ -11,14 +11,14 @@
         </div>
         <form #signinForm="ngForm">
           <div class="input-wrapper">
-            <input class="email-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+            <input class="form-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
             <div class="input-icon">
               <i class="fas fa-envelope"></i>
             </div>
           </div>
           <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
           <div class="input-wrapper">
-            <input class="email-input" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
+            <input class="form-input" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
             <div class="input-icon">
               <i class="fas fa-key"></i>
             </div>
@@ -30,7 +30,7 @@
               <i *ngIf="!rememberMe" class="far fa-square" (click)="rememberMe = true"></i>
               Remember me
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-7" style="margin-bottom: 1rem;">
               <a class="forgot-password" routerLink="/reset-password">Forgot your password?</a>
             </div>
           </div>

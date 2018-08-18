@@ -20,6 +20,10 @@ const ROUTES = [
     loadChildren: 'app/blog/blog.module#BlogModule'
   },
   {
+    path: 'about',
+    loadChildren: 'app/about/about.module#AboutModule'
+  },
+  {
     path: 'blog/create',
     loadChildren: 'app/blog-create/blog-create.module#BlogCreateModule'
   },

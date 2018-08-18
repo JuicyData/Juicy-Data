@@ -9,32 +9,38 @@
           </button>
           {{error}}
         </div>
-        <form #signinForm="ngForm">
-          <div class="row">
-            <div class="col-6">
-              <input class="form-control" type="text" [(ngModel)]="firstName" placeholder="first name" name="firstName" required #fn="ngModel">
-              <div [hidden]="fn.valid || fn.pristine" class="alert alert-danger">First name is required</div>
-            </div>
-            <div class="col-6">
-              <input class="form-control" type="text" [(ngModel)]="lastName" placeholder="last name" name="lastName" required #ln="ngModel">
-              <div [hidden]="ln.valid || ln.pristine" class="alert alert-danger">Last name is required</div>
+        <form #signupForm="ngForm">
+          <div class="input-wrapper">
+            <input class="form-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+            <div class="input-icon">
+              <i class="fas fa-envelope"></i>
             </div>
           </div>
-          <input class="form-control" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
           <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
-          <input class="form-control" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
+          <div class="input-wrapper">
+            <input class="form-input" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
+            <div class="input-icon">
+              <i class="fas fa-key"></i>
+            </div>
+          </div>
           <div [hidden]="p.valid || p.pristine" class="alert alert-danger">Password is required</div>
-          <input class="form-control" type="password" [(ngModel)]="confirmPassword" placeholder="confirm password" name="confirmPassword"
-            required #cp="ngModel">
+          <div class="input-wrapper">
+            <input class="form-input" type="password" [(ngModel)]="confirmPassword" placeholder="confirm password" name="confirmPassword"
+              required #cp="ngModel">
+            <div class="input-icon">
+              <i class="fas fa-key"></i>
+            </div>
+          </div>
           <div [hidden]="cp.valid || cp.pristine" class="alert alert-danger">Confirm password is required</div>
-          <button [disabled]="!signinForm.form.valid || buttonText == ''" class="btn btn-primary btn-block" (click)="signup()">
+          <button style="margin-top: 1.5rem" type="submit" [disabled]="!signupForm.form.valid || buttonText == ''" class="sign-in-button btn-block" (click)="signup()">
             <i *ngIf="buttonText == ''" class="fas fa-circle-notch fa-spin"></i>
             {{buttonText}}
           </button>
         </form>
-        <div class="options">
-          <a routerLink="/sign-in">Log In</a>
-        </div>
+      </div>
+      <div class="sign-in">
+        Already have an account?&nbsp;
+        <a routerLink="/sign-in">Click here to sign In</a>
       </div>
     </div>
   </div>

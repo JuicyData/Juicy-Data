@@ -14,7 +14,7 @@ body {
 }
 
 .content {
-  min-height: 100vh;
+  min-height:85vh;
   padding-bottom: 40px;
   background-color: rgb(250,249,250);
   padding-top: 30px;
