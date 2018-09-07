@@ -20,6 +20,10 @@ const ROUTES = [
     loadChildren: 'app/blog/blog.module#BlogModule'
   },
   {
+    path: 'blog/6-tips-to-improve-your-ftc-teams-engineering-notebook',
+    loadChildren: 'app/blog/posts/seven-tips-to-improve-your-ftc-teams-engineering-notebook/seven-tips-to-improve-your-ftc-teams-engineering-notebook.module#SevenTipsToImproveYourFtcTeamsEngineeringNotebookModule'
+  },
+  {
     path: 'about',
     loadChildren: 'app/about/about.module#AboutModule'
   },
