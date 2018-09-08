@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   error: any;
   doc: any;
 
-  constructor(private titleService: Title, private http: HttpClient) { }
+  constructor(private titleService: Title, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
     this.titleService.setTitle('Home - Juicy Data');
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
     this.http.post('/api/accounts/accounts/email-subscription', this.doc).subscribe(
       data => {
         console.log(data);
+        location.reload();
       },
       error => {
         this.error = error.error.message;
