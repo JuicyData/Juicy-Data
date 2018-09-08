@@ -3,13 +3,12 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { BlogComponent } from './blog.component';
+import { DecisionMakingComponent } from '../decision-making/decision-making.component';
 
 import { RouterModule } from '@angular/router';
-import { DecisionMakingComponent } from './posts/decision-making/decision-making.component';
 
 const routes = [
-  { path: '', component: BlogComponent}
+  { path: '', component: DecisionMakingComponent}
 ];
 
 @NgModule({
@@ -19,6 +18,6 @@ const routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [BlogComponent, DecisionMakingComponent]
+  declarations: [DecisionMakingComponent]
 })
-export class BlogModule {}
+export class DecisionMakingModule {}

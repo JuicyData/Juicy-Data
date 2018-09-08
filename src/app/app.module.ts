@@ -20,6 +20,14 @@ const ROUTES = [
     loadChildren: 'app/blog/blog.module#BlogModule'
   },
   {
+    path: 'blog/decision-making',
+    loadChildren: 'app/blog/posts/decision-making/decision-making.module#DecisionMakingModule'
+  },
+  {
+    path: 'blog/a-few-tips-to-bring-your-driving-game-to-the-next-level',
+    loadChildren: 'app/blog/posts/a-few-tips-to-bring-your-driving-game-to-the-next-level/a-few-tips-to-bring-your-driving-game-to-the-next-level.module#AFewTipsToBringYourDrivingGameToTheNextLevelModule'
+  },
+  {
     path: 'blog/6-tips-to-improve-your-ftc-teams-engineering-notebook',
     loadChildren: 'app/blog/posts/seven-tips-to-improve-your-ftc-teams-engineering-notebook/seven-tips-to-improve-your-ftc-teams-engineering-notebook.module#SevenTipsToImproveYourFtcTeamsEngineeringNotebookModule'
   },

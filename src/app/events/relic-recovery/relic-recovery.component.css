@@ -3,22 +3,30 @@
   font-size: 12px;
 }
 
-h3, h4{
+.relic-recovery-events h3, h4{
   text-align: center;
 }
 
-hr{
+.relic-recovery-events hr{
   max-width: 600px;
 }
 
-h3 {
+.relic-recovery-events h3 {
   margin-top: 15px;
 }
 
-table {
+.relic-recovery-events table {
   margin-bottom: 0px;
 }
 
-.card {
+.relic-recovery-events .card {
   margin-bottom: 60px;
+}
+
+.relic-recovery-events-title {
+  background-color: #fa9235;
+  color: white;
+  text-align: center;
+  padding: 50px 0;
+  margin-top: -30px;
 }

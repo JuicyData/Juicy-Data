@@ -13,30 +13,30 @@ hr {
 body {
   padding-top: 60px;
 }
-h1 {
+.relic-recovery-event h1 {
   text-align: center;
   width: 100%;
   font-size: 1.5rem;
 }
-h2 {
+.relic-recovery-event h2 {
   text-align: center;
   width: 100%;
   font-size: 1.5rem;
 }
-h3 {
+.relic-recovery-event h3 {
   text-align: center;
   width: 100%;
   font-size: 1.25rem;
 }
-h4 {
+.relic-recovery-event h4 {
   text-align: center;
   width: 100%;
   font-size: 1rem;
 }
-th {
+.relic-recovery-event th {
   text-align: center;
 }
-td {
+.relic-recovery-event td {
   text-align: center;
 }
 

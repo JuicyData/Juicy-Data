@@ -1,46 +1,51 @@
-<div class="content">
-  <div class="container">
-    <div class="card">
-      <div class="card-block">
-        <h1>Sign Up</h1>
-        <div class="alert alert-danger alert-dismissible fade show" *ngIf="error" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{error}}
+<div class="sign-up-page">
+  <div class="content">
+    <div class="container">
+      <div class="card">
+        <div class="card-block">
+          <h1>Sign Up</h1>
+          <div class="alert alert-danger alert-dismissible fade show" *ngIf="error" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{error}}
+          </div>
+          <form #signupForm="ngForm">
+            <div class="input-wrapper">
+              <input class="form-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+              <div class="input-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+            </div>
+            <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
+            <div class="input-wrapper">
+              <input class="form-input" type="password" [(ngModel)]="password" placeholder="password" name="password"
+                required #p="ngModel">
+              <div class="input-icon">
+                <i class="fas fa-key"></i>
+              </div>
+            </div>
+            <div [hidden]="p.valid || p.pristine" class="alert alert-danger">Password is required</div>
+            <div class="input-wrapper">
+              <input class="form-input" type="password" [(ngModel)]="confirmPassword" placeholder="confirm password"
+                name="confirmPassword" required #cp="ngModel">
+              <div class="input-icon">
+                <i class="fas fa-key"></i>
+              </div>
+            </div>
+            <div [hidden]="cp.valid || cp.pristine" class="alert alert-danger">Confirm password is required</div>
+            <button style="margin-top: 1.5rem" type="submit" [disabled]="!signupForm.form.valid || buttonText == ''"
+              class="sign-in-button btn-block" (click)="signup()">
+              <i *ngIf="buttonText == ''" class="fas fa-circle-notch fa-spin"></i>
+              {{buttonText}}
+            </button>
+          </form>
         </div>
-        <form #signupForm="ngForm">
-          <div class="input-wrapper">
-            <input class="form-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-            <div class="input-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-          </div>
-          <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
-          <div class="input-wrapper">
-            <input class="form-input" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel">
-            <div class="input-icon">
-              <i class="fas fa-key"></i>
-            </div>
-          </div>
-          <div [hidden]="p.valid || p.pristine" class="alert alert-danger">Password is required</div>
-          <div class="input-wrapper">
-            <input class="form-input" type="password" [(ngModel)]="confirmPassword" placeholder="confirm password" name="confirmPassword"
-              required #cp="ngModel">
-            <div class="input-icon">
-              <i class="fas fa-key"></i>
-            </div>
-          </div>
-          <div [hidden]="cp.valid || cp.pristine" class="alert alert-danger">Confirm password is required</div>
-          <button style="margin-top: 1.5rem" type="submit" [disabled]="!signupForm.form.valid || buttonText == ''" class="sign-in-button btn-block" (click)="signup()">
-            <i *ngIf="buttonText == ''" class="fas fa-circle-notch fa-spin"></i>
-            {{buttonText}}
-          </button>
-        </form>
-      </div>
-      <div class="sign-in">
-        Already have an account?&nbsp;
-        <a routerLink="/sign-in">Click here to sign In</a>
+        <div class="sign-in">
+          Already have an account?&nbsp;
+          <a routerLink="/sign-in">Click here to sign In</a>
+        </div>
       </div>
     </div>
   </div>

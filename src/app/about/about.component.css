@@ -1,29 +1,41 @@
 .bio-picture > img {
-  max-width: 250px;
+  width: 250px;
 }
 
-h1 {
+@media (max-width: 991px) {
+  .bio-picture > img {
+    width: 150px;
+    height: 150px;
+  }
+  .bio-picture {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.about-us {
   font-weight: 700;
   font-size: 50px;
-  color: #fa9235;
   text-align: center;
   margin-bottom: 60px;
 }
 
-h2 {
+.bio h2 {
   font-weight: 700;
   margin-bottom: 5px;
   color: #4a4541;
+  text-align: center;
 }
 
-h3 {
+.bio h3 {
   color: #fa9235;
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 20px;
+  text-align: center;
 }
 
-p {
+.bio p {
   color: #4a4541;
 }
 
