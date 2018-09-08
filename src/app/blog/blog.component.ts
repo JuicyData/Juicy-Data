@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blog',
@@ -9,9 +10,10 @@ export class BlogComponent implements OnInit {
 
   posts = [{title: 'wfa'}, {title: 'fwa'}, {title: 'fwa'}];
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Blog - Juicy Data');
   }
 
 }
