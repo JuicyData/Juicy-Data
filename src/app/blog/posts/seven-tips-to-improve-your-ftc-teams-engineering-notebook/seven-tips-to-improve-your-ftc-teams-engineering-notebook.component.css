@@ -1,7 +1,13 @@
-p {
+.post-content p {
   font-size: 20px;
   line-height: 1.5;
   margin-bottom: 23px;
+  color: #454646;
+}
+
+.post-content li {
+  font-size: 20px;
+  line-height: 1.5;
   color: #454646;
 }
 
@@ -27,7 +33,7 @@ p {
 }
 
 .post-content h2 {
-  font-weight: 500;
+  font-weight: 700;
   margin: 1.8em 0 .8em;
   color: #454646;
 }
@@ -35,4 +41,76 @@ p {
 .article-title {
   font-size: 3rem;
   text-align: center;
+  background-color: #3252A8;
+  color: white;
+  margin-top: -30px;
+}
+
+.article-title {
+  background-color: #3252A8;
+  margin-top: -30px;
+  text-align: center;
+
+}
+
+.article-img {
+  max-width: 180px;
+  margin-bottom: 30px;
+}
+
+.article-title h1 {
+  margin-bottom: 20px;
+}
+
+.article-title {
+  padding: 60px 0px;
+}
+
+.article a {
+  color: #ffffff;
+}
+
+.article-text {
+  margin-bottom: 20px;
+}
+
+.article-author-img {
+  max-width: 35px;
+}
+
+.article-information {
+  margin-bottom: 15px;
+}
+
+.opt-in {
+  padding: 20px 25px;
+  border-top: 4px solid #fa9235;
+  background-color: #faf5f0;
+}
+
+.newsletter-signup input {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 0 15px;
+  color: #4a4541;
+  height: 38px;
+  width: 70%;
+}
+
+.newsletter-signup p {
+  line-height: 26px;
+  font-size: 20px
+}
+
+.newsletter-signup {
+  display: flex;
+  justify-content: center;
 }
