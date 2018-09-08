@@ -4,7 +4,7 @@
     <p>Subscribe to have FTC robotics tips and resources sent to your inbox. </p>
     <!-- <a class="header-button" routerLink="/events">Click here to go to events</a> -->
     <form class="newsletter-signup">
-      <input type="text" class="" placeholder="Your email address" aria-label="Your email address" ([ngModel])="email">
+      <input [(ngModel)]="email" type="text" class="" placeholder="Your email address" aria-label="Your email address" >
       <button class="cta-button" (click)="subscribe()" type="submit">Subscribe</button>
     </form>
   </div>
