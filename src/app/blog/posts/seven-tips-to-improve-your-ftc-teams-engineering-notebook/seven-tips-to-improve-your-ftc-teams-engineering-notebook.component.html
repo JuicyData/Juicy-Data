@@ -203,8 +203,8 @@
     <div class="opt-in" action="">
       <p>Sign up for our mailing list to get emailed more FTC resources and tips</p>
       <form class="newsletter-signup" action="">
-        <input type="text" class="" placeholder="Your email address" aria-label="Your email address">
-        <button class="cta-button" type="submit">Subscribe</button>
+        <input [(ngModel)]="email" type="text" class="" placeholder="Your email address" aria-label="Your email address">
+        <button class="cta-button" (click)="subscribe()" type="submit">Subscribe</button>
       </form>
     </div>
   </div>
