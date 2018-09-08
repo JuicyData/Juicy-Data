@@ -9,13 +9,13 @@ export class UserService {
   signedIn = new Subject<boolean>();
 
   constructor(private http: HttpClient) {
-    // this.http.get('/api/accounts/accounts/check-signin').subscribe(
-    //   data => {
-    //     this.signedIn.next(data['signedIn']);
-    //   },
-    //   error => {
-    //     this.signedIn.next(false);
-    //   }
-    // );
+    this.http.get('/api/accounts/accounts/check-signin').subscribe(
+      data => {
+        this.signedIn.next(data['signedIn']);
+      },
+      error => {
+        this.signedIn.next(false);
+      }
+    );
   }
 }
