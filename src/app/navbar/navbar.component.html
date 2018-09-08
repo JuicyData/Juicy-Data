@@ -19,11 +19,14 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+        <li *ngIf="signedIn === false" class="nav-item">
           <a class="nav-link" routerLink="/sign-in">Sign In</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="signedIn === false" class="nav-item">
           <button type="button" class="nav-link cta-button" routerLink="/sign-up">Sign Up</button>
+        </li>
+        <li *ngIf="signedIn" class="nav-item">
+          <a class="nav-link" (click)="signOut()" style="cursor: pointer;">Sign Out</a>
         </li>
       </ul>
     </div>
