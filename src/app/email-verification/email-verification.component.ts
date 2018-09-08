@@ -20,12 +20,12 @@ export class EmailVerificationComponent implements OnInit {
     this.titleService.setTitle('Email Verification - Juicy Data');
     this.route.params.subscribe(params => {
       this.verificationCode = params['data'];
-        this.sendVerification();
+      this.sendVerification();
     });
   }
 
   sendVerification() {
-    this.http.get('/api/email-verification/verify?data=' + this.verificationCode).subscribe(
+    this.http.get('/api/accounts/accounts/email-verification/verify?data=' + this.verificationCode).subscribe(
       data => {
         this.data = data;
         console.log(this.data);

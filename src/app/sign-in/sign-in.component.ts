@@ -33,6 +33,7 @@ export class SignInComponent implements OnInit {
     this.http.post('/api/accounts/accounts/signin', doc).subscribe(
       data => {
         console.log(data);
+        this.router.navigate(['/events']);
         // this.cookieService.set( 'token', '' + data['token'] );
       },
       error => {
