@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../user.service';
 // import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -18,7 +19,7 @@ export class SignInComponent implements OnInit {
   buttonText = 'Sign In';
   rememberMe = true;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -33,7 +34,8 @@ export class SignInComponent implements OnInit {
     this.http.post('/api/accounts/accounts/signin', doc).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['/events']);
+        this.userService.signedIn.next(true);
+        this.router.navigate(['/blog']);
         // this.cookieService.set( 'token', '' + data['token'] );
       },
       error => {
