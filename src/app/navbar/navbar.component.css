@@ -9,6 +9,14 @@
   padding: 15px 0px;
 }
 
+.navbar-toggler {
+  margin-right: 10px
+}
+
+.navbar-collapse {
+  text-align: center;
+}
+
 img {
   /* padding-right: 8px;
   max-height: 33.3px;

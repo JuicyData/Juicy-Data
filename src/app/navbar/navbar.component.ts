@@ -16,4 +16,8 @@ export class NavbarComponent implements OnInit {
     this.width = window.innerWidth;
   }
 
+  navClicked(event) {
+  	event.target.parentElement.parentElement.parentElement.classList.remove('show');
+  }
+
 }
