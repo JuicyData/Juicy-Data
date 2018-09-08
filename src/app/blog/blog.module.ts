@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './blog.component';
 
 import { RouterModule } from '@angular/router';
-import { DecisionMakingComponent } from './posts/decision-making/decision-making.component';
 
 const routes = [
   { path: '', component: BlogComponent}
@@ -19,6 +18,6 @@ const routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [BlogComponent, DecisionMakingComponent]
+  declarations: [BlogComponent]
 })
 export class BlogModule {}
