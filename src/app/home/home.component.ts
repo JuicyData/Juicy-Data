@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import {NgForm} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   subscribe() {
+    console.log(this.email);
     this.doc = {
       email: this.email
     };

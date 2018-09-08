@@ -16,9 +16,9 @@ export class AppComponent {
     // Track Page Navigation
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) { // Successfully loaded new route
-        let newPage = { toUrl: event.url };
-        if (currentUrl) {
-          newPage.fromUrl = currentUrl;
+        const newPage = { toUrl: event.url };
+        if (this.currentUrl) {
+          newPage['fromUrl'] = this.currentUrl;
         }
         // console.log("Entered: " + newPage.toUrl);
         this.http.post('/api/navigation/enter', newPage).subscribe();
@@ -26,5 +26,5 @@ export class AppComponent {
       }
     });
   }
-  
+
 }
