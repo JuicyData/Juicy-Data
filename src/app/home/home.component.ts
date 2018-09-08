@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,28 @@ import { Title } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  email: any;
+  error: any;
+  doc: any;
+
+  constructor(private titleService: Title, private http: HttpClient) { }
 
   ngOnInit() {
     this.titleService.setTitle('Home - Juicy Data');
+  }
+
+  subscribe() {
+    this.doc = {
+      email: this.email
+    };
+    this.http.post('/api/accounts/accounts/email-subscription', this.doc).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        this.error = error.error.message;
+      }
+    );
   }
 
 }

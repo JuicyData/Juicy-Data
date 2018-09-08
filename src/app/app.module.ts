@@ -24,6 +24,10 @@ const ROUTES = [
     loadChildren: 'app/blog/posts/decision-making/decision-making.module#DecisionMakingModule'
   },
   {
+    path: 'blog/tetrix-vs-vexpro-the-facts',
+    loadChildren: 'app/blog/posts/tetrix-vs-vexpro-the-facts/tetrix-vs-vexpro-the-facts.module#TetrixVsVexproTheFactsModule'
+  },
+  {
     path: 'blog/a-few-tips-to-bring-your-driving-game-to-the-next-level',
     loadChildren: 'app/blog/posts/a-few-tips-to-bring-your-driving-game-to-the-next-level/a-few-tips-to-bring-your-driving-game-to-the-next-level.module#AFewTipsToBringYourDrivingGameToTheNextLevelModule'
   },
