@@ -21,7 +21,7 @@ export class AppComponent {
           newPage['fromUrl'] = this.currentUrl;
         }
         // console.log("Entered: " + newPage.toUrl);
-        this.http.post('/api/navigation/enter', newPage).subscribe();
+        // this.http.post('/api/navigation/enter', newPage).subscribe();
         this.currentUrl = newPage.toUrl;
       }
     });

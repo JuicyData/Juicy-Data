@@ -21,6 +21,14 @@ const ROUTES = [
     loadChildren: 'app/blog/blog.module#BlogModule'
   },
   {
+    path: 'sd-league-registration',
+    loadChildren: 'app/sd-league-registration/sd-league-registration.module#SdLeagueRegistrationModule'
+  },
+  {
+    path: 'sd-league-registration/:jwt',
+    loadChildren: 'app/sd-league-registration/sd-league-registration.module#SdLeagueRegistrationModule'
+  },
+  {
     path: 'blog/decision-making',
     loadChildren: 'app/blog/posts/decision-making/decision-making.module#DecisionMakingModule'
   },
@@ -76,6 +84,10 @@ const ROUTES = [
   {
     path: 'teams',
     loadChildren: 'app/teams/teams.module#TeamsModule'
+  },
+  {
+    path: 'link/:link',
+    loadChildren: 'app/link/link.module#LinkModule'
   },
   {
     path: '',

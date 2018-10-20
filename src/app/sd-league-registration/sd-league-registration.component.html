@@ -1,0 +1,467 @@
+<div #afterRegistration class="after-registration-page" *ngIf="registrationComplete">
+  <div class="container">
+    <h2>Your team is now in the {{weekPick1Information.leagueInfo.leagueName}} league and has been registered for the
+      events below.
+    </h2>
+    <div class="alert alert-primary" role="alert">
+      <p>Please remember that each team will be required to provide one volunteer for each event they
+        attend. Tournament hosts will be sending you additional emails about your tournaments as they get closer</p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="meet-confirm-card">
+          <p>Location: <strong>{{weekPick1Information.leagueInfo.location}}</strong></p>
+          <p>Date: <strong>{{weekPick1Information.leagueInfo.date}}</strong></p>
+          <p>Address: <strong>{{weekPick1Information.leagueInfo.address}}</strong></p>
+          <p>Time: <strong>{{weekPick1Information.leagueInfo.time.start}} -
+              {{weekPick1Information.leagueInfo.time.end}}</strong></p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="meet-confirm-card">
+          <p>Location: <strong>{{weekPick2Information.leagueInfo.location}}</strong></p>
+          <p>Date: <strong>{{weekPick2Information.leagueInfo.date}}</strong></p>
+          <p>Address: <strong>{{weekPick2Information.leagueInfo.address}}</strong></p>
+          <p>Time: <strong>{{weekPick2Information.leagueInfo.time.start}} -
+              {{weekPick2Information.leagueInfo.time.end}}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="meet-confirm-card">
+          <p>Location: <strong>{{weekPick3Information.leagueInfo.location}}</strong></p>
+          <p>Date: <strong>{{weekPick3Information.leagueInfo.date}}</strong></p>
+          <p>Address: <strong>{{weekPick3Information.leagueInfo.address}}</strong></p>
+          <p>Time: <strong>{{weekPick3Information.leagueInfo.time.start}} -
+              {{weekPick3Information.leagueInfo.time.end}}</strong></p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="meet-confirm-card">
+          <p>Location: <strong>{{weekPick4Information.leagueInfo.location}}</strong></p>
+          <p>Date: <strong>{{weekPick4Information.leagueInfo.date}}</strong></p>
+          <p>Address: <strong>{{weekPick4Information.leagueInfo.address}}</strong></p>
+          <p>Time: <strong>{{weekPick4Information.leagueInfo.time.start}} -
+              {{weekPick4Information.leagueInfo.time.end}}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="meet-confirm-card-about" style="margin-top: 80px; margin-bottom: 50px;">
+      <div class="about-juicy-data">
+        <img class="img-fluid mx-auto juicy-data-image" src="assets/logo-text.png" alt="Juicy Data orange logo">
+        <p>Welcome to Juicy Data!</p>
+        <p>When we started this website in 2015 our goal was to provide scouting data to
+          FTC teams to make alliance selection easier. We now are at a point where we can provide live match data for
+          all of the competitions here in San Diego.</p>
+        <p>Live match data isnt the only service we want to provide. Starting this year we want to provide resources
+          and
+          tools to help coaches and students be prepared for the competition. We will be doing that by posting
+          regularly on our blog. We want to make it easy for teams to look up their questions
+          and find
+          detailed resources and tools that can help them. Lastly, we are also planning to make tools that can assist
+          regions and their events, and we're starting with our home region San Diego.</p>
+        <p>We will be launching our blog soon, and if you would like to get updates about Juicy Data please
+          consider
+          subscribing to our newsletter! If you have any questions or suggestions please contact us at
+          juicydatainfo@gmail.com</p>
+        <div class="opt-in-container">
+          <div class="opt-in">
+            <p>Sign up for our mailing list to get updates about Juicy Data</p>
+            <div class="newsletter-signup">
+              <input [(ngModel)]="optInEmail" type="text" class="" placeholder="Your email address" aria-label="Your email address">
+              <button class="cta-button" (click)="optIn()" type="submit">Subscribe</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="no-jwt" *ngIf="errors" [hidden]="errors.length === 0">
+  <div class="container">
+    <h1 *ngFor="let error of errors"> {{error}} </h1>
+  </div>
+</div>
+
+<div class="league-registration-page" *ngIf="jwt && teamNumber && leagueInformation1 && leagueInformation2 && leagueInformation3 && leagueInformation4"
+  [hidden]="registrationComplete">
+  <div class="container">
+    <h1 class="title" style="text-align: center; margin-bottom: 25px;">San Diego FTC League Selection 2018</h1>
+    <div class="league-registration-box">
+      <div class="section-container">
+        <h1 class="title">League Selection for Team {{teamNumber}}</h1>
+      </div>
+      <hr>
+      <div class="section-container">
+        <h2 class="section-title"><span class="circle-step">1</span>Enter Team Primary Contact Information</h2>
+        <div class="row">
+          <div class="col-lg-3">
+            <h3 class="sub-title">Primary Contact 1</h3>
+            <p>This contact will be given authorized to change team information in the future.</p>
+          </div>
+          <div class="col-lg-9">
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <label for="inputFirstName1" class="">First Name</label>
+                <input type="text" class="form-control registration-form" id="inputFirstName1" placeholder="John" name="firstName1"
+                  [(ngModel)]="firstName1" required>
+              </div>
+              <div class="col-sm-6 form-group">
+                <label for="inputLastName1" class="">Last Name</label>
+                <input type="text" class="form-control registration-form" id="inputLastName1" placeholder="Doe" name="lastName1"
+                  [(ngModel)]="lastName1" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <label for="inputEmail1" class="">Email</label>
+                <input type="email" class="form-control registration-form" id="inputEmail1" placeholder="johndoe@example.com"
+                  name="email1" [(ngModel)]="email1" required>
+              </div>
+              <div class="col-sm-6 form-group">
+                <label for="inputPhoneNumber" class="">Phone Number</label>
+                <input type="text" class="form-control registration-form" id="inputPhoneNumber1" placeholder="123-456-7890"
+                  name="phoneNumber1" [(ngModel)]="phoneNumber1" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-lg-3">
+            <h3 class="sub-title" *ngIf="contact2">Primary Contact 2</h3>
+          </div>
+          <div class="col-lg-9">
+            <div class="row" *ngIf="contact2">
+              <div class="col-sm-6 form-group">
+                <label for="inputFirstName2" class="">First Name</label>
+                <input type="text" class="form-control registration-form" id="inputFirstName2" placeholder="John" name="firstName2"
+                  [(ngModel)]="firstName2">
+              </div>
+              <div class="col-sm-6 form-group">
+                <label for="inputLastName2" class="">Last Name</label>
+                <input type="text" class="form-control registration-form" id="inputLastName2" placeholder="Doe" name="lastName2"
+                  [(ngModel)]="lastName2">
+              </div>
+            </div>
+            <div class="row" *ngIf="contact2">
+              <div class="col-sm-6 form-group">
+                <label for="inputEmail2" class="">Email</label>
+                <input type="email" class="form-control registration-form" id="inputEmail2" placeholder="johndoe@example.com"
+                  name="email2" [(ngModel)]="email2">
+              </div>
+              <div class="col-sm-6 form-group">
+                <label for="inputPhoneNumber2" class="">Phone Number</label>
+                <input type="text" class="form-control registration-form" id="inputPhoneNumber2" placeholder="123-456-7890"
+                  name="phoneNumber2" [(ngModel)]="phoneNumber2">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-lg-3">
+            <h3 class="sub-title" *ngIf="contact3">Primary Contact 3</h3>
+          </div>
+          <div class="col-lg-9">
+            <div class="row" *ngIf="contact3">
+              <div class="col-sm-6 form-group">
+                <label for="inputFirstName3" class="">First Name</label>
+                <input type="text" class="form-control registration-form" id="inputFirstName3" placeholder="John" name="firstName3"
+                  [(ngModel)]="firstName3">
+              </div>
+              <div class="col-sm-6 form-group">
+                <label for="inputLastName3" class="">Last Name</label>
+                <input type="text" class="form-control registration-form" id="inputLastName3" placeholder="Doe" name="lastName3"
+                  [(ngModel)]="lastName3">
+              </div>
+            </div>
+            <div class="row" *ngIf="contact3">
+              <div class="col-sm-6 form-group">
+                <label for="inputEmail3" class="">Email</label>
+                <input type="email" class="form-control registration-form" id="inputEmail3" placeholder="johndoe@example.com"
+                  name="email3" [(ngModel)]="email3">
+              </div>
+              <div class="col-sm-6 form-group">
+                <label for="inputPhoneNumber3" class="">Phone Number</label>
+                <input type="text" class="form-control registration-form" id="inputPhoneNumber3" placeholder="123-456-7890"
+                  name="phoneNumber3" [(ngModel)]="phoneNumber3">
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="event-select-button" style="margin-right: 15px; display: inline-block;" (click)="addContact()"
+          [hidden]="contact3">Add another contact</button>
+        <button class="event-select-button" style="display: inline-block;" (click)="removeContact()" [hidden]="!contact2 && !contact3">Remove
+          contact</button>
+      </div>
+      <hr>
+      <div class="section-container">
+        <h2 class="section-title"><span class="circle-step">2</span>Enter Your Team's Social Media Information to be
+          Displayed on the Region Website -<span class="optional-label"> optional</span></h2>
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <label for="inputTeamFacebook" class="">Facebook</label>
+            <input type="text" class="form-control registration-form" id="inputTeamFacebook" placeholder="https://facebook.com/example"
+              name="teamFacebook" [(ngModel)]="teamFacebook">
+          </div>
+          <div class="col-sm-6 form-group">
+            <label for="inputTeamTwitter" class="">Twitter</label>
+            <input type="text" class="form-control registration-form" id="inputTeamTwitter" placeholder="https://twitter.com/example"
+              name="teamTwitter" [(ngModel)]="teamTwitter">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <label for="inputTeamInstagram" class="">Instagram</label>
+            <input type="text" class="form-control registration-form" id="inputTeamInstagram" placeholder="https://www.instagram.com/example"
+              name="teamInstagram" [(ngModel)]="teamInstagram">
+          </div>
+          <div class="col-sm-6 form-group">
+            <label for="inputTeamWebsite" class="">Website</label>
+            <input type="text" class="form-control registration-form" id="inputTeamWebsite" placeholder="https://www.example.com/"
+              name="teamWebsite" [(ngModel)]="teamWebsite">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <label for="inputTeamEmail" class="">Email</label>
+            <input type="text" class="form-control registration-form" id="inputTeamEmail" placeholder="exampleteam@example.com"
+              name="teamEmail" [(ngModel)]="teamEmail">
+          </div>
+          <div class="col-sm-6 form-group">
+            <label for="inputTeamEmail" class="">Team Logo</label>
+            <input type="file" class="form-control registration-form image-upload-zone" id="inputTeamEmail" name="teamLogo"
+              (change)="logoUpload($event)" accept='image/*'>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="section-container" style="padding-bottom: 0px;">
+        <h2 class="section-title"><span class="circle-step">3</span>Select Meets for Week 1 and Week 4 as a Pair -
+          Please Review Both Weeks When Selecting</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="event-table table tableb table-bordered">
+          <thead>
+            <tr>
+              <th style="border: none;"></th>
+              <th>Descartes<br>{{leagueInformation1[0].slots}}/14<button (click)="leagueSelect(0)" [ngClass]="{'event-select-button' : weekPick1 != leagueInformation1[0]._id, 'event-select-button-active': weekPick1 == leagueInformation1[0]._id, 'd-none': leagueInformation1[0].slots > 13}"
+                  [disabled]="leagueInformation1[0].slots > 13">Select</button></th>
+              <th>Turing<br>{{leagueInformation1[1].slots}}/14<button (click)="leagueSelect(1)" [ngClass]="{'event-select-button' : weekPick1 != leagueInformation1[1]._id, 'event-select-button-active': weekPick1 == leagueInformation1[1]._id, 'd-none': leagueInformation1[1].slots > 13}"
+                  [disabled]="leagueInformation1[1].slots > 13">Select</button></th>
+              <th>Gauss<br>{{leagueInformation1[2].slots}}/14<button (click)="leagueSelect(2)" [ngClass]="{'event-select-button' : weekPick1 != leagueInformation1[2]._id, 'event-select-button-active': weekPick1 == leagueInformation1[2]._id, 'd-none': leagueInformation1[2].slots > 13}"
+                  [disabled]="leagueInformation1[2].slots > 13">Select</button></th>
+              <th>Ptolomy<br>{{leagueInformation1[3].slots}}/14<button (click)="leagueSelect(3)" [ngClass]="{'event-select-button' : weekPick1 != leagueInformation1[3]._id, 'event-select-button-active': weekPick1 == leagueInformation1[3]._id, 'd-none': leagueInformation1[3].slots > 13}"
+                  [disabled]="leagueInformation1[3].slots > 13">Select</button></th>
+              <th>Euclid<br>{{leagueInformation1[4].slots}}/14<button (click)="leagueSelect(4)" [ngClass]="{'event-select-button' : weekPick1 != leagueInformation1[4]._id, 'event-select-button-active': weekPick1 == leagueInformation1[4]._id, 'd-none': leagueInformation1[4].slots > 13}"
+                  [disabled]="leagueInformation1[4].slots > 13">Select</button></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-seperator text-uppercase">
+              <td colspan="6">Week 1 Meets</td>
+            </tr>
+            <tr>
+              <th>Location</th>
+              <td *ngFor="let meet of leagueInformation1">{{meet.leagueInfo.location}}</td>
+            </tr>
+            <tr>
+              <th>Date</th>
+              <td *ngFor="let meet of leagueInformation1">{{meet.leagueInfo.date}}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td *ngFor="let meet of leagueInformation1">{{meet.leagueInfo.address}}</td>
+            </tr>
+            <tr>
+              <th>Time</th>
+              <td *ngFor="let meet of leagueInformation1">{{meet.leagueInfo.time.start}} -
+                {{meet.leagueInfo.time.end}}
+              </td>
+            </tr>
+            <tr class="table-seperator text-uppercase">
+              <td colspan="6">Week 4 Meets</td>
+            </tr>
+            <tr>
+              <th>Location</th>
+              <td *ngFor="let meet of leagueInformation4">{{meet.leagueInfo.location}}</td>
+            </tr>
+            <tr>
+              <th>Date</th>
+              <td *ngFor="let meet of leagueInformation4">{{meet.leagueInfo.date}}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td *ngFor="let meet of leagueInformation4">{{meet.leagueInfo.address}}</td>
+            </tr>
+            <tr>
+              <th>Time</th>
+              <td *ngFor="let meet of leagueInformation4">{{meet.leagueInfo.time.start}} -
+                {{meet.leagueInfo.time.end}}</td>
+            </tr>
+            <!-- <tr>
+              <th>Slots Filled</th>
+              <td *ngFor="let meet of leagueInformation1, index as i"> {{meet.slots}}/14
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <div class="section-container" style="padding-bottom: 0px;">
+        <h2 class="section-title"><span class="circle-step">4</span>Select a Meet for Week 2</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="event-table table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th *ngFor="let meet of leagueInformation2">{{meet.leagueInfo.location}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Date</th>
+              <td *ngFor="let meet of leagueInformation2">{{meet.leagueInfo.date}}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td *ngFor="let meet of leagueInformation2">{{meet.leagueInfo.address}}</td>
+            </tr>
+            <tr>
+              <th>Time</th>
+              <td *ngFor="let meet of leagueInformation2">{{meet.leagueInfo.time.start}} -
+                {{meet.leagueInfo.time.end}}
+              </td>
+            </tr>
+            <tr>
+              <th>Slots Filled</th>
+              <td *ngFor="let meet of leagueInformation2"> {{meet.slots}}/14
+                <button (click)="meetSelect(2, meet._id, meet)" [ngClass]="{'event-select-button' : weekPick2 != meet._id, 'event-select-button-active': weekPick2 == meet._id, 'd-none': meet.slots > 13}"
+                  [disabled]="meet.slots > 13">Select</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <div class="section-container" style="padding-bottom: 0px;">
+        <h2 class="section-title"><span class="circle-step">5</span>Select a Meet for Week 3</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="event-table table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th *ngFor="let meet of leagueInformation3">{{meet.leagueInfo.location}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Date</th>
+              <td *ngFor="let meet of leagueInformation3">{{meet.leagueInfo.date}}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td *ngFor="let meet of leagueInformation3">{{meet.leagueInfo.address}}</td>
+            </tr>
+            <tr>
+              <th>Time</th>
+              <td *ngFor="let meet of leagueInformation3">{{meet.leagueInfo.time.start}} -
+                {{meet.leagueInfo.time.end}}</td>
+            </tr>
+            <tr>
+              <th>Slots Filled</th>
+              <td *ngFor="let meet of leagueInformation3"> {{meet.slots}}/14
+                <button (click)="meetSelect(3, meet._id, meet)" [ngClass]="{'event-select-button' : weekPick3 != meet._id, 'event-select-button-active': weekPick3 == meet._id, 'd-none': meet.slots > 13}"
+                  [disabled]="meet.slots > 13">Select</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <div class="section-container">
+        <button type="submit" class="orange-button btn-block submit-button" style="margin-top: 20px" data-toggle="modal"
+          data-target="#exampleModal" (click)="getPickedLeagueInformation()">Submit
+          Selection</button>
+        <p style="margin-top: 20px; text-align: center;"><span class="circle-step">?</span> <strong>Need help?</strong>
+          Don't hesitate to contact support at <strong>juicydatainfo@gmail.com</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="border-top: 4px solid #fa9235;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Selection Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="confirm-message" *ngIf="slotErrors.length === 0 && weekPick4Information && weekPick1Information && weekPick2Information && weekPick3Information">
+            <p>You have selected:</p>
+            <p>League Name: <strong>{{weekPick1Information.leagueInfo.leagueName}}</strong></p>
+            <div class="row">
+              <div class="col-lg-3">
+                <p>Week 1 - Meet</p>
+                <p>Location: <strong>{{weekPick1Information.leagueInfo.location}}</strong></p>
+                <p>Date: <strong>{{weekPick1Information.leagueInfo.date}}</strong></p>
+                <p>Address: <strong>{{weekPick1Information.leagueInfo.address}}</strong></p>
+                <p>Time: <strong>{{weekPick1Information.leagueInfo.time.start}} -
+                    {{weekPick1Information.leagueInfo.time.end}}</strong></p>
+              </div>
+              <div class="col-lg-3">
+                <p>Week 2 - Meet</p>
+                <p>Location: <strong>{{weekPick2Information.leagueInfo.location}}</strong></p>
+                <p>Date: <strong>{{weekPick2Information.leagueInfo.date}}</strong></p>
+                <p>Address: <strong>{{weekPick2Information.leagueInfo.address}}</strong></p>
+                <p>Time: <strong>{{weekPick2Information.leagueInfo.time.start}} -
+                    {{weekPick2Information.leagueInfo.time.end}}</strong></p>
+              </div>
+              <div class="col-lg-3">
+                <p>Week 3 - Meet</p>
+                <p>Location: <strong>{{weekPick3Information.leagueInfo.location}}</strong></p>
+                <p>Date: <strong>{{weekPick3Information.leagueInfo.date}}</strong></p>
+                <p>Address: <strong>{{weekPick3Information.leagueInfo.address}}</strong></p>
+                <p>Time: <strong>{{weekPick3Information.leagueInfo.time.start}} -
+                    {{weekPick3Information.leagueInfo.time.end}}</strong></p>
+              </div>
+              <div class="col-lg-3">
+                <p>Week 4 - League Championship</p>
+                <p>Location: <strong>{{weekPick4Information.leagueInfo.location}}</strong></p>
+                <p>Date: <strong>{{weekPick4Information.leagueInfo.date}}</strong></p>
+                <p>Address: <strong>{{weekPick4Information.leagueInfo.address}}</strong></p>
+                <p>Time: <strong>{{weekPick4Information.leagueInfo.time.start}} -
+                    {{weekPick1Information.leagueInfo.time.end}}</strong></p>
+              </div>
+            </div>
+            <p>All selections are final and unchangeable. Are you sure you want to select these events?</p>
+          </div>
+        </div>
+        <div class="slot-errors" *ngIf="slotErrors.length > 0">
+          <div class="alert alert-danger" role="alert">
+            <p *ngFor="let error of slotErrors">{{ error }}</p>
+          </div>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="validationErrors.length > 0">
+          <p><i class="fas fa-exclamation-circle"></i> Form Errors:</p>
+          <p *ngFor="let error of validationErrors">
+            {{ error }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button *ngIf="slotErrors.length === 0 && validationErrors.length === 0" type="button" class="event-select-button"
+          (click)="submit()" style="margin: 0px;" data-dismiss="modal">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
