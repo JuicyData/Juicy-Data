@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TetrixVsVexproTheFactsComponent } from '../tetrix-vs-vexpro-the-facts/tetrix-vs-vexpro-the-facts.component';
+import { OptInEmailComponent } from '../opt-in-email/opt-in-email.component';
 
 import { RouterModule } from '@angular/router';
 
@@ -18,6 +19,6 @@ const routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [TetrixVsVexproTheFactsComponent]
+  declarations: [TetrixVsVexproTheFactsComponent, OptInEmailComponent]
 })
 export class TetrixVsVexproTheFactsModule {}

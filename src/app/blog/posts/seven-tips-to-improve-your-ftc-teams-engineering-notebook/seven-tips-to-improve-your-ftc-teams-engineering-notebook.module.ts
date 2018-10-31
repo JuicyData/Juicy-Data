@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { SevenTipsToImproveYourFtcTeamsEngineeringNotebookComponent } from '../seven-tips-to-improve-your-ftc-teams-engineering-notebook/seven-tips-to-improve-your-ftc-teams-engineering-notebook.component';
+import { OptInEmailComponent } from '../opt-in-email/opt-in-email.component';
 
 const routes = [
   { path: '', component: SevenTipsToImproveYourFtcTeamsEngineeringNotebookComponent}
@@ -17,6 +18,6 @@ const routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [SevenTipsToImproveYourFtcTeamsEngineeringNotebookComponent]
+  declarations: [SevenTipsToImproveYourFtcTeamsEngineeringNotebookComponent, OptInEmailComponent]
 })
 export class SevenTipsToImproveYourFtcTeamsEngineeringNotebookModule {}

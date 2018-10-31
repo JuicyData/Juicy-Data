@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { AFewTipsToBringYourDrivingGameToTheNextLevelComponent } from '../a-few-tips-to-bring-your-driving-game-to-the-next-level/a-few-tips-to-bring-your-driving-game-to-the-next-level.component';
+import { OptInEmailComponent } from '../opt-in-email/opt-in-email.component';
 
 const routes = [
   { path: '', component: AFewTipsToBringYourDrivingGameToTheNextLevelComponent}
@@ -17,6 +18,6 @@ const routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [AFewTipsToBringYourDrivingGameToTheNextLevelComponent]
+  declarations: [AFewTipsToBringYourDrivingGameToTheNextLevelComponent, OptInEmailComponent]
 })
 export class AFewTipsToBringYourDrivingGameToTheNextLevelModule {}

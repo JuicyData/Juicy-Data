@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-a-few-tips-to-bring-your-driving-game-to-the-next-level',
-  templateUrl: './a-few-tips-to-bring-your-driving-game-to-the-next-level.component.html',
-  styleUrls: ['../posts.css']
+  selector: 'app-opt-in-email',
+  templateUrl: './opt-in-email.component.html',
+  styleUrls: ['./opt-in-email.component.css']
 })
-export class AFewTipsToBringYourDrivingGameToTheNextLevelComponent implements OnInit {
+export class OptInEmailComponent implements OnInit {
 
   email: any;
   error: any;
   doc: any;
 
-  constructor(private titleService: Title, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Decision Making - Juicy Data');
   }
 
   subscribe() {
@@ -35,4 +33,5 @@ export class AFewTipsToBringYourDrivingGameToTheNextLevelComponent implements On
 
     );
     }
+
 }

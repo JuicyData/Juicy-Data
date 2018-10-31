@@ -1,14 +1,14 @@
 .post-content p {
   font-size: 20px;
-  line-height: 1.5;
+  line-height: 30px;
   margin-bottom: 23px;
-  color: #454646;
+  color: #4a4541;
 }
 
 .post-content li {
   font-size: 20px;
   line-height: 1.5;
-  color: #454646;
+  color: #4a4541;
 }
 
 .quote {
@@ -35,7 +35,7 @@
 .post-content h2 {
   font-weight: 700;
   margin: 1.8em 0 .8em;
-  color: #454646;
+  color: #4a4541;
 }
 
 .article-title {
@@ -80,38 +80,4 @@
 
 .article-information {
   margin-bottom: 15px;
-}
-
-.opt-in {
-  padding: 20px 25px;
-  border-top: 4px solid #fa9235;
-  background-color: #faf5f0;
-  margin-top: 30px;
-}
-
-.newsletter-signup input {
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  outline: none;
-  -webkit-appearance: none;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  padding: 0 15px;
-  color: #4a4541;
-  height: 38px;
-  width: 70%;
-}
-
-.newsletter-signup p {
-  line-height: 26px;
-  font-size: 20px
-}
-
-.newsletter-signup {
-  display: flex;
-  justify-content: center;
 }

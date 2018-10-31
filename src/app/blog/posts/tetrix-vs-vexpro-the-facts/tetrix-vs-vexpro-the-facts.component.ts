@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-tetrix-vs-vexpro-the-facts',
   templateUrl: './tetrix-vs-vexpro-the-facts.component.html',
-  styleUrls: ['./tetrix-vs-vexpro-the-facts.component.css']
+  styleUrls: ['../posts.css']
 })
 export class TetrixVsVexproTheFactsComponent implements OnInit {
 

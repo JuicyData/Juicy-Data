@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { DecisionMakingComponent } from './decision-making.component';
+import { OptInEmailComponent } from '../opt-in-email/opt-in-email.component';
 
 describe('DecisionMakingComponent', () => {
   let component: DecisionMakingComponent;
@@ -8,7 +11,11 @@ describe('DecisionMakingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DecisionMakingComponent ]
+      declarations: [ DecisionMakingComponent, OptInEmailComponent ],
+      imports: [
+        FormsModule,
+        HttpClientModule
+      ]
     })
     .compileComponents();
   }));

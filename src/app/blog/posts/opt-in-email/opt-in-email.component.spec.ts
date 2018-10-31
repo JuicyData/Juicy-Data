@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { OptInEmailComponent } from './opt-in-email.component';
+
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { TetrixVsVexproTheFactsComponent } from './tetrix-vs-vexpro-the-facts.component';
-import { OptInEmailComponent } from '../opt-in-email/opt-in-email.component';
-
-describe('TetrixVsVexproTheFactsComponent', () => {
-  let component: TetrixVsVexproTheFactsComponent;
-  let fixture: ComponentFixture<TetrixVsVexproTheFactsComponent>;
+describe('OptInEmailComponent', () => {
+  let component: OptInEmailComponent;
+  let fixture: ComponentFixture<OptInEmailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TetrixVsVexproTheFactsComponent, OptInEmailComponent ],
+      declarations: [ OptInEmailComponent ],
       imports: [
         FormsModule,
         HttpClientModule
@@ -21,7 +21,7 @@ describe('TetrixVsVexproTheFactsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TetrixVsVexproTheFactsComponent);
+    fixture = TestBed.createComponent(OptInEmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

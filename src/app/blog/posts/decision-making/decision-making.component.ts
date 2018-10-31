@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-decision-making',
   templateUrl: './decision-making.component.html',
-  styleUrls: ['./decision-making.component.css']
+  styleUrls: ['../posts.css']
 })
 export class DecisionMakingComponent implements OnInit {
 
