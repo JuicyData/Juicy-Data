@@ -2,22 +2,23 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RoverRuckusService } from './event-services/rover-ruckus.service';
 
-import { UploadComponent } from './upload.component';
+import { RoverRuckusComponent } from './rover-ruckus.component';
 
 import { RouterModule } from '@angular/router';
 
 const routes = [
-  { path: '', component: UploadComponent}
+  { path: '', component: RoverRuckusComponent}
 ];
 
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule
+    FormsModule
   ],
-  declarations: [UploadComponent]
+  declarations: [RoverRuckusComponent],
+  providers: [RoverRuckusService]
 })
-export class UploadModule {}
+export class RoverRuckusModule {}

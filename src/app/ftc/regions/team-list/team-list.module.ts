@@ -3,19 +3,22 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TeamsComponent } from './teams.component';
+import { TeamListComponent } from './team-list.component';
 
 import { RouterModule } from '@angular/router';
 
 const routes = [
-  { path: ':teamNumber', component: TeamsComponent}
+  { path: '', component: TeamListComponent}
 ];
 
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  declarations: [TeamsComponent]
+  declarations: [TeamListComponent]
 })
-export class TeamsModule {}
+export class TeamListModule {}

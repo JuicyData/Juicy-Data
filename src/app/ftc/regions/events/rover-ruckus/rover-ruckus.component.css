@@ -1,0 +1,416 @@
+.event-card {
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px !important;
+  background-color: white;
+  margin-top: 40px;
+}
+
+.event-page {
+  background-color: #F0F0F0;
+  margin-bottom: -60px;
+  padding-bottom: 120px;
+}
+
+.nav-link {
+  padding: 10px 10px;
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #ddd;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.nav-tabs > a {
+  border: none;
+  color: #666;
+}
+.nav-tabs > a.active,
+.nav-tabs > a:hover {
+  border: none;
+  color: #fa9235 !important;
+  background: transparent;
+  border-bottom: 2px solid #fa9235;
+}
+
+.deemphasized {
+  font-size: 14px;
+  color: #736A62;
+}
+
+.table-row-stripe tbody tr:nth-child(odd) {
+  background-color: #F9F9F8;
+}
+
+.match-history-table tbody tr:nth-child(4n-2), .match-history-table tbody tr:nth-child(4n-3)  {
+  background-color: #F9F9F8;
+}
+
+.table tbody tr td{
+  vertical-align: middle;
+  border: none;
+  color: #020000;
+}
+
+.table-header{
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  color: #433E39;
+  border: none;
+  background-color: white;
+}
+
+.table td, .table th {
+  padding: 6px;
+}
+
+@media (max-width: 1199px) {
+  .match-history-table .team {
+    min-width: 220px;
+  }
+}
+
+.average-scores-table .team {
+  padding-left: 12px;
+}
+
+.match-history-table  .match-number {
+  min-width: 50px;
+}
+
+.green-header{
+  background-color: #bcfdba;
+  color:  #1c7819;
+  fill: #1c7819;
+}
+
+.red-header {
+  background-color: #FDD6D7;
+  color: #76191C;
+  fill: #76191C;
+}
+
+.blue-header {
+  background-color: #CDE7FD;
+  color: #184A75;
+  fill: #184A75;
+}
+
+.green-data{
+  background-color: rgba(188, 253, 186, 0.3);
+}
+
+.red-data {
+  background-color: rgba(253, 191, 194, 0.3);
+}
+
+.blue-data {
+  background-color: rgba(175, 217, 253, 0.3);
+}
+
+.sort-icon-down {
+  height: 20px;
+}
+
+.sort-icon-up {
+  height: 20px;
+}
+
+.sort-icon-select {
+  height: 20px;
+  width: 20px;
+}
+
+.sortable-header {
+  cursor: pointer;
+}
+
+.icon-trophy {
+  fill: #FA9235;
+  height: 20px;
+}
+
+.icon {
+  display: inline-flex;
+  align-self: center;
+}
+
+.icon svg, .icon img {
+  height: 1em;
+  width: 1em;
+}
+
+.icon.baseline svg, .icon img {
+  top: .125em;
+  position: relative;
+}
+
+.red-alliance {
+  color: #fb797e;
+}
+
+.blue-alliance {
+  color: #67b6fb
+}
+
+.icon-check-auto, .icon-check-end {
+  height: 25px;
+}
+
+.icon-check-auto .primary {
+  fill: #FDD6D7;
+}
+
+.icon-check-auto .secondary {
+  fill: #76191C;
+}
+
+.icon-check-end .primary {
+  fill: #bcfdba;
+}
+
+.icon-check-end .secondary {
+  fill: #1c7819;
+}
+
+.icon-wrapper-center {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-wrapper-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.icon-wrapper-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table thead .text-right  {
+ padding-right: 0px;
+}
+
+.table {
+  margin-bottom: 0px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.table thead tr:nth-child(1) th{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header {
+  background: linear-gradient(319.36deg, #FA9235 0%, #E2832F 100%);
+  margin-top: -30px;
+  padding-top: 30px;
+  padding-bottom: 90px;
+}
+
+.sub-header {
+  min-height: 100px;
+  background-color: white;
+  max-width: 940px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 0 auto;
+  margin-top: -50px;
+  padding-top: 25px;
+  padding-bottom: 22px;
+}
+
+.sub-header h3{
+  font-size: 16px;
+  color: #020000;
+}
+
+.sub-header h4{
+  font-size: 16px;
+  color:#736a62;
+  font-weight: 400;
+}
+
+.header h1, .header h2 {
+  color:
+  #FFFBF7;
+  text-align: center;
+  font-weight: 400;
+}
+
+.header h1 {
+  font-weight: 700;
+  text-align: center;
+}
+
+.header-icon {
+  fill: #fbab65;
+  height: 24px;
+
+}
+
+.header-icon .secondary{
+  fill:#E2832F;
+}
+
+.header-icon-wrapper {
+  background-color:#fef1e6;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+}
+
+@media (max-width: 1199px) {
+  .sub-header .col-lg-3 {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  .sub-header h3, .sub-header h4 {
+    text-align: center;
+  }
+}
+
+.alert-card {
+  background-color: white;
+  border-radius: 8px;
+  border-top: 8px solid #faf335;
+  margin-top: 20px;
+  box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.key-card {
+  background-color: white;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.icon-key {
+  height: 32px;
+  width: 32px;
+  fill: #FA9235;
+}
+
+.icon-important {
+  height: 32px;
+  width: 32px;
+  fill:#fcfaac;
+}
+
+.icon-important .secondary{
+  fill:#e2dc30;
+}
+
+.alert-icon-wrapper {
+  background-color:#fefde6;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+}
+
+.key-icon-wrapper {
+  background-color:#fefde6;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+}
+
+.alert-card h3 {
+  font-size: 16px;
+}
+
+.alert-card .col-10 {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+@media screen and (orientation: landscape) {
+  .alert-card {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .header {
+    padding-bottom: 120px;
+  }
+
+  .sub-header {
+    margin-top: -80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sub-header .col-6 {
+    margin-bottom: 10px;
+  }
+}
+
+.error-card {
+  background-color: white;
+  border-radius: 8px;
+  border-top: 8px solid #FA353C;
+  margin-top: 20px;
+  box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error-icon-wrapper {
+  background-color:#FEEBEC;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+}
+
+.error-card h3 {
+  font-size: 16px;
+}
+
+.error-card .col-10 {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.error-icon-important {
+  height: 32px;
+  width: 32px;
+  fill:#FDD6D7;
+}
+
+.error-icon-important .secondary{
+  fill: #FCA0A3;
+}

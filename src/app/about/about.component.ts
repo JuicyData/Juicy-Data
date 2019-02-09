@@ -8,10 +8,11 @@ import { Title } from '@angular/platform-browser';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('About - Juicy Data');
+   }
 
   ngOnInit() {
-    this.titleService.setTitle('About - Juicy Data');
   }
 
 }

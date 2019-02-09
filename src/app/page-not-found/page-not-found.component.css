@@ -2,11 +2,15 @@ h1{
   text-align: center;
 }
 
-img{
+svg{
   margin: 0 auto;
   display: block;
+  width: 400px;
+  height: 400px;
 }
 
 .missing{
   margin-top: 100px;
 }
+
+

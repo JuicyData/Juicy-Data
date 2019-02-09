@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DecisionMakingComponent } from '../decision-making/decision-making.component';
-import { OptInEmailComponent } from '../opt-in-email/opt-in-email.component';
+import { OptInEmailModule } from '../opt-in-email/opt-in-email.module';
 
 
 import { RouterModule } from '@angular/router';
@@ -18,8 +18,9 @@ const routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OptInEmailModule
   ],
-  declarations: [DecisionMakingComponent, OptInEmailComponent]
+  declarations: [DecisionMakingComponent]
 })
 export class DecisionMakingModule {}

@@ -8,10 +8,11 @@ import { Title } from '@angular/platform-browser';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Reset Password - Juicy Data');
+  }
 
   ngOnInit() {
-    this.titleService.setTitle('Reset Password - Juicy Data');
   }
 
 }

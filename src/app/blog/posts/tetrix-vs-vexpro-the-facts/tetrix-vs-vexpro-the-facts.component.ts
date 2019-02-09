@@ -13,10 +13,11 @@ export class TetrixVsVexproTheFactsComponent implements OnInit {
   error: any;
   doc: any;
 
-  constructor(private titleService: Title, private http: HttpClient) { }
+  constructor(private titleService: Title, private http: HttpClient) {
+    this.titleService.setTitle('TETRIX vs. VEXPro: The Facts - Juicy Data');
+  }
 
   ngOnInit() {
-    this.titleService.setTitle('TETRIX vs. VEXPro: The Facts - Juicy Data');
   }
 
   subscribe() {

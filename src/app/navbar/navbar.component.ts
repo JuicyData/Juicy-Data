@@ -18,6 +18,8 @@ export class NavbarComponent implements OnInit {
   signedIn = null;
   route: any;
 
+  navBarMenu = false;
+
   constructor(private userService: UserService, private http: HttpClient, private router: Router, private location: Location) {
   // userService.signedIn.subscribe(signedIn => {
   // 	this.signedIn = signedIn;
@@ -34,6 +36,11 @@ export class NavbarComponent implements OnInit {
       } else {
         this.route = '';
       }
+      if (this.location.path().includes('/events/')) {
+        this.route = 'events';
+      } else {
+        this.route = '';
+      }
     });
   }
 
@@ -43,6 +50,10 @@ export class NavbarComponent implements OnInit {
 
   signOut() {
     this.http.get('/api/accounts/accounts/signout').subscribe(() => this.userService.signedIn.next(false));
+  }
+
+  navBarMenuToggle() {
+    this.navBarMenu = !this.navBarMenu;
   }
 
 

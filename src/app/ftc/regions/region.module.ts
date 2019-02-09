@@ -3,22 +3,19 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SdLeagueRegistrationComponent } from './sd-league-registration.component';
+import { RegionComponent } from './region.component';
 
 import { RouterModule } from '@angular/router';
 
 const routes = [
-  { path: '', component: SdLeagueRegistrationComponent}
+  { path: '', component: RegionComponent}
 ];
 
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    CommonModule
   ],
-  declarations: [SdLeagueRegistrationComponent]
+  declarations: [RegionComponent]
 })
-export class SdLeagueRegistrationModule {}
+export class RegionModule {}

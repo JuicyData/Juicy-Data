@@ -15,10 +15,11 @@ export class HomeComponent implements OnInit {
   error: any;
   doc: any;
 
-  constructor(private titleService: Title, private router: Router, private http: HttpClient) { }
+  constructor(private titleService: Title, private router: Router, private http: HttpClient) {
+    this.titleService.setTitle('Home - Juicy Data');
+   }
 
   ngOnInit() {
-    this.titleService.setTitle('Home - Juicy Data');
   }
 
   subscribe() {

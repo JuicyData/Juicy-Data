@@ -9,10 +9,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SevenTipsToImproveYourFtcTeamsEngineeringNotebookComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('6 Tips to Improve your FTC Team\'s Engineering Notebook - Juicy Data');
+  }
 
   ngOnInit() {
-    this.titleService.setTitle('6 Tips to Improve your FTC Team\'s Engineering Notebook - Juicy Data');
   }
 
 }

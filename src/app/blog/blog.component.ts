@@ -10,10 +10,12 @@ export class BlogComponent implements OnInit {
 
   posts = [{title: 'wfa'}, {title: 'fwa'}, {title: 'fwa'}];
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Blog - Juicy Data');
+  }
 
   ngOnInit() {
-    this.titleService.setTitle('Blog - Juicy Data');
+
   }
 
 }

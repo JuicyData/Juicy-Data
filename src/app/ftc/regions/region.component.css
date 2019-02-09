@@ -1,0 +1,135 @@
+.header {
+  background-image: url('/assets/san-diego-region.jpg');
+  background-size: cover;
+  padding: 100px 0px;
+  margin-top: -30px;
+  background-position: 80% 65%;
+}
+
+.header h1, .header h2{
+  color: white;
+  text-align: center;
+}
+
+.header h1{
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.header h2{
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.region-page {
+  background-color: #F0F0F0;
+  padding-top: 20px;
+  margin-bottom: -40px;
+  padding-bottom: 100px;
+}
+
+.event-card {
+  background-color: white;
+  border-top: 7px solid #FA9235;
+  border-radius: 8px;
+  box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.2);
+  transition: all .15s ease;
+  margin-bottom: 30px;
+}
+
+.events h2 {
+  color: #433E39;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.event-content {
+  padding: 20px;
+  padding-bottom: 5px;
+}
+
+.event-card a {
+  text-decoration: none!important;
+  color: inherit;
+}
+
+.event-card:hover {
+  transform:translateY(-2px);
+  transition: all .15s ease;
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.event-card h3 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.icon-calendar-date {
+  width: 25px;
+  fill: #FA9235;
+}
+
+.icon-location-pin {
+  fill: #FA9235;
+  width: 25px;
+}
+
+.event-link {
+  background-color: #EFEDEA;
+  display: flex;
+  justify-content: center;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  color: #433E39;
+}
+
+.event-details {
+  color: #433E39;
+}
+
+.event-address {
+  min-height: 48px;
+}
+
+.event-card .col-11 {
+  padding-left: 10px;
+}
+
+.event-content:first-child .row{
+  margin-bottom: 10px;
+}
+
+.icon-external-window {
+  height: 20px;
+  margin-bottom: 4px;
+  margin-left: 6px;
+  fill: #433E39;
+}
+
+.sub-title {
+  font-weight: 300;
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #ddd;
+}
+
+.nav-tabs > a {
+  border: none;
+  color: #666;
+}
+.nav-tabs > a.active,
+.nav-tabs > a:hover {
+  border: none;
+  color: #fa9235 !important;
+  background: transparent;
+  border-bottom: 2px solid #fa9235;
+}
+
+

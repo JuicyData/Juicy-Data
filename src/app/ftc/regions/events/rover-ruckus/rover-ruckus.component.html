@@ -1,0 +1,450 @@
+<div class="spinner" *ngIf="loading">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+<div class="container" *ngIf="!loading && error">
+  <div class="error-card">
+    <div class="row">
+      <div class="col-2">
+        <div class="error-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="error-icon-important">
+            <path class="primary" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z" />
+            <path class="secondary" d="M12 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.9c-.13 1.2-1.88 1.2-2 0l-.5-5a1 1 0 0 1 1-1.1h1a1 1 0 0 1 1 1.1l-.5 5z" />
+          </svg>
+        </div>
+      </div>
+      <div class="col-10"><h3>This event has either not been created or started. Please check back later.</h3></div>
+    </div>
+  </div>
+</div>
+<div class="event-page" *ngIf="!error && !loading">
+  <div class="header" *ngIf="!error && !loading">
+    <div class="container">
+      <h1 *ngIf="!error && !loading">{{ data.eventInformation.name }}</h1>
+      <h2>{{ data.eventInformation.location }}</h2>
+    </div>
+  </div>
+  <div class="container" *ngIf="!error && !loading">
+    <div class="sub-header">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-sm-3 col-6">
+            <div class="row no-gutters">
+              <div class="col-lg-3">
+                <div class="header-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-location-pin header-icon"><path class="primary" d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /></svg>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <h3>{{ data.eventInformation.address }}</h3>
+                <h4>Address</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-6">
+            <div class="row no-gutters">
+              <div class="col-lg-3">
+                <div class="header-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-calendar header-icon">
+                    <path class="primary" d="M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm0 5v10h14V9H5z" />
+                    <path class="secondary" d="M7 2a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm10 0a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <h3>{{ data.eventInformation.date | date: 'fullDate' }}</h3>
+                <h4>Date</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-6">
+            <div class="row no-gutters">
+              <div class="col-lg-3">
+                <div class="header-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-flag header-icon">
+                    <path class="primary" d="M3 15a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h8a1 1 0 0 1 .7.3L13.42 5H21a1 1 0 0 1 .9 1.45L19.61 11l2.27 4.55A1 1 0 0 1 21 17h-8a1 1 0 0 1-.7-.3L10.58 15H3z" />
+                    <rect width="2" height="20" x="2" y="2" class="secondary" rx="1" />
+                  </svg>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <h3>Rover Ruckus</h3>
+                <h4>Season</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-6">
+            <div class="row no-gutters">
+              <div class="col-lg-3">
+                <div class="header-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-time header-icon">
+                    <circle cx="12" cy="12" r="10" class="primary" />
+                    <path class="secondary" d="M13 11.59l3.2 3.2a1 1 0 0 1-1.4 1.42l-3.5-3.5A1 1 0 0 1 11 12V7a1 1 0 0 1 2 0v4.59z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <h3>{{ data.lastUpdated | date: 'fullDate' }} at {{ data.lastUpdated | date: 'shortTime' }}</h3>
+                <h4>Last Updated</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="alert-card">
+      <div class="row">
+        <div class="col-2">
+          <div class="alert-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-important">
+              <path class="primary" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z" />
+              <path class="secondary" d="M12 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.9c-.13 1.2-1.88 1.2-2 0l-.5-5a1 1 0 0 1 1-1.1h1a1 1 0 0 1 1 1.1l-.5 5z" />
+            </svg>
+          </div>
+        </div>
+        <div class="col-10"><h3>This page is best viewed in a horizontal view. Rotate your device for a better viewing experience.</h3></div>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{ container: width >= 1119, 'container-fluid': width < 1119 }" *ngIf="!error && !loading">
+    <div class="alert alert-danger" role="alert" *ngIf="error && !loading">Error: {{ error }}</div>
+
+    <div class="event-card">
+      <nav class="nav nav-tabs" id="myTab" role="tablist" *ngIf="!error && !loading">
+        <a class="nav-item nav-link" [ngClass]="{'active' : currentTab === 'ranking'}" (click)="switchTabs('ranking')">Rankings</a>
+        <a class="nav-item nav-link" [ngClass]="{'active' : currentTab === 'matchHistory'}" (click)="switchTabs('matchHistory')">Match History</a>
+        <a class="nav-item nav-link" [ngClass]="{'active' : currentTab === 'opr'}" (click)="switchTabs('opr')">OPR</a>
+      </nav>
+
+      <div class="tab-content" *ngIf="!error && !loading">
+        <div *ngIf="currentTab === 'ranking'" [ngClass]="{'active' : currentTab === 'ranking'}" class="tab-pane">
+          <table class="table table-responsive-sm table-row-stripe" *ngIf="data">
+            <thead>
+              <tr>
+                <th (click)="sortColumn1('ranking', 'rank')" class="table-header sortable-header">
+                  <div class="icon-wrapper-center">
+                    Rank <svg *ngIf="sortedColumns.ranking.column !== 'rank'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'rank' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'rank' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn1('ranking', 'teamNumber')" class="table-header sortable-header">
+                  <div class="icon-wrapper-left">
+                    Team <svg *ngIf="sortedColumns.ranking.column !== 'teamNumber'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'teamNumber' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'teamNumber' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th class="table-header text-center">Record</th>
+                <th (click)="sortColumn1('ranking', 'qualifyingPoints')" class="text-center table-header sortable-header">
+                  <div class="icon-wrapper-right">
+                    RP <svg *ngIf="sortedColumns.ranking.column !== 'qualifyingPoints'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'qualifyingPoints' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'qualifyingPoints' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn1('ranking', 'rankingPoints')" class="text-right table-header sortable-header">
+                  <div class="icon-wrapper-right">
+                    TBP <svg *ngIf="sortedColumns.ranking.column !== 'rankingPoints'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'rankingPoints' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'rankingPoints' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn1('ranking', 'averageScore')" class="text-right table-header sortable-header">
+                  <div class="icon-wrapper-right">
+                    Total OPR <svg *ngIf="sortedColumns.ranking.column !== 'averageScore'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageScore' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageScore' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn1('ranking', 'averageMarginalScore')" class="text-right table-header sortable-header">
+                  <div class="icon-wrapper-right">
+                    CCWM <svg *ngIf="sortedColumns.ranking.column !== 'averageMarginalScore'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageMarginalScore' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageMarginalScore' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn2('ranking', 'average', 'auto')" class="text-right table-header red-header sortable-header">
+                  <div class="icon-wrapper-right">
+                    OPR <svg *ngIf="sortedColumns.ranking.column !== 'averageauto'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageauto' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageauto' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn2('ranking', 'average', 'driver')" class="text-right table-header blue-header sortable-header">
+                  <div class="icon-wrapper-right">
+                    OPR <svg *ngIf="sortedColumns.ranking.column !== 'averagedriver'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averagedriver' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averagedriver' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn2('ranking', 'average', 'end')" class="text-right table-header green-header sortable-header">
+                  <div class="icon-wrapper-right">
+                    OPR <svg *ngIf="sortedColumns.ranking.column !== 'averageend'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageend' && sortedColumns.ranking.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.ranking.column === 'averageend' && sortedColumns.ranking.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ranking of data.ranking">
+                <td class="text-center">{{ ranking.rank }}</td>
+                <td>
+                  {{ ranking.teamNumber }} <br />
+                  <span class="deemphasized">{{ ranking.teamName }}</span>
+                </td>
+                <td class="text-center">{{ ranking.record.wins }}-{{ ranking.record.losses }}-{{ ranking.record.ties }}</td>
+                <td class="text-right">{{ ranking.qualifyingPoints }}</td>
+                <td class="text-right">{{ ranking.rankingPoints }}</td>
+                <td class="text-right">{{ ranking.averageScore | number: '1.2-2' }}</td>
+                <td class="text-right">{{ ranking.averageMarginalScore | number: '1.2-2' }}</td>
+                <td class="text-right red-data">{{ ranking.average.auto | number: '1.2-2' }}</td>
+                <td class="text-right blue-data">{{ ranking.average.driver | number: '1.2-2' }}</td>
+                <td class="text-right green-data">{{ ranking.average.end | number: '1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="currentTab === 'matchHistory'" [ngClass]="{'active' : currentTab === 'matchHistory'}" class="tab-pane">
+          <table class="table table-responsive-xl match-history-table" *ngIf="data">
+            <thead class="sticky">
+              <tr>
+                <th (click)="sortColumn1('matchHistory', 'matchNumber')" class="table-header sortable-header text-center match-number">
+                  # <svg *ngIf="sortedColumns.matchHistory.column !== 'matchNumber'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'matchNumber' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'matchNumber' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                </th>
+                <th class="table-header">Team</th>
+                <th (click)="sortColumn2('matchHistory', 'result', 'total')" class="table-header sortable-header">
+                  <div class="icon-wrapper-left">
+                    Result <svg *ngIf="sortedColumns.matchHistory.column !== 'resulttotal'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'resulttotal' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'resulttotal' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'auto', 'landing')" class="table-header red-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Land <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationautolanding'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautolanding' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautolanding' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'auto', 'sampling')" class="table-header red-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Sample <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationautosampling'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautosampling' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautosampling' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'auto', 'claiming')" class="table-header red-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Claim <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationautoclaiming'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautoclaiming' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautoclaiming' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'auto', 'parking')" class="table-header red-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Park <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationautoparking'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautoparking' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationautoparking' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'driver', 'goldMineral')" class="table-header blue-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Gold <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationdrivergoldMineral'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationdrivergoldMineral' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationdrivergoldMineral' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'driver', 'silverMineral')" class="table-header blue-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Silver <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationdriversilverMineral'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationdriversilverMineral' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationdriversilverMineral' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'driver', 'anyMineral')" class="table-header blue-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Depot <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationdriveranyMineral'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationdriveranyMineral' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationdriveranyMineral' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'end', 'latched')" class="table-header green-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Latch <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationendlatched'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationendlatched' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationendlatched' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'end', 'parkedCrater')" class="table-header green-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Park <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationendparkedCrater'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationendparkedCrater' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationendparkedCrater' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('matchHistory', 'gameInformation', 'end', 'parkedCompletelyCrater')" class="table-header green-header sortable-header text-center">
+                  <div class="icon-wrapper-center">
+                    Full Park <svg *ngIf="sortedColumns.matchHistory.column !== 'gameInformationendparkedCompletelyCrater'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationendparkedCompletelyCrater' && sortedColumns.matchHistory.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.matchHistory.column === 'gameInformationendparkedCompletelyCrater' && sortedColumns.matchHistory.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let matchHistory of data.matchHistory; index as i">
+                <td class="table-center text-center">{{ matchHistory.matchNumber }}</td>
+                <td class="table-center team">
+                  <span>{{ matchHistory.team1.teamNumber }} </span> <span class="deemphasized" [ngClass]="{ 'red-alliance': matchHistory.alliance === 'red', 'blue-alliance': matchHistory.alliance === 'blue' }">({{ matchHistory.team1.rank }}) {{ matchHistory.team1.teamName }} <span *ngIf="matchHistory.team1.surrogate">*</span></span> <br />
+                  <span>{{ matchHistory.team2.teamNumber }} </span> <span class="deemphasized" [ngClass]="{ 'red-alliance': matchHistory.alliance === 'red', 'blue-alliance': matchHistory.alliance === 'blue' }">({{ matchHistory.team2.rank }}) {{ matchHistory.team2.teamName }} <span *ngIf="matchHistory.team2.surrogate">*</span></span>
+                </td>
+                <td class="text-left">
+                  {{ matchHistory.result.final }}
+                  <span class="icon baseline" *ngIf="matchHistory.winner === matchHistory.alliance">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-trophy">
+                      <path class="secondary" d="M7 4v2H4v4c0 1.1.9 2 2 2h1v2H6a4 4 0 0 1-4-4V6c0-1.1.9-2 2-2h3zm10 2V4h3a2 2 0 0 1 2 2v4a4 4 0 0 1-4 4h-1v-2h1a2 2 0 0 0 2-2V6h-3zm-3 14h2a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2h2a1 1 0 0 0 1-1v-3h2v3a1 1 0 0 0 1 1z" />
+                      <path class="primary" d="M8 2h8a2 2 0 0 1 2 2v7a6 6 0 1 1-12 0V4c0-1.1.9-2 2-2z" />
+                    </svg>
+                  </span>
+                </td>
+                <td class="red-data">
+                  <div class="icon-wrapper-center">
+                    <svg *ngFor="let data of ' '.repeat(matchHistory.gameInformation.auto.landing).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto">
+                      <circle cx="12" cy="12" r="10" class="primary" />
+                      <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+                    </svg>
+                    <svg *ngFor="let data of ' '.repeat(2 - matchHistory.gameInformation.auto.landing).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto"><circle cx="12" cy="12" r="10" class="primary" /></svg>
+                  </div>
+                </td>
+                <td class="red-data">
+                  <div class="icon-wrapper-center">
+                    <svg *ngFor="let data of ' '.repeat(matchHistory.gameInformation.auto.sampling).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto">
+                      <circle cx="12" cy="12" r="10" class="primary" />
+                      <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+                    </svg>
+                    <svg *ngFor="let data of ' '.repeat(2 - matchHistory.gameInformation.auto.sampling).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto"><circle cx="12" cy="12" r="10" class="primary" /></svg>
+                  </div>
+                </td>
+                <td class="red-data">
+                  <div class="icon-wrapper-center">
+                    <svg *ngFor="let data of ' '.repeat(matchHistory.gameInformation.auto.claiming).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto">
+                      <circle cx="12" cy="12" r="10" class="primary" />
+                      <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+                    </svg>
+                    <svg *ngFor="let data of ' '.repeat(2 - matchHistory.gameInformation.auto.claiming).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto"><circle cx="12" cy="12" r="10" class="primary" /></svg>
+                  </div>
+                </td>
+                <td class="red-data">
+                  <div class="icon-wrapper-center">
+                    <svg *ngFor="let data of ' '.repeat(matchHistory.gameInformation.auto.parking).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto">
+                      <circle cx="12" cy="12" r="10" class="primary" />
+                      <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+                    </svg>
+                    <svg *ngFor="let data of ' '.repeat(2 - matchHistory.gameInformation.auto.parking).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-auto"><circle cx="12" cy="12" r="10" class="primary" /></svg>
+                  </div>
+                </td>
+                <td class="blue-data text-center">{{ matchHistory.gameInformation.driver.goldMineral }}</td>
+                <td class="blue-data text-center">{{ matchHistory.gameInformation.driver.silverMineral }}</td>
+                <td class="blue-data text-center">{{ matchHistory.gameInformation.driver.anyMineral }}</td>
+                <td class="green-data">
+                  <div class="icon-wrapper-center">
+                    <svg *ngFor="let data of ' '.repeat(matchHistory.gameInformation.end.latched).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-end">
+                      <circle cx="12" cy="12" r="10" class="primary" />
+                      <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+                    </svg>
+                    <svg *ngFor="let data of ' '.repeat(2 - matchHistory.gameInformation.end.latched).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-end"><circle cx="12" cy="12" r="10" class="primary" /></svg>
+                  </div>
+                </td>
+                <td class="green-data">
+                  <div class="icon-wrapper-center">
+                    <svg *ngFor="let data of ' '.repeat(matchHistory.gameInformation.end.parkedCrater).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-end">
+                      <circle cx="12" cy="12" r="10" class="primary" />
+                      <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+                    </svg>
+                    <svg *ngFor="let data of ' '.repeat(2 - matchHistory.gameInformation.end.parkedCrater).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-end"><circle cx="12" cy="12" r="10" class="primary" /></svg>
+                  </div>
+                </td>
+                <td class="green-data">
+                  <div class="icon-wrapper-center">
+                    <svg *ngFor="let data of ' '.repeat(matchHistory.gameInformation.end.parkedCompletelyCrater).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-end">
+                      <circle cx="12" cy="12" r="10" class="primary" />
+                      <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+                    </svg>
+                    <svg *ngFor="let data of ' '.repeat(2 - matchHistory.gameInformation.end.parkedCompletelyCrater).split('')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check-end"><circle cx="12" cy="12" r="10" class="primary" /></svg>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="currentTab === 'opr'" class="tab-pane" [ngClass]="{'active' : currentTab === 'opr'}">
+          <table class="table table-responsive-xl table-row-stripe average-scores-table" *ngIf="data">
+            <thead>
+              <tr>
+                <th (click)="sortColumn1('averageScores', 'teamNumber')" class="table-header sortable-header team">
+                  Team <svg *ngIf="sortedColumns.averageScores.column !== 'teamNumber'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'teamNumber' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'teamNumber' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                </th>
+                <th (click)="sortColumn1('averageScores', 'averageScore')" class="table-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Total OPR <svg *ngIf="sortedColumns.averageScores.column !== 'averageScore'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averageScore' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averageScore' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn2('averageScores', 'average', 'auto')" class="table-header sortable-header text-right red-header">
+                  <div class="icon-wrapper-right">
+                    OPR <svg *ngIf="sortedColumns.averageScores.column !== 'averageauto'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averageauto' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averageauto' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn2('averageScores', 'average', 'driver')" class="table-header blue-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    OPR <svg *ngIf="sortedColumns.averageScores.column !== 'averagedriver'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averagedriver' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averagedriver' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn2('averageScores', 'average', 'end')" class="table-header green-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    OPR <svg *ngIf="sortedColumns.averageScores.column !== 'averageend'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averageend' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'averageend' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'auto', 'landing')" class="table-header red-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Land <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesautolanding'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautolanding' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautolanding' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'auto', 'sampling')" class="table-header red-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Sample <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesautosampling'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautosampling' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautosampling' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'auto', 'claiming')" class="table-header red-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Claim <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesautoclaiming'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautoclaiming' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautoclaiming' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'auto', 'parking')" class="table-header red-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Park <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesautoparking'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautoparking' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesautoparking' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'driver', 'goldMineral')" class="table-header blue-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Gold <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesdrivergoldMineral'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesdrivergoldMineral' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesdrivergoldMineral' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'driver', 'silverMineral')" class="table-header blue-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Silver <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesdriversilverMineral'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesdriversilverMineral' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesdriversilverMineral' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'driver', 'anyMineral')" class="table-header blue-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Depot <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesdriveranyMineral'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesdriveranyMineral' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesdriveranyMineral' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'end', 'latched')" class="table-header green-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Latch <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesendlatched'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesendlatched' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesendlatched' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'end', 'parkedCrater')" class="table-header green-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Park <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesendparkedCrater'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesendparkedCrater' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesendparkedCrater' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+                <th (click)="sortColumn3('averageScores', 'gameAverages', 'end', 'parkedCompletelyCrater')" class="table-header green-header sortable-header text-right">
+                  <div class="icon-wrapper-right">
+                    Full Park <svg *ngIf="sortedColumns.averageScores.column !== 'gameAveragesendparkedCompletelyCrater'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-selection sort-icon-select"><path class="secondary" fill-rule="evenodd" d="M8.7 9.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 1 1-1.4 1.4L12 6.42l-3.3 3.3zm6.6 4.6a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesendparkedCompletelyCrater' && sortedColumns.averageScores.order === 'decreasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-down sort-icon-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z" /></svg> <svg *ngIf="sortedColumns.averageScores.column === 'gameAveragesendparkedCompletelyCrater' && sortedColumns.averageScores.order === 'increasing'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-cheveron-up sort-icon-up"><path class="secondary" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z" /></svg>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let averageScores of data.averageScores">
+                <td class="team">
+                  {{ averageScores.teamNumber }} <br />
+                  <span class="deemphasized"> {{ averageScores.teamName }}</span>
+                </td>
+                <td class="text-right">{{ averageScores.averageScore | number: '1.2-2' }}</td>
+                <td class="red-data">{{ averageScores.average.auto | number: '1.2-2' }}</td>
+                <td class="blue-data text-right">{{ averageScores.average.driver | number: '1.2-2' }}</td>
+                <td class="green-data text-right">{{ averageScores.average.end | number: '1.2-2' }}</td>
+                <td class="red-data text-right">{{ averageScores.gameAverages.auto.landing | number: '1.2-2' }}</td>
+                <td class="red-data text-right">{{ averageScores.gameAverages.auto.sampling | number: '1.2-2' }}</td>
+                <td class="red-data text-right">{{ averageScores.gameAverages.auto.claiming | number: '1.2-2' }}</td>
+                <td class="red-data text-right">{{ averageScores.gameAverages.auto.parking | number: '1.2-2' }}</td>
+                <td class="blue-data text-right">{{ averageScores.gameAverages.driver.goldMineral | number: '1.2-2' }}</td>
+                <td class="blue-data text-right">{{ averageScores.gameAverages.driver.silverMineral | number: '1.2-2' }}</td>
+                <td class="blue-data text-right">{{ averageScores.gameAverages.driver.anyMineral | number: '1.2-2' }}</td>
+                <td class="green-data text-right">{{ averageScores.gameAverages.end.latched | number: '1.2-2' }}</td>
+                <td class="green-data text-right">{{ averageScores.gameAverages.end.parkedCrater | number: '1.2-2' }}</td>
+                <td class="green-data text-right">{{ averageScores.gameAverages.end.parkedCompletelyCrater | number: '1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,7 @@
 import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { DataTablesModule } from 'angular-datatables';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -17,14 +16,14 @@ const ROUTES = [
     path: 'blog',
     loadChildren: 'app/blog/blog.module#BlogModule'
   },
-  {
-    path: 'sd-league-registration',
-    loadChildren: 'app/sd-league-registration/sd-league-registration.module#SdLeagueRegistrationModule'
-  },
-  {
-    path: 'sd-league-registration/:jwt',
-    loadChildren: 'app/sd-league-registration/sd-league-registration.module#SdLeagueRegistrationModule'
-  },
+  // {
+  //   path: 'sd-league-registration',
+  //   loadChildren: 'app/sd-league-registration/sd-league-registration.module#SdLeagueRegistrationModule'
+  // },
+  // {
+  //   path: 'sd-league-registration/:jwt',
+  //   loadChildren: 'app/sd-league-registration/sd-league-registration.module#SdLeagueRegistrationModule'
+  // },
   {
     path: 'blog/decision-making',
     loadChildren: 'app/blog/posts/decision-making/decision-making.module#DecisionMakingModule'
@@ -61,22 +60,17 @@ const ROUTES = [
     path: 'sign-up',
     loadChildren: 'app/sign-up/sign-up.module#SignUpModule'
   },
-  // {
-  //   path: 'events',
-  //   loadChildren: 'app/events/relic-recovery/relic-recovery.module#RelicRecoveryModule'
-  // },
-  // {
-  //   path: 'events/relic-recovery',
-  //   redirectTo: '/events',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'events/relic-recovery/:eventID',
-  //   loadChildren: 'app/events/relic-recovery/relic-recovery-event/relic-recovery-event.module#RelicRecoveryEventModule'
-  // },
   {
-    path: 'teams',
-    loadChildren: 'app/teams/teams.module#TeamsModule'
+    path: 'ftc/regions/san-diego/teams',
+    loadChildren: 'app/ftc/regions/team-list/team-list.module#TeamListModule'
+  },
+  {
+    path: 'events/:eventID',
+    loadChildren: 'app/ftc/regions/events/rover-ruckus/rover-ruckus.module#RoverRuckusModule'
+  },
+  {
+    path: 'ftc/regions/san-diego',
+    loadChildren: 'app/ftc/regions/region.module#RegionModule'
   },
   {
     path: 'link/:link',
@@ -99,12 +93,11 @@ const ROUTES = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES, {scrollPositionRestoration: 'enabled'}),
     HttpClientModule,
-    DataTablesModule,
     FormsModule
   ],
-  providers: [],
+  providers: [Title],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

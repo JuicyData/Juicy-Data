@@ -21,12 +21,9 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
             ]
           },
           "configurations": {
@@ -44,6 +41,14 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/index.html",
+                  "with": "src/index.prod.html"
+                },
+                {
+                  "replace": "src/app/ftc/regions/events/rover-ruckus/event-services/rover-ruckus.service.ts",
+                  "with": "src/app/ftc/regions/events/rover-ruckus/event-services/rover-ruckus.service.prod.ts"
                 }
               ]
             }

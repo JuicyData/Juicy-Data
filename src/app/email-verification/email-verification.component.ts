@@ -14,10 +14,11 @@ export class EmailVerificationComponent implements OnInit {
   data: any;
   error: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private titleService: Title) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private titleService: Title) {
+    this.titleService.setTitle('Email Verification - Juicy Data');
+   }
 
   ngOnInit() {
-    this.titleService.setTitle('Email Verification - Juicy Data');
     this.route.params.subscribe(params => {
       this.verificationCode = params['data'];
       this.sendVerification();

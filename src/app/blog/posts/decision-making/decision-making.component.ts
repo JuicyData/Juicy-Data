@@ -13,10 +13,11 @@ export class DecisionMakingComponent implements OnInit {
   error: any;
   doc: any;
 
-  constructor(private titleService: Title, private http: HttpClient) { }
+  constructor(private titleService: Title, private http: HttpClient) {
+    this.titleService.setTitle('Decision Making - Juicy Data');
+  }
 
   ngOnInit() {
-    this.titleService.setTitle('Decision Making - Juicy Data');
   }
 
   subscribe() {
