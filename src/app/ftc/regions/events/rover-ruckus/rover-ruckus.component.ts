@@ -25,6 +25,7 @@ export class RoverRuckusComponent implements OnInit {
   error: string;
 
   width: any;
+  modal = false;
 
   definitions = true;
   loading = true;
@@ -55,9 +56,10 @@ export class RoverRuckusComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.eventID = params['eventID'];
       this.getData();
-
     });
   }
+
+
 
   getData() {
     this.roverRuckusService.getEvent(this.eventID).subscribe(
@@ -65,7 +67,7 @@ export class RoverRuckusComponent implements OnInit {
         this.data = eventData;
         this.eventName = eventData.eventInformation.name;
         this.loading = false;
-        this.sortColumn1('averageScores', 'teamnumber');
+        this.sortColumn1('averageScores', 'teamNumber');
         this.titleService.setTitle(this.eventName + ' - Juicy Data');
       },
       error => {
@@ -73,6 +75,15 @@ export class RoverRuckusComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  modalOpen() {
+    this.modal = !this.modal;
+    if (this.modal === true) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
   }
 
   switchTabs(tab) {
@@ -125,5 +136,9 @@ export class RoverRuckusComponent implements OnInit {
         return a[column1][column2][column3] - b[column1][column2][column3];
       });
     }
+  }
+
+  onResize(event) {
+    this.width = event.target.innerWidth;
   }
 }

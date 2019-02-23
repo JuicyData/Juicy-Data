@@ -31,7 +31,7 @@
       </div>
     </a>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-menu d-lg-none" (click)="navBarMenuToggle()"><path class="secondary" fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
-    <div class="hidden navbar-collapse" id="navbarNav" (click)="navBarMenuToggle()" [ngClass]="{'open': navBarMenu}">
+    <div class="hidden navbar-collapse" id="navbarNav" (click)="navBarMenuToggle()" [ngClass]="{'open': navBarMenu}" (window:resize)="onResize($event)">
       <ul class="navbar-nav mr-auto">
         <!-- <li class="nav-item">
           <a class="nav-link" routerLink="/events">Events</a>
@@ -43,7 +43,7 @@
           <a class="nav-link" routerLink="/about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/ftc/regions/san-diego">Regions</a>
+          <a class="nav-link" routerLink="/ftc/regions/san-diego">San Diego FTC Results</a>
         </li>
       </ul>
       <!-- <ul class="navbar-nav ml-auto">

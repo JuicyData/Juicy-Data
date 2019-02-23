@@ -78,7 +78,7 @@ const ROUTES = [
   },
   {
     path: '',
-    component: HomeComponent
+    loadChildren: 'app/ftc/regions/region.module#RegionModule'
   },
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -111,4 +111,5 @@ svg {
 
 .icon-menu {
   fill: #fa9235;
+  cursor: pointer;
 }

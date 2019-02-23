@@ -56,5 +56,10 @@ export class NavbarComponent implements OnInit {
     this.navBarMenu = !this.navBarMenu;
   }
 
+  onResize(event) {
+    this.width = event.target.innerWidth;
+    this.navBarMenu = false;
+  }
+
 
 }
