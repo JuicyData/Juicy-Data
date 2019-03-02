@@ -31,6 +31,11 @@ export class RoverRuckusComponent implements OnInit {
   loading = true;
   eventName: string;
   currentTab = 'ranking';
+  schedule: any;
+
+  teamList: any;
+  rankList: any;
+  teamNameList: any;
 
   sortedColumns = {
     ranking: {
@@ -52,29 +57,69 @@ export class RoverRuckusComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private titleService: Title, private roverRuckusService: RoverRuckusService) {}
 
   ngOnInit() {
+    this.currentTab = 'schedule';
     this.width = window.innerWidth;
     this.route.params.subscribe(params => {
       this.eventID = params['eventID'];
+      this.getSchedule();
       this.getData();
     });
   }
 
+  autoRefresh() {
+    setInterval(this.getData(), 300000);
+  }
 
 
-  getData() {
+
+  getData(): any {
     this.roverRuckusService.getEvent(this.eventID).subscribe(
       eventData => {
-        this.data = eventData;
-        this.eventName = eventData.eventInformation.name;
+
+
+          this.data = eventData;
+          this.eventName = eventData.eventInformation.name;
+        if(eventData.ranking !== undefined) {
+          this.currentTab = 'ranking';
+          this.sortColumn1('averageScores', 'teamNumber');
+          this.titleService.setTitle(this.eventName + ' - Juicy Data');
+          this.teamList = {};
+          for (let i = 0; i < this.data.ranking.length; i++) {
+            this.teamList[this.data.ranking[i].teamNumber] = this.data.ranking[i].teamName;
+          }
+          this.rankList = {};
+          for (let i = 0; i < this.data.rank.length; i++) {
+            this.rankList[this.data.rank[i].team] = this.data.rank[i].ranking;
+          }
+          for (let i = 0; i < this.data.ranking.length; i++) {
+            this.data.ranking[i].rank = this.rankList[this.data.ranking[i].teamNumber]
+          }
+          this.sortColumn1('ranking', 'rank');
+          this.sortColumn1('ranking', 'rank');
+          this.loading = false;
+       } else {
         this.loading = false;
-        this.sortColumn1('averageScores', 'teamNumber');
-        this.titleService.setTitle(this.eventName + ' - Juicy Data');
+       }
       },
       error => {
         this.error = error;
         this.loading = false;
       }
     );
+  }
+
+  getSchedule() {
+    this.http.get('/api/events/ftc/event/schedule/read?eventId=' + this.eventID).subscribe(data => {
+      this.schedule = data;
+      this.teamNameList = {};
+        for (let i = 0; i < this.schedule['teams'].length; i++) {
+          this.teamNameList[this.schedule['teams'][i]['_id']] = this.schedule['teams'][i]['name'];
+        }
+    },
+    error => {
+      this.error = error;
+      this.loading = false;
+    });
   }
 
   modalOpen() {

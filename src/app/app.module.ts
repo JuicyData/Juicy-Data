@@ -44,6 +44,14 @@ const ROUTES = [
     path: 'about',
     loadChildren: 'app/about/about.module#AboutModule'
   },
+  // {
+  //   path: 'upload',
+  //   loadChildren: 'app/upload/upload.module#UploadModule'
+  // },
+  // {
+  //   path: 'event-admin',
+  //   loadChildren: 'app/ftc/regions/events/event-admin/event-admin.module#EventAdminModule'
+  // },
   {
     path: 'forgot-password',
     loadChildren: 'app/forgot-password/forgot-password.module#ForgotPasswordModule'

@@ -49,3 +49,6 @@ Thumbs.db
 /config/apiKey.js
 
 /src/assets
+
+#temp
+/src/app/ftc/regions/events/event-admin/event-admin.component.ts

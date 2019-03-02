@@ -12,6 +12,7 @@ import { EventData } from '../event-data/event-data';
 export class RoverRuckusService {
   getEventUrl = '/api/events/ftc/event/read?eventId=';
 
+
   constructor(private http: HttpClient) {}
 
   getEvent(eventID) {

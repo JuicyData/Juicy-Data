@@ -1,0 +1,8 @@
+<div class="container" *ngIf="!passwordCorrect">
+  <input type="text" class="form-control" [(ngModel)]="password" (keyup)="checkPassword()">
+</div>
+
+<div class="container" *ngIf="passwordCorrect">
+
+</div>
+

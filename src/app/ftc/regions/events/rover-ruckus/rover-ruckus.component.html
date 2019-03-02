@@ -112,26 +112,33 @@
 
     <div class="event-card">
       <nav class="nav nav-tabs" id="myTab" role="tablist" *ngIf="!error && !loading">
-        <a class="nav-item nav-link" [ngClass]="{ active: currentTab === 'ranking' }" (click)="switchTabs('ranking')">
+        <a *ngIf="data.ranking" class="nav-item nav-link" [ngClass]="{ active: currentTab === 'ranking' }" (click)="switchTabs('ranking')">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-sort-ascending">
             <path class="secondary" d="M18 13v7a1 1 0 0 1-2 0v-7h-3a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 21 13h-3z" />
             <path class="primary" d="M3 3h13a1 1 0 0 1 0 2H3a1 1 0 1 1 0-2zm0 4h9a1 1 0 0 1 0 2H3a1 1 0 1 1 0-2zm0 4h5a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2z" />
           </svg>
           Rankings
         </a>
-        <a class="nav-item nav-link" [ngClass]="{ active: currentTab === 'matchHistory' }" (click)="switchTabs('matchHistory')">
+        <a *ngIf="data.ranking" class="nav-item nav-link" [ngClass]="{ active: currentTab === 'matchHistory' }" (click)="switchTabs('matchHistory')">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-history">
             <path class="primary" d="M6.55 6.14l1.16 1.15A1 1 0 0 1 7 9H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1.7-.7l1.44 1.42A10 10 0 1 1 2 12a1 1 0 0 1 2 0 8 8 0 1 0 2.55-5.86z" />
             <path class="secondary" d="M15.7 14.3a1 1 0 0 1-1.4 1.4l-3-3a1 1 0 0 1-.3-.7V7a1 1 0 0 1 2 0v4.59l2.7 2.7z" />
           </svg>
           Match History
         </a>
-        <a class="nav-item nav-link" [ngClass]="{ active: currentTab === 'opr' }" (click)="switchTabs('opr')">
+        <a *ngIf="data.ranking" class="nav-item nav-link" [ngClass]="{ active: currentTab === 'opr' }" (click)="switchTabs('opr')">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-calculator">
             <path class="primary" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2zm2 3a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-8 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-4 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
             <rect width="2" height="6" x="15" y="13" class="secondary" rx="1" />
           </svg>
           OPR
+        </a>
+        <a class="nav-item nav-link" [ngClass]="{ active: currentTab === 'schedule' }" (click)="switchTabs('schedule')">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-survey">
+            <path class="primary" d="M5 5h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2zm3 7a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 0 0 0 2h4a1 1 0 0 0 0-2H8z" />
+            <path class="secondary" d="M15 4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V6c0-1.1.9-2 2-2 0-1.1.9-2 2-2h2a2 2 0 0 1 2 2z" />
+          </svg>
+          Schedule
         </a>
         <button class="key-button" (click)="modalOpen()">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-information">
@@ -142,7 +149,7 @@
       </nav>
 
       <div class="tab-content" *ngIf="!error && !loading">
-        <div [hidden]="currentTab !== 'ranking'" [ngClass]="{ active: currentTab === 'ranking' }" class="tab-pane">
+        <div *ngIf="data.ranking" [hidden]="currentTab !== 'ranking'" [ngClass]="{ active: currentTab === 'ranking' }" class="tab-pane">
           <div class="table-responsive table-scroll">
             <table class="table table-row-stripe" *ngIf="data">
               <thead>
@@ -197,7 +204,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let ranking of data.ranking">
-                  <td class="text-center">{{ ranking.rank }}</td>
+                  <td class="text-center">{{ rankList[ranking.teamNumber] }}</td>
                   <td class="sticky-row-header">
                     {{ ranking.teamNumber }} <br />
                     <span class="deemphasized">{{ ranking.teamName }}</span>
@@ -216,7 +223,7 @@
           </div>
         </div>
 
-        <div [hidden]="currentTab !== 'matchHistory'" [ngClass]="{ active: currentTab === 'matchHistory' }" class="tab-pane">
+        <div *ngIf="data.ranking" [hidden]="currentTab !== 'matchHistory'" [ngClass]="{ active: currentTab === 'matchHistory' }" class="tab-pane">
           <div class="table-responsive table-scroll">
             <table class="table match-history-table" *ngIf="data">
               <thead class="sticky">
@@ -288,11 +295,11 @@
                   <td class="table-center team sticky-row-header">
                     <div>
                       <span>{{ matchHistory.team1.teamNumber }} </span>
-                      <div class="deemphasized team-name" [ngClass]="{ 'red-alliance': matchHistory.alliance === 'red', 'blue-alliance': matchHistory.alliance === 'blue' }">({{ matchHistory.team1.rank }}) {{ matchHistory.team1.teamName }} <span *ngIf="matchHistory.team1.surrogate">*</span></div>
+                      <div class="deemphasized team-name" [ngClass]="{ 'red-alliance': matchHistory.alliance === 'red', 'blue-alliance': matchHistory.alliance === 'blue' }">({{ rankList[matchHistory.team1.teamNumber] }}) {{ matchHistory.team1.teamName }}<span *ngIf="matchHistory.team1.surrogate">*</span></div>
                     </div>
                     <div>
                       <span>{{ matchHistory.team2.teamNumber }} </span>
-                      <div class="deemphasized team-name" [ngClass]="{ 'red-alliance': matchHistory.alliance === 'red', 'blue-alliance': matchHistory.alliance === 'blue' }">({{ matchHistory.team2.rank }}) {{ matchHistory.team2.teamName }} <span *ngIf="matchHistory.team2.surrogate">*</span></div>
+                      <div class="deemphasized team-name" [ngClass]="{ 'red-alliance': matchHistory.alliance === 'red', 'blue-alliance': matchHistory.alliance === 'blue' }">({{ rankList[matchHistory.team2.teamNumber] }}) {{ matchHistory.team2.teamName }}<span *ngIf="matchHistory.team2.surrogate">*</span></div>
                     </div>
                   </td>
                   <td class="text-left">
@@ -375,7 +382,7 @@
             </table>
           </div>
         </div>
-        <div [hidden]="currentTab !== 'opr'" class="tab-pane" [ngClass]="{ active: currentTab === 'opr' }">
+        <div *ngIf="data.ranking" [hidden]="currentTab !== 'opr'" class="tab-pane" [ngClass]="{ active: currentTab === 'opr' }">
           <div class="table-responsive table-scroll">
             <table class="table table-row-stripe average-scores-table" *ngIf="data">
               <thead>
@@ -480,6 +487,38 @@
             </table>
           </div>
         </div>
+        <div [hidden]="currentTab !== 'schedule'" class="tab-pane" [ngClass]="{ active: currentTab === 'schedule' }">
+          <div class="table-responsive table-scroll schedule-table">
+            <table class="table table-row-stripe" *ngIf="data">
+              <thead>
+                <tr>
+                  <th class="table-header sticky-header text-center">Match</th>
+                  <th class="table-header text-center">Red 1</th>
+                  <th class="table-header text-center">Red 2</th>
+                  <th class="table-header text-center">Blue 1</th>
+                  <th class="table-header text-center">Blue 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let schedule of schedule.schedules.schedule">
+                  <td class="text-center sticky-row-header">{{ schedule.matchNumber }}</td>
+                  <td class="text-center">
+                    {{ schedule.teams.red1.teamNumber }}<span *ngIf="schedule.teams.red1.surrogate">*</span><br /><span class="deemphasized red-alliance">{{ teamNameList[schedule.teams.red1.teamNumber] }}</span>
+                  </td>
+                  <td class="text-center">
+                    {{ schedule.teams.red2.teamNumber }}<span *ngIf="schedule.teams.red2.surrogate">*</span><br /><span class="deemphasized red-alliance">{{ teamNameList[schedule.teams.red2.teamNumber] }}</span>
+                  </td>
+                  <td class="text-center">
+                    {{ schedule.teams.blue1.teamNumber }}<span *ngIf="schedule.teams.blue1.surrogate">*</span><br /><span class="deemphasized blue-alliance">{{ teamNameList[schedule.teams.blue1.teamNumber] }}</span>
+                  </td>
+                  <td class="text-center">
+                    {{ schedule.teams.blue2.teamNumber }}<span *ngIf="schedule.teams.blue2.surrogate">*</span><br /><span class="deemphasized blue-alliance">{{ teamNameList[schedule.teams.blue2.teamNumber] }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -505,7 +544,7 @@
     <div class="key-element">
       <p>RP stands for <strong>Ranking Points</strong>, which indiciates how many times a team has either lost, won, or tied. <br />Win = 2 RP, Loss = 0 RP, Tie = 1 RP.</p>
       <p>TBP stands for <strong>Tie Breaker Points</strong>, which is the total amount of points a team got from the losing alliances' scores in. For each match all 4 teams will get the losing alliance's score.</p>
-      <p>OPR stands for <strong>Offensive Power Rating</strong>, which is a calculated average score of an individual team. <a href="https://blog.thebluealliance.com/2017/10/05/the-math-behind-opr-an-introduction/">Click here for more information.</a></p>
+      <p>OPR stands for <strong>Offensive Power Rating</strong>, which is a calculated average score of an individual team. <a href="https://blog.thebluealliance.com/2017/10/05/the-math-behind-opr-an-introduction/">Click here for more information.</a> If OPR is 0 that means it can not be calculated yet with the total number of matches played for that event.</p>
       <p>CCWM stands for <strong>Contribution to Winning Margin</strong>, which is how many points a team contributes to their alliance's score on average.</p>
       <p>The <strong>*</strong> after a team's name means that that team is a surrogate in their match. A surrogate team does not earn any TBP or RP for that match.</p>
     </div>

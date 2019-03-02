@@ -9,6 +9,7 @@
   background-color: #f0f0f0;
   margin-bottom: -60px;
   padding-bottom: 120px;
+  min-height: 1000px;
 }
 
 .nav-link {
@@ -477,7 +478,8 @@
 
 .nav-item .icon-sort-ascending,
 .nav-item .icon-history,
-.nav-item .icon-calculator {
+.nav-item .icon-calculator,
+.nav-item .icon-survey {
   fill: #736a62;
   height: 20px;
   margin-right: 4px;
@@ -486,25 +488,30 @@
 
 .nav-item .icon-sort-ascending .secondary,
 .nav-item .icon-history .secondary,
-.nav-item .icon-calculator .secondary {
+.nav-item .icon-calculator .secondary,
+.nav-item .icon-survey .secondary{
   fill: #736a62;
 }
 
 .nav-tabs > a.active .icon-sort-ascending,
 .nav-tabs > a.active .icon-history,
 .nav-tabs > a.active .icon-calculator,
+.nav-tabs > a.active .icon-survey,
 .nav-tabs > a:hover .icon-sort-ascending,
 .nav-tabs > a:hover .icon-history,
-.nav-tabs > a:hover .icon-calculator {
+.nav-tabs > a:hover .icon-calculator,
+.nav-tabs > a:hover .icon-survey {
   fill: #fbab65 !important;
 }
 
 .nav-tabs > a.active .icon-sort-ascending .secondary,
 .nav-tabs > a.active .icon-history .secondary,
 .nav-tabs > a.active .icon-calculator .secondary,
+.nav-tabs > a.active .icon-survey .secondary,
 .nav-tabs > a:hover .icon-sort-ascending .secondary,
 .nav-tabs > a:hover  .icon-history .secondary,
-.nav-tabs > a:hover  .icon-calculator .secondary {
+.nav-tabs > a:hover  .icon-calculator .secondary,
+.nav-tabs > a:hover  .icon-survey .secondary {
   fill: #c6732a;
 }
 
@@ -609,7 +616,8 @@
 .key-button {
   margin-left: auto;
   padding: 4px 4px;
-  background-color: white;
+  padding-left: 0px;
+  background-color: rgba(0,0,0,0);
   border: none;
   border-top-right-radius: 8px;
   cursor: pointer;
@@ -652,5 +660,9 @@ body.body-show {
 .sub-header .col-sm-3 {
   padding-right: 5px;
   padding-left: 5px;
+}
+
+.schedule-table td{
+  vertical-align: top !important;
 }
 

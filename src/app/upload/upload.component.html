@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>API Server IP</h1>
+  <p><input [(ngModel)]="apiServerIP" class="form-control"></p>
+  <h1>Scoring Software Server IP</h1>
+  <p><input [(ngModel)]="scoringSoftwareIP" class="form-control"></p>
+  <button class="btn btn-block btn-success" (click)="connectScoringSystem()">Connect</button>
+  <button class="btn btn-block btn-success">Upload Data</button>
+  <iframe src="http://localhost/apiv1/events/" id="test"></iframe>
+</div>
+
+
+

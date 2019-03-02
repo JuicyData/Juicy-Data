@@ -10,6 +10,8 @@ export class EventData {
   ranking: Ranking[];
   matchHistory: MatchHistory[];
   averageScores: AverageScores[];
+  schedule: Schedule[];
+  rank: Rank[];
 }
 
 export class Ranking {
@@ -55,4 +57,35 @@ export class AverageScores {
   averageMarginalScore: any;
   average: { auto: any; driver: any; end: any };
   gameAverages: { auto: { landing: any; sampling: any; claiming: any; parking: any }; driver: { goldMineral: any; silverMineral: any; anyMineral: any }; end: { latched: any; parkedCrater: any; parkedCompletelyCrater: any } };
+}
+
+export class Schedule {
+  matchNumber: number;
+  teams: {
+    red1: {
+      teamNumber: number;
+      surrogate: boolean;
+    };
+    red2: {
+      teamNumber: number;
+      surrogate: boolean;
+    };
+    blue1: {
+      teamNumber: number;
+      surrogate: boolean;
+    };
+    blue2: {
+      teamNumber: number;
+      surrogate: boolean;
+    };
+  };
+}
+
+export class Rank {
+  matchesPlayed: number;
+  ranking: number;
+  rankingPoints: number;
+  team: number;
+  teamName: string;
+  tieBreakerPoints: number;
 }
