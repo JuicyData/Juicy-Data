@@ -1,53 +1,58 @@
 <div class="sign-up-page">
-  <div class="content">
-    <div class="container">
-      <div class="card">
-        <div class="card-block">
-          <h1>Sign In</h1>
-          <div class="alert alert-danger alert-dismissible fade show" *ngIf="error" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            {{error}}
+  <div class="container">
+    <div class="sign-up-card">
+      <div class="sign-up-card-content">
+        <h1>Sign In</h1>
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="error" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ error }}
+        </div>
+        <form #signinForm="ngForm">
+          <div class="input-wrapper">
+            <input class="form-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+            <div class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-mail">
+                <path class="primary" d="M22 8.62V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.62l9.55 4.77a1 1 0 0 0 .9 0L22 8.62z" />
+                <path class="secondary" d="M12 11.38l-10-5V6c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v.38l-10 5z" />
+              </svg>
+            </div>
           </div>
-          <form #signinForm="ngForm">
-            <div class="input-wrapper">
-              <input class="form-input" type="text" [(ngModel)]="email" placeholder="email" name="email" required #e="ngModel"
-                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-              <div class="input-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
+          <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
+          <div class="input-wrapper">
+            <input class="form-input" type="password" [(ngModel)]="password" placeholder="password" name="password" required #p="ngModel" />
+            <div class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-key">
+                <path class="primary" d="M8.23 10.77a7.01 7.01 0 1 1 5 5L11 18H9v2H7v2.03H2V17l6.23-6.23zM17 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                <path class="secondary" d="M6.2 18.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 1 1 1.4 1.4l-4 4z" />
+              </svg>
             </div>
-            <div [hidden]="e.valid || e.pristine" class="alert alert-danger">Email is required</div>
-            <div class="input-wrapper">
-              <input class="form-input" type="password" [(ngModel)]="password" placeholder="password" name="password"
-                required #p="ngModel">
-              <div class="input-icon">
-                <i class="fas fa-key"></i>
-              </div>
+          </div>
+          <div [hidden]="p.valid || p.pristine" class="alert alert-danger">Password is required</div>
+          <div class="row options no-gutters">
+            <div class="col-lg-5" style="margin-bottom: 1rem;">
+              <i *ngIf="rememberMe" class="far fa-check-square" (click)="rememberMe = false"></i>
+              <i *ngIf="!rememberMe" class="far fa-square" (click)="rememberMe = true"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-check">
+                <circle cx="12" cy="12" r="10" class="primary" />
+                <path class="secondary" d="M10 14.59l6.3-6.3a1 1 0 0 1 1.4 1.42l-7 7a1 1 0 0 1-1.4 0l-3-3a1 1 0 0 1 1.4-1.42l2.3 2.3z" />
+              </svg>
+              Remember me
             </div>
-            <div [hidden]="p.valid || p.pristine" class="alert alert-danger">Password is required</div>
-            <div class="row options no-gutters">
-              <div class="col-lg-5" style="margin-bottom: 1rem;">
-                <i *ngIf="rememberMe" class="far fa-check-square" (click)="rememberMe = false"></i>
-                <i *ngIf="!rememberMe" class="far fa-square" (click)="rememberMe = true"></i>
-                Remember me
-              </div>
-              <div class="col-lg-7" style="margin-bottom: 1rem;">
-                <a class="forgot-password" routerLink="/reset-password">Forgot your password?</a>
-              </div>
+            <div class="col-lg-7" style="margin-bottom: 1rem;">
+              <a class="forgot-password" routerLink="/reset-password">Forgot your password?</a>
             </div>
-            <button type="submit" [disabled]="!signinForm.form.valid || buttonText == ''" class="sign-in-button btn-block"
-              (click)="signin()">
-              <i *ngIf="buttonText == ''" class="fas fa-circle-notch fa-spin"></i>
-              {{buttonText}}
-            </button>
-          </form>
-        </div>
-        <div class="create-account">
-          Don't have an account yet?&nbsp;
-          <a routerLink="/sign-up">Create your account</a>
-        </div>
+          </div>
+          <button type="submit" [disabled]="!signinForm.form.valid || buttonText == ''" class="sign-in-button btn-block" (click)="signin()">
+            <i *ngIf="buttonText == ''" class="fas fa-circle-notch fa-spin"></i>
+            {{ buttonText }}
+          </button>
+        </form>
+      </div>
+      <div class="create-account">
+        Don't have an account yet?&nbsp;
+        <a routerLink="/sign-up">Create your account</a>
       </div>
     </div>
   </div>
